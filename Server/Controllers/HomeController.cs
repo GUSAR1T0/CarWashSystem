@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Server.Controllers
+namespace CarWashSystem.Server.Controllers
 {
     [Route("/")]
     public class HomeController : Controller

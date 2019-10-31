@@ -1,0 +1,40 @@
+{
+  "name": "car-wash-system-ui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Car Wash System",
+  "author": "Roman Mashenkin and Anna Boykova",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint:fix": "vue-cli-service lint",
+    "lint:no-fix": "vue-cli-service lint --no-fix"
+  },
+  "dependencies": {
+    "core-js": "^3.3.2",
+    "element-ui": "^2.12.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.1.3",
+    "vuex": "^3.1.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-plugin-router": "^4.0.5",
+    "@vue/cli-plugin-vuex": "^4.0.5",
+    "@vue/cli-service": "^4.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "bugs": {
+    "url": "https://github.com/GUSAR1T0/CarWashSystem/issues"
+  },
+  "homepage": "https://github.com/GUSAR1T0/CarWashSystem",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GUSAR1T0/CarWashSystem.git"
+  }
+}

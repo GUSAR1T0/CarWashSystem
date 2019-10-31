@@ -3,6 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+        <AssemblyName>CarWashSystem.Server</AssemblyName>
+        <RootNamespace>CarWashSystem.Server</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,5 +14,9 @@
     <ItemGroup>
         <Folder Include="wwwroot\" />
     </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="npm run build -C Static" />
+    </Target>
 
 </Project>
