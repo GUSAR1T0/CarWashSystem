@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  cws-mssql:
+    image: microsoft/mssql-server-linux
+    container_name: cws-mssql
+    hostname: cws-mssql
+    restart: always
+    environment:
+      - SA_PASSWORD=<2019!Pass>
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - cws-mssql-data:/var/opt/mssql
+
+volumes:
+  cws-mssql-data:
