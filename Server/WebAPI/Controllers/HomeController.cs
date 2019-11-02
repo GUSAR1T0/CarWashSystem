@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarWashSystem.Server.Controllers
+namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
 {
     [Route("/")]
     public class HomeController : Controller

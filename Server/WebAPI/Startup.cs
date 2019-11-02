@@ -1,4 +1,5 @@
 using System.IO;
+using CarWashSystem.Server.WebAPI.Properties;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,8 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using NSwag;
+using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations;
+using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces;
+using VXDesign.Store.CarWashSystem.Server.Services.Implementations;
+using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
 
-namespace CarWashSystem.Server
+namespace VXDesign.Store.CarWashSystem.Server.WebAPI
 {
     public class Startup
     {
@@ -21,6 +27,17 @@ namespace CarWashSystem.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(factory => new ApplicationProperties
+            {
+                DatabaseConnectionString = "Data Source=localhost,1433;User ID=sa;Password=<2019!Pass>;Database=master"
+            });
+
+            // Stores
+            services.AddScoped<IExampleStore, ExampleStore>();
+
+            // Services
+            services.AddScoped<IExampleService, ExampleService>();
+
             services.AddControllersWithViews();
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddSwaggerDocument(config =>
@@ -29,7 +46,7 @@ namespace CarWashSystem.Server
                 {
                     document.Info.Version = "v1";
                     document.Info.Title = "Car Wash Service API";
-                    document.Info.License = new NSwag.OpenApiLicense
+                    document.Info.License = new OpenApiLicense
                     {
                         Name = "Use under MIT",
                         Url = "https://opensource.org/licenses/MIT"

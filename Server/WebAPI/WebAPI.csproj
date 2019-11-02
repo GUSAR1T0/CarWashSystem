@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-        <AssemblyName>CarWashSystem.Server</AssemblyName>
-        <RootNamespace>CarWashSystem.Server</RootNamespace>
+        <AssemblyName>VXDesign.Store.CarWashSystem.Server.WebAPI</AssemblyName>
+        <RootNamespace>VXDesign.Store.CarWashSystem.Server.WebAPI</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -19,6 +19,11 @@
 
     <ItemGroup>
         <Folder Include="wwwroot\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DataStorage\DataStorage.csproj" />
+      <ProjectReference Include="..\Services\Services.csproj" />
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

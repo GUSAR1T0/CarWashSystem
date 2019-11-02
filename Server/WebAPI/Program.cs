@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace CarWashSystem.Server
+namespace VXDesign.Store.CarWashSystem.Server.WebAPI
 {
     public class Program
     {
