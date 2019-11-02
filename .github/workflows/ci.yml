@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+
+jobs:
+
+  server:
+
+    name: Server
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - run: npm install -C Server/WebAPI/Static
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.0.100'
+    - run: dotnet restore Server/Server.sln
+    - run: dotnet build Server/Server.sln
+
+  mobile:
+
+    name: Mobile
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - run: sudo xcode-select -switch /Applications/Xcode_11.1.app
+    - run: |
+        cd Mobile
+        xcodebuild -project CarWashService.xcodeproj -scheme CarWashService -destination platform\=iOS\ Simulator,OS\=13.1,name\=iPhone\ 11\ Pro\ Max build
