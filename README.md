@@ -4,8 +4,8 @@
 
 | Service | Build Result |
 | :-----: | :----------: |
-| Travis CI | [![Build Status](https://travis-ci.org/GUSAR1T0/CarWashService.svg?branch=master)](https://travis-ci.org/GUSAR1T0/CarWashService) |
-| GitHub Actions | [![](https://github.com/GUSAR1T0/CarWashService/workflows/CI/badge.svg)](https://github.com/GUSAR1T0/CarWashService/actions) |
+| Travis CI | [![Build Status](https://travis-ci.org/GUSAR1T0/CarWashSystem.svg?branch=master)](https://travis-ci.org/GUSAR1T0/CarWashSystem) |
+| GitHub Actions | [![](https://github.com/GUSAR1T0/CarWashSystem/workflows/CI/badge.svg)](https://github.com/GUSAR1T0/CarWashSystem/actions) |
 
 ## License
 
