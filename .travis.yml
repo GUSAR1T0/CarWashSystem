@@ -20,6 +20,6 @@ matrix:
         - dotnet build
     - name: "Mobile"
       language: swift
-      osx_image: xcode11.1
+      osx_image: xcode11.2
       before_install: cd Mobile
-      script: xcodebuild -project CarWashService.xcodeproj -scheme CarWashService -destination platform\=iOS\ Simulator,OS\=13.1,name\=iPhone\ 11\ Pro\ Max build
+      script: xcodebuild -project CarWashService.xcodeproj -scheme CarWashService -destination platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11\ Pro\ Max build

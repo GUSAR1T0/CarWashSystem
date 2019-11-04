@@ -34,7 +34,7 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
-    - run: sudo xcode-select -switch /Applications/Xcode_11.1.app
+    - run: sudo xcode-select -switch /Applications/Xcode_11.2.app
     - run: |
         cd Mobile
-        xcodebuild -project CarWashService.xcodeproj -scheme CarWashService -destination platform\=iOS\ Simulator,OS\=13.1,name\=iPhone\ 11\ Pro\ Max build
+        xcodebuild -project CarWashService.xcodeproj -scheme CarWashService -destination platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11\ Pro\ Max build
