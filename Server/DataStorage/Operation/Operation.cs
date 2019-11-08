@@ -10,7 +10,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Operation
     public class Operation : IOperation
     {
         private readonly SqlConnection connection;
-        private SqlTransaction transaction;
+        private SqlTransaction? transaction;
 
         private Operation(string dataStoreConnectionString)
         {
@@ -34,7 +34,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Operation
             transaction = null;
         }
 
-        private async Task<T> Execute<T>(Func<string, DynamicParameters, SqlTransaction, int?, CommandType?, Task<T>> function, DynamicParameters parameters, string command,
+        private async Task<T> Execute<T>(Func<string, DynamicParameters, SqlTransaction?, int?, CommandType?, Task<T>> function, DynamicParameters parameters, string command,
             CommandType? commandType = null, int? commandTimeout = null)
         {
             return await function(command, parameters, transaction, commandTimeout, commandType);

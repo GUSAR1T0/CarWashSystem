@@ -4,6 +4,8 @@
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <AssemblyName>VXDesign.Store.CarWashSystem.Server.Services</AssemblyName>
         <RootNamespace>VXDesign.Store.CarWashSystem.Server.Services</RootNamespace>
+        <LangVersion>8.0</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>

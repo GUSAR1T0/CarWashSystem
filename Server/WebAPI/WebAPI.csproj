@@ -5,6 +5,8 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>VXDesign.Store.CarWashSystem.Server.WebAPI</AssemblyName>
         <RootNamespace>VXDesign.Store.CarWashSystem.Server.WebAPI</RootNamespace>
+        <LangVersion>8.0</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <PropertyGroup>

@@ -1,5 +1,6 @@
 using System.IO;
-using CarWashSystem.Server.WebAPI.Properties;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,8 @@ using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces;
 using VXDesign.Store.CarWashSystem.Server.Services.Implementations;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Utils;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI
 {
@@ -33,10 +36,27 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             });
 
             // Stores
-            services.AddScoped<IExampleStore, ExampleStore>();
+            services.AddScoped<ICompanyAuthenticationStore, CompanyAuthenticationStore>();
 
             // Services
-            services.AddScoped<IExampleService, ExampleService>();
+            services.AddScoped<ICompanyAuthenticationService, CompanyAuthenticationService>();
+            services.AddScoped<CompanyAndUserCookieAuthenticationEvents>();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.Cookie.Name = ".CarWashService.Cookies.Session";
+                options.EventsType = typeof(CompanyAndUserCookieAuthenticationEvents);
+            });
 
             services.AddControllersWithViews();
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -66,15 +86,17 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
+            app.UseRouting();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

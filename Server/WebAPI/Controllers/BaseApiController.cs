@@ -1,32 +1,17 @@
 using System;
 using System.Threading.Tasks;
-using CarWashSystem.Server.WebAPI.Properties;
 using Microsoft.AspNetCore.Mvc;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Common;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
 {
-    public class ApiController : ControllerBase
+    public abstract class BaseApiController : ControllerBase
     {
         private readonly ApplicationProperties properties;
 
-        private class ErrorResult
-        {
-            public string Source { get; }
-            public string Target { get; }
-            public string Message { get; }
-            public string StackTrace { get; }
-
-            public ErrorResult(Exception exception)
-            {
-                Source = exception.Source;
-                Target = exception.TargetSite.Name;
-                Message = exception.Message;
-                StackTrace = exception.StackTrace;
-            }
-        }
-
-        public ApiController(ApplicationProperties properties)
+        protected BaseApiController(ApplicationProperties properties)
         {
             this.properties = properties;
         }
@@ -35,6 +20,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         {
             try
             {
+                if (properties.DatabaseConnectionString == null) throw new Exception("Database connection string is not set");
                 await Operation.MakeAction(properties.DatabaseConnectionString, action);
                 return Ok();
             }
@@ -48,6 +34,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         {
             try
             {
+                if (properties.DatabaseConnectionString == null) throw new Exception("Database connection string is not set");
                 return await Operation.MakeAction(properties.DatabaseConnectionString, action);
             }
             catch (Exception e)
