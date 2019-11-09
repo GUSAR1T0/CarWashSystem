@@ -8,17 +8,17 @@ using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Common;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
 
-namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Utils
+namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Utils.Helpers
 {
-    public class CompanyAndUserCookieAuthenticationEvents : CookieAuthenticationEvents
+    public class UserCookieAuthenticationEvents : CookieAuthenticationEvents
     {
         private readonly ApplicationProperties properties;
-        private readonly ICompanyAuthenticationService companyAuthenticationService;
+        private readonly IUserAuthenticationService userAuthenticationService;
 
-        public CompanyAndUserCookieAuthenticationEvents(ApplicationProperties properties, ICompanyAuthenticationService companyAuthenticationService)
+        public UserCookieAuthenticationEvents(ApplicationProperties properties, IUserAuthenticationService userAuthenticationService)
         {
             this.properties = properties;
-            this.companyAuthenticationService = companyAuthenticationService;
+            this.userAuthenticationService = userAuthenticationService;
         }
 
         public override Task RedirectToLogin(RedirectContext<CookieAuthenticationOptions> context)
@@ -30,11 +30,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Utils
         public override async Task ValidatePrincipal(CookieValidatePrincipalContext context)
         {
             var user = context.Principal;
-            if (properties.DatabaseConnectionString == null) throw new Exception("Database connection string is not set");
+            if (properties.DatabaseConnectionString == null) throw new Exception(ExceptionMessage.DatabaseConnectionIsMissed);
             await Operation.MakeAction(properties.DatabaseConnectionString, async operation =>
             {
-                var possibleCompanyId = user.Claims.FirstOrDefault(c => string.Equals(c.Type, WebClaimName.CompanyId, StringComparison.InvariantCultureIgnoreCase))?.Value;
-                if (possibleCompanyId != null && int.TryParse(possibleCompanyId, out var companyId) && !await companyAuthenticationService.IsActive(operation, companyId))
+                var possibleId = user.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
+                if (possibleId != null && int.TryParse(possibleId, out var id) && !await userAuthenticationService.IsActive(operation, id))
                 {
                     context.RejectPrincipal();
                     await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

@@ -20,7 +20,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         {
             try
             {
-                if (properties.DatabaseConnectionString == null) throw new Exception("Database connection string is not set");
+                if (properties.DatabaseConnectionString == null) throw new Exception(ExceptionMessage.DatabaseConnectionIsMissed);
                 await Operation.MakeAction(properties.DatabaseConnectionString, action);
                 return Ok();
             }
@@ -34,7 +34,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         {
             try
             {
-                if (properties.DatabaseConnectionString == null) throw new Exception("Database connection string is not set");
+                if (properties.DatabaseConnectionString == null) throw new Exception(ExceptionMessage.DatabaseConnectionIsMissed);
                 return await Operation.MakeAction(properties.DatabaseConnectionString, action);
             }
             catch (Exception e)

@@ -1,5 +1,4 @@
 using System.IO;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +13,7 @@ using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces;
 using VXDesign.Store.CarWashSystem.Server.Services.Implementations;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
-using VXDesign.Store.CarWashSystem.Server.WebAPI.Utils;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Utils.Helpers;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI
 {
@@ -36,11 +35,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             });
 
             // Stores
-            services.AddScoped<ICompanyAuthenticationStore, CompanyAuthenticationStore>();
+            services.AddScoped<IUserAuthenticationStore, UserAuthenticationStore>();
 
             // Services
-            services.AddScoped<ICompanyAuthenticationService, CompanyAuthenticationService>();
-            services.AddScoped<CompanyAndUserCookieAuthenticationEvents>();
+            services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddScoped<UserCookieAuthenticationEvents>();
 
             services.AddCors(options =>
             {
@@ -55,7 +54,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.Cookie.Name = ".CarWashService.Cookies.Session";
-                options.EventsType = typeof(CompanyAndUserCookieAuthenticationEvents);
+                options.EventsType = typeof(UserCookieAuthenticationEvents);
             });
 
             services.AddControllersWithViews();
