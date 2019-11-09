@@ -88,6 +88,74 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
             });
         }
 
+        #endregion
+
+        #region Client
+
+        /// <summary>
+        /// Authenticates some user as client via cookies
+        /// </summary>
+        /// <param name="clientSignInModel">Authorization client model</param>
+        /// <returns>Client profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [AllowAnonymous]
+        [HttpPost("client/sign-in")]
+        public async Task<ActionResult<ClientProfileModel>> SignIn([FromBody] ClientSignInModel clientSignInModel)
+        {
+            return await Exec(async operation =>
+            {
+                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
+
+                try
+                {
+                    if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ClientSignInFailedDueToInvalidModel);
+                    var profile = await userAuthenticationService.TrySignIn(operation, clientSignInModel.ToEntity());
+                    await LoginChallenge(profile, UserRole.Client);
+                    return new ClientProfileModel().ToModel(profile);
+                }
+                catch
+                {
+                    await LogoutChallenge();
+                    throw;
+                }
+            });
+        }
+
+        /// <summary>
+        /// Registers new user as client via cookies
+        /// </summary>
+        /// <param name="clientSignUpModel">Registration client model</param>
+        /// <returns>Client profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [AllowAnonymous]
+        [HttpPost("client/sign-up")]
+        public async Task<ActionResult<ClientProfileModel>> SignUp([FromBody] ClientSignUpModel clientSignUpModel)
+        {
+            return await Exec(async operation =>
+            {
+                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
+
+                try
+                {
+                    if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ClientSignUpFailedDueToInvalidModel);
+                    var profile = await userAuthenticationService.TrySignUp(operation, clientSignUpModel.ToEntity());
+                    await LoginChallenge(profile, UserRole.Client);
+                    return new ClientProfileModel().ToModel(profile);
+                }
+                catch
+                {
+                    await LogoutChallenge();
+                    throw;
+                }
+            });
+        }
+
+        #endregion
+
+        #region User
+
         /// <summary>
         /// Revokes cookies and logs out
         /// </summary>
@@ -96,16 +164,8 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize]
-        [HttpPost("company/sign-out")]
+        [HttpPost("sign-out")]
         public async Task<ActionResult> SignOut() => await Exec(async _ => await LogoutChallenge());
-
-        #endregion
-
-        #region Client
-
-        #endregion
-
-        #region User
 
         /// <summary>
         /// Validates cookies

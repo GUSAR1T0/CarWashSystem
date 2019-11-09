@@ -22,5 +22,13 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
         Task<int?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
 
         #endregion
+        
+        #region Client
+
+        Task<ClientProfileEntity?> GetClientProfileById(IOperation operation, int id);
+        Task<int?> TrySignIn(IOperation operation, ClientSignInEntity entity);
+        Task<int?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
+
+        #endregion
     }
 }

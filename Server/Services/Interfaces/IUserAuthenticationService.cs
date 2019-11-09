@@ -19,5 +19,12 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
         Task<CompanyProfileEntity?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
 
         #endregion
+        
+        #region Client
+
+        Task<ClientProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity);
+        Task<ClientProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
+
+        #endregion
     }
 }

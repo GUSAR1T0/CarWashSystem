@@ -103,5 +103,67 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
         }
 
         #endregion
+
+        #region Client
+
+        public async Task<ClientProfileEntity?> GetClientProfileById(IOperation operation, int id)
+        {
+            return await operation.QuerySingleOrDefaultAsync<ClientProfileEntity?>(new
+            {
+                Id = id
+            }, @"
+                SELECT
+                    au.[Id],
+                    au.[Email],
+                    ac.[FirstName],
+                    ac.[LastName]
+                FROM [authentication].[User] au
+                INNER JOIN [authentication].[Client] ac ON au.[ClientId] = ac.[Id]
+                WHERE au.[Id] = @Id;
+            ");
+        }
+
+        public async Task<int?> TrySignIn(IOperation operation, ClientSignInEntity entity)
+        {
+            return await operation.QuerySingleOrDefaultAsync<int?>(entity, @"
+                SELECT TOP 1 [Id]
+                FROM [authentication].[User]
+                WHERE [Email] = @Email AND [Password] = @Password AND [ClientId] IS NOT NULL AND [IsActive] = 1;
+            ");
+        }
+
+        public async Task<int?> TrySignUp(IOperation operation, ClientSignUpEntity entity)
+        {
+            return await operation.QuerySingleOrDefaultAsync<int?>(entity, @"
+                DECLARE @ClientId TABLE ([Id] INT);
+                DECLARE @UserId TABLE ([Id] INT);
+
+                INSERT INTO [authentication].[Client] (
+                    [FirstName],
+                    [LastName]
+                )
+                OUTPUT INSERTED.[Id] INTO @ClientId
+                VALUES (
+                    @FirstName,
+                    @LastName
+                );
+
+                INSERT INTO [authentication].[User] (
+                    [Email],
+                    [Password],
+                    [ClientId]
+                )
+                OUTPUT INSERTED.[Id] INTO @UserId
+                SELECT 
+                    @Email,
+                    @Password,
+                    [Id]
+                FROM @ClientId;
+
+                SELECT [Id] FROM @UserId;
+            ");
+        }
+
+        #endregion
     }
 }
