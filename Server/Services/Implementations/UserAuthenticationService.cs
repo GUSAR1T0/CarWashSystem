@@ -42,5 +42,24 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
         }
 
         #endregion
+
+        #region Client
+
+        public async Task<ClientProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity)
+        {
+            var id = await userAuthenticationStore.TrySignIn(operation, entity);
+            return await userAuthenticationStore.GetClientProfileById(operation,
+                id ?? throw new Exception("Authentication process failed: you couldn't be signed in as client due to inactive user is or data is not suitable"));
+        }
+
+        public async Task<ClientProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity)
+        {
+            if (await userAuthenticationStore.IsUserExist(operation, entity.Email)) throw new Exception("Authentication process failed: such email is already used by the system");
+            var id = await userAuthenticationStore.TrySignUp(operation, entity);
+            return await userAuthenticationStore.GetClientProfileById(operation,
+                id ?? throw new Exception("Authentication process failed: you couldn't be signed up as client due to inactive user is or data is not suitable"));
+        }
+
+        #endregion
     }
 }
