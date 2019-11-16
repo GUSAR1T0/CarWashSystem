@@ -37,26 +37,23 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost("company/sign-in")]
-        public async Task<ActionResult<CompanyProfileModel>> SignIn([FromBody] CompanySignInModel companySignInModel)
+        public async Task<ActionResult<CompanyProfileModel>> SignIn([FromBody] CompanySignInModel companySignInModel) => await Exec(async operation =>
         {
-            return await Exec(async operation =>
-            {
-                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
+            if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
 
-                try
-                {
-                    if (!ModelState.IsValid) throw new Exception(ExceptionMessage.CompanySignInFailedDueToInvalidModel);
-                    var profile = await userAuthenticationService.TrySignIn(operation, companySignInModel.ToEntity());
-                    await LoginChallenge(profile, UserRole.Company);
-                    return new CompanyProfileModel().ToModel(profile);
-                }
-                catch
-                {
-                    await LogoutChallenge();
-                    throw;
-                }
-            });
-        }
+            try
+            {
+                if (!ModelState.IsValid) throw new Exception(ExceptionMessage.CompanySignInFailedDueToInvalidModel);
+                var profile = await userAuthenticationService.TrySignIn(operation, companySignInModel.ToEntity());
+                await LoginChallenge(profile, UserRole.Company);
+                return new CompanyProfileModel().ToModel(profile);
+            }
+            catch
+            {
+                await LogoutChallenge();
+                throw;
+            }
+        });
 
         /// <summary>
         /// Registers new user as company representative via cookies
@@ -67,26 +64,23 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost("company/sign-up")]
-        public async Task<ActionResult<CompanyProfileModel>> SignUp([FromBody] CompanySignUpModel companySignUpModel)
+        public async Task<ActionResult<CompanyProfileModel>> SignUp([FromBody] CompanySignUpModel companySignUpModel) => await Exec(async operation =>
         {
-            return await Exec(async operation =>
-            {
-                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
+            if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
 
-                try
-                {
-                    if (!ModelState.IsValid) throw new Exception(ExceptionMessage.CompanySignUpFailedDueToInvalidModel);
-                    var profile = await userAuthenticationService.TrySignUp(operation, companySignUpModel.ToEntity());
-                    await LoginChallenge(profile, UserRole.Company);
-                    return new CompanyProfileModel().ToModel(profile);
-                }
-                catch
-                {
-                    await LogoutChallenge();
-                    throw;
-                }
-            });
-        }
+            try
+            {
+                if (!ModelState.IsValid) throw new Exception(ExceptionMessage.CompanySignUpFailedDueToInvalidModel);
+                var profile = await userAuthenticationService.TrySignUp(operation, companySignUpModel.ToEntity());
+                await LoginChallenge(profile, UserRole.Company);
+                return new CompanyProfileModel().ToModel(profile);
+            }
+            catch
+            {
+                await LogoutChallenge();
+                throw;
+            }
+        });
 
         #endregion
 
@@ -101,26 +95,23 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost("client/sign-in")]
-        public async Task<ActionResult<ClientProfileModel>> SignIn([FromBody] ClientSignInModel clientSignInModel)
+        public async Task<ActionResult<ClientProfileModel>> SignIn([FromBody] ClientSignInModel clientSignInModel) => await Exec(async operation =>
         {
-            return await Exec(async operation =>
-            {
-                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
+            if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
 
-                try
-                {
-                    if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ClientSignInFailedDueToInvalidModel);
-                    var profile = await userAuthenticationService.TrySignIn(operation, clientSignInModel.ToEntity());
-                    await LoginChallenge(profile, UserRole.Client);
-                    return new ClientProfileModel().ToModel(profile);
-                }
-                catch
-                {
-                    await LogoutChallenge();
-                    throw;
-                }
-            });
-        }
+            try
+            {
+                if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ClientSignInFailedDueToInvalidModel);
+                var profile = await userAuthenticationService.TrySignIn(operation, clientSignInModel.ToEntity());
+                await LoginChallenge(profile, UserRole.Client);
+                return new ClientProfileModel().ToModel(profile);
+            }
+            catch
+            {
+                await LogoutChallenge();
+                throw;
+            }
+        });
 
         /// <summary>
         /// Registers new user as client via cookies
@@ -131,26 +122,23 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost("client/sign-up")]
-        public async Task<ActionResult<ClientProfileModel>> SignUp([FromBody] ClientSignUpModel clientSignUpModel)
+        public async Task<ActionResult<ClientProfileModel>> SignUp([FromBody] ClientSignUpModel clientSignUpModel) => await Exec(async operation =>
         {
-            return await Exec(async operation =>
-            {
-                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
+            if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
 
-                try
-                {
-                    if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ClientSignUpFailedDueToInvalidModel);
-                    var profile = await userAuthenticationService.TrySignUp(operation, clientSignUpModel.ToEntity());
-                    await LoginChallenge(profile, UserRole.Client);
-                    return new ClientProfileModel().ToModel(profile);
-                }
-                catch
-                {
-                    await LogoutChallenge();
-                    throw;
-                }
-            });
-        }
+            try
+            {
+                if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ClientSignUpFailedDueToInvalidModel);
+                var profile = await userAuthenticationService.TrySignUp(operation, clientSignUpModel.ToEntity());
+                await LoginChallenge(profile, UserRole.Client);
+                return new ClientProfileModel().ToModel(profile);
+            }
+            catch
+            {
+                await LogoutChallenge();
+                throw;
+            }
+        });
 
         #endregion
 
@@ -176,16 +164,13 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize]
         [HttpGet("validate")]
-        public async Task<ActionResult<UserProfileModel>> ValidateCookies()
+        public async Task<ActionResult<UserProfileModel>> ValidateCookies() => await Exec(async operation =>
         {
-            return await Exec(async operation =>
-            {
-                var possibleId = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
-                var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
-                var profile = await userAuthenticationService.GetUserProfile(operation, id);
-                return new UserProfileModel().ToModel(profile);
-            });
-        }
+            var possibleId = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
+            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
+            var profile = await userAuthenticationService.GetUserProfile(operation, id);
+            return new UserProfileModel().ToModel(profile);
+        });
 
         #endregion
 
