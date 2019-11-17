@@ -1,5 +1,8 @@
 <template>
     <div id="auth">
+        <div style="font-size: 30px; text-align: center">
+            CAR WASH SYSTEM
+        </div>
         <el-tabs :stretch="true">
             <el-tab-pane>
                 <span slot="label">Sign In</span>
@@ -14,10 +17,6 @@
 </template>
 
 <style>
-    #auth {
-        margin-top: -30px;
-    }
-
     .el-tabs__item {
         line-height: 36px !important;
         font-size: 18px !important;

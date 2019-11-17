@@ -43,14 +43,14 @@ export default {
         }
     },
     actions: {
-        [ON_LOAD_REQUEST]: ({commit, dispatch}) => {
+        [ON_LOAD_REQUEST]: ({commit, dispatch}, redirectTo) => {
             return new Promise((resolve, reject) => {
                 dispatch(GET_HTTP_REQUEST, {
                     endpoint: GET_COMPANY_PROFILE_ENDPOINT,
                     ignoreReloadPage: true
                 }).then(response => {
                     commit(SIGN_IN_REQUEST, response.data);
-                    resolve();
+                    resolve(redirectTo);
                 }).catch(error => reject(error));
             });
         },

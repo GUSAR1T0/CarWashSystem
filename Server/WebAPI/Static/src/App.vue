@@ -1,9 +1,7 @@
 <template>
     <div id="app">
+        <NavigationBar v-if="isAuthenticated"/>
         <el-container class="app-container" v-if="!loadingIsActive">
-            <el-header class="app-header" height="auto">
-                <h1 style="font-size: 30px">CAR WASH SYSTEM</h1>
-            </el-header>
             <el-main class="app-main">
                 <router-view/>
             </el-main>
@@ -38,10 +36,6 @@
         height: 100%;
     }
 
-    .app-header {
-        padding-top: 20px !important;
-    }
-
     .app-footer {
         margin: 20px 0;
         font-size: 14px;
@@ -61,10 +55,14 @@
 </style>
 
 <script>
-    import { mapGetters } from "vuex";
     import { ON_LOAD_REQUEST, RESET_PATH_FOR_REDIRECTION } from "@/constants/actions";
+    import NavigationBar from "@/components/navigation-bar/NavigationBar";
+    import { mapGetters } from "vuex";
 
     export default {
+        components: {
+            NavigationBar
+        },
         data() {
             return {
                 loadingIsActive: true
