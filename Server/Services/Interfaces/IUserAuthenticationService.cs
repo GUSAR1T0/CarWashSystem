@@ -9,7 +9,6 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
         #region User
 
         Task<bool> IsActive(IOperation operation, int id);
-        Task<UserProfileEntity?> GetUserProfile(IOperation operation, int id);
 
         #endregion
 
@@ -17,13 +16,15 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
 
         Task<CompanyProfileEntity?> TrySignIn(IOperation operation, CompanySignInEntity entity);
         Task<CompanyProfileEntity?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
+        Task<CompanyProfileEntity?> GetCompanyProfile(IOperation operation, int id);
 
         #endregion
-        
+
         #region Client
 
         Task<ClientProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity);
         Task<ClientProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
+        Task<ClientProfileEntity?> GetClientProfile(IOperation operation, int id);
 
         #endregion
     }

@@ -1,0 +1,15 @@
+.sign-in, .sign-up {
+    margin-top: 25px;
+}
+
+.auth-field-element {
+    padding: 10px;
+}
+
+.auth-label-item {
+    font-size: 18px;
+}
+
+.auth-button {
+    width: 80%;
+}

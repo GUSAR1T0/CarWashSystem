@@ -82,6 +82,27 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
             }
         });
 
+        /// <summary>
+        /// Obtains company profile
+        /// </summary>
+        /// <returns>Company profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(CompanyProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
+        [HttpGet("company")]
+        public async Task<ActionResult<CompanyProfileModel>> GetCompanyProfile() => await Exec(async operation =>
+        {
+            var possibleId = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
+            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
+
+            var userRole = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserRole, StringComparison.InvariantCultureIgnoreCase))?.Value;
+            if (userRole != UserRole.Company) throw new Exception("Couldn't get company profile because you didn't authenticated as company representative");
+
+            var profile = await userAuthenticationService.GetCompanyProfile(operation, id);
+            return new CompanyProfileModel().ToModel(profile);
+        });
+
         #endregion
 
         #region Client
@@ -140,6 +161,27 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
             }
         });
 
+        /// <summary>
+        /// Obtains client profile
+        /// </summary>
+        /// <returns>Client profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
+        [HttpGet("client")]
+        public async Task<ActionResult<ClientProfileModel>> GetClientProfile() => await Exec(async operation =>
+        {
+            var possibleId = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
+            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
+
+            var userRole = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserRole, StringComparison.InvariantCultureIgnoreCase))?.Value;
+            if (userRole != UserRole.Client) throw new Exception("Couldn't get client profile because you didn't authenticated as client");
+
+            var profile = await userAuthenticationService.GetClientProfile(operation, id);
+            return new ClientProfileModel().ToModel(profile);
+        });
+
         #endregion
 
         #region User
@@ -154,23 +196,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [Authorize]
         [HttpPost("sign-out")]
         public async Task<ActionResult> SignOut() => await Exec(async _ => await LogoutChallenge());
-
-        /// <summary>
-        /// Validates cookies
-        /// </summary>
-        /// <returns>User profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(UserProfileModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
-        [HttpGet("validate")]
-        public async Task<ActionResult<UserProfileModel>> ValidateCookies() => await Exec(async operation =>
-        {
-            var possibleId = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
-            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
-            var profile = await userAuthenticationService.GetUserProfile(operation, id);
-            return new UserProfileModel().ToModel(profile);
-        });
 
         #endregion
 

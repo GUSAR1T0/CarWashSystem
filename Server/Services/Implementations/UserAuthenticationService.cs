@@ -20,8 +20,6 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
         public async Task<bool> IsActive(IOperation operation, int id) => await userAuthenticationStore.IsActive(operation, id);
 
-        public async Task<UserProfileEntity?> GetUserProfile(IOperation operation, int id) => await userAuthenticationStore.GetUserProfileById(operation, id);
-
         #endregion
 
         #region Company
@@ -41,6 +39,8 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
                 id ?? throw new Exception("Authentication process failed: you couldn't be signed up as company representative due to inactive user is or data is not suitable"));
         }
 
+        public async Task<CompanyProfileEntity?> GetCompanyProfile(IOperation operation, int id) => await userAuthenticationStore.GetCompanyProfileById(operation, id);
+
         #endregion
 
         #region Client
@@ -59,6 +59,8 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
             return await userAuthenticationStore.GetClientProfileById(operation,
                 id ?? throw new Exception("Authentication process failed: you couldn't be signed up as client due to inactive user is or data is not suitable"));
         }
+
+        public async Task<ClientProfileEntity?> GetClientProfile(IOperation operation, int id) => await userAuthenticationStore.GetClientProfileById(operation, id);
 
         #endregion
     }
