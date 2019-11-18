@@ -23,7 +23,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authenticatio
     public class ExternalClientSignInEntity : IClientProfileEntity
     {
         public string? ExternalId { get; set; }
-        public string? Email { get; set; }
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
         public UserExternalAuthenticationSchema? Schema { get; set; }
@@ -32,7 +31,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authenticatio
     public class ClientProfileEntity : IClientProfileEntity, IUserProfileEntity
     {
         public int Id { get; set; }
-        public string Email { get; set; } = "";
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
     }

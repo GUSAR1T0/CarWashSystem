@@ -67,7 +67,14 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
                 options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
                 options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
                 options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
-                options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+            }).AddVkontakte(options =>
+            {
+                options.ClientId = Configuration["Authentication:VK:ClientId"];
+                options.ClientSecret = Configuration["Authentication:VK:ClientSecret"];
+                options.ClaimActions.Clear();
+                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "first_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
             });
 
             services.AddControllersWithViews();

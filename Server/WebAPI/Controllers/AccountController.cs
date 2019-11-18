@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Vkontakte;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -157,21 +158,29 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         });
 
         /// <summary>
-        /// Begins Google authentication
+        /// Initializes external authentication
         /// </summary>
         /// <returns>Result of challenge</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
-        [HttpGet("client/sign-in/google")]
-        public IActionResult SignInViaGoogle()
+        [HttpGet("client/sign-in/external/initialize")]
+        public IActionResult InitializeExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
         {
             try
             {
                 if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
-                return new ChallengeResult(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties
+
+                string GetExternalAuthenticationScheme() => schema switch
                 {
-                    RedirectUri = "/api/account/client/sign-in/google/complete"
+                    UserExternalAuthenticationSchema.Google => GoogleDefaults.AuthenticationScheme,
+                    UserExternalAuthenticationSchema.Vk => VkontakteAuthenticationDefaults.AuthenticationScheme,
+                    _ => throw new ArgumentOutOfRangeException(nameof(schema), schema, null)
+                };
+
+                return new ChallengeResult(GetExternalAuthenticationScheme(), new AuthenticationProperties
+                {
+                    RedirectUri = $"/api/account/client/sign-in/external/complete?schema={schema:D}"
                 });
             }
             catch (Exception e)
@@ -181,24 +190,23 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Completes Google authentication
+        /// Completes external authentication
         /// </summary>
         /// <returns>Redirect result object</returns>
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status301MovedPermanently)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [Authorize]
-        [HttpGet("client/sign-in/google/complete")]
-        public async Task<RedirectResult> CompleteSignInViaGoogle()
+        [HttpGet("client/sign-in/external/complete")]
+        public async Task<RedirectResult> CompleteExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
         {
             await Exec(async operation =>
             {
                 var profile = await userAuthenticationService.TrySignIn(operation, new ExternalClientSignInEntity
                 {
                     ExternalId = User.Claims.Get(ClaimTypes.NameIdentifier),
-                    Email = User.Claims.Get(ClaimTypes.Email),
                     FirstName = User.Claims.Get(ClaimTypes.GivenName) ?? User.Claims.Get(ClaimTypes.Name) ?? "",
                     LastName = User.Claims.Get(ClaimTypes.Surname) ?? "",
-                    Schema = UserExternalAuthenticationSchema.Google
+                    Schema = schema
                 });
                 await LoginChallenge(profile, UserRole.Client);
             });
@@ -256,7 +264,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(AccountClaimName.UserId, profile.Id.ToString()),
-                    new Claim(AccountClaimName.UserEmail, profile.Email),
                     new Claim(AccountClaimName.UserRole, userRole)
                 }, CookieAuthenticationDefaults.AuthenticationScheme)), new AuthenticationProperties
                 {

@@ -100,7 +100,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             }, @"
                 SELECT
                     au.[Id],
-                    au.[Email],
                     ac.[FirstName],
                     ac.[LastName]
                 FROM [authentication].[User] au
@@ -148,14 +147,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                         @ExternalId
                     );
 
-                    INSERT INTO [authentication].[User] (
-                        [Email],
-                        [ClientId]
-                    )
+                    INSERT INTO [authentication].[User] ([ClientId])
                     OUTPUT INSERTED.[Id] INTO @UserId
-                    SELECT
-                        @Email,
-                        [Id]
+                    SELECT [Id]
                     FROM @ClientId;
 
                 END;

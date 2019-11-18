@@ -1,8 +1,8 @@
 namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication
 {
-    public enum UserExternalAuthenticationSchema
+    public enum UserExternalAuthenticationSchema : byte
     {
-        Default = 0,
-        Google = 1
+        Google = 1,
+        Vk = 2
     }
 }
