@@ -21,20 +21,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public async Task<UserProfileEntity?> GetUserProfileById(IOperation operation, int id)
-        {
-            return await operation.QuerySingleOrDefaultAsync<UserProfileEntity?>(new
-            {
-                Id = id
-            }, @"
-                SELECT
-                    [Id],
-                    [Email]
-                FROM [authentication].[User]
-                WHERE [Id] = @Id;
-            ");
-        }
-
         public async Task<bool> IsUserExist(IOperation operation, string email)
         {
             return await operation.QuerySingleOrDefaultAsync<bool>(new
@@ -127,8 +113,54 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
         {
             return await operation.QuerySingleOrDefaultAsync<int?>(entity, @"
                 SELECT TOP 1 [Id]
-                FROM [authentication].[User]
-                WHERE [Email] = @Email AND [Password] = @Password AND [ClientId] IS NOT NULL AND [IsActive] = 1;
+                FROM [authentication].[User] au
+                INNER JOIN [authentication].[Client] ac ON ac.[Id] = au.[ClientId]
+                WHERE au.[Email] = @Email AND au.[Password] = @Password AND ac.[Schema] = 0 AND au.[IsActive] = 1;
+            ");
+        }
+
+        public async Task<int?> TrySignIn(IOperation operation, ExternalClientSignInEntity entity)
+        {
+            return await operation.QuerySingleOrDefaultAsync<int?>(entity, @"
+                DECLARE @ClientId TABLE ([Id] INT);
+                DECLARE @UserId TABLE ([Id] INT);
+
+                INSERT INTO @UserId ([Id])
+                SELECT au.[Id]
+                FROM [authentication].[User] au
+                INNER JOIN [authentication].[Client] ac ON ac.[Id] = au.[ClientId]
+                WHERE ac.[Schema] = @Schema AND ac.[ExternalId] = @ExternalId AND au.[IsActive] = 1;
+
+                IF NOT EXISTS (SELECT TOP 1 1 FROM @UserId)
+                BEGIN
+
+                    INSERT INTO [authentication].[Client] (
+                        [FirstName],
+                        [LastName],
+                        [Schema],
+                        [ExternalId]
+                    )
+                    OUTPUT INSERTED.[Id] INTO @ClientId
+                    VALUES (
+                        @FirstName,
+                        @LastName,
+                        @Schema,
+                        @ExternalId
+                    );
+
+                    INSERT INTO [authentication].[User] (
+                        [Email],
+                        [ClientId]
+                    )
+                    OUTPUT INSERTED.[Id] INTO @UserId
+                    SELECT
+                        @Email,
+                        [Id]
+                    FROM @ClientId;
+
+                END;
+
+                SELECT [Id] FROM @UserId;
             ");
         }
 
@@ -154,7 +186,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     [ClientId]
                 )
                 OUTPUT INSERTED.[Id] INTO @UserId
-                SELECT 
+                SELECT
                     @Email,
                     @Password,
                     [Id]

@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Common;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Extensions;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
 
@@ -27,6 +28,27 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         }
 
         #region Company
+
+        /// <summary>
+        /// Obtains company profile
+        /// </summary>
+        /// <returns>Company profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(CompanyProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
+        [HttpGet("company")]
+        public async Task<ActionResult<CompanyProfileModel>> GetCompanyProfile() => await Exec(async operation =>
+        {
+            var possibleId = User.Claims.Get(AccountClaimName.UserId);
+            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
+
+            var userRole = User.Claims.Get(AccountClaimName.UserRole);
+            if (userRole != UserRole.Company) throw new Exception("Couldn't get company profile because you didn't authenticated as company representative");
+
+            var profile = await userAuthenticationService.GetCompanyProfile(operation, id);
+            return new CompanyProfileModel().ToModel(profile);
+        });
 
         /// <summary>
         /// Authenticates some user as company representative via cookies
@@ -82,30 +104,30 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
             }
         });
 
-        /// <summary>
-        /// Obtains company profile
-        /// </summary>
-        /// <returns>Company profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(CompanyProfileModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
-        [HttpGet("company")]
-        public async Task<ActionResult<CompanyProfileModel>> GetCompanyProfile() => await Exec(async operation =>
-        {
-            var possibleId = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
-            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
-
-            var userRole = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserRole, StringComparison.InvariantCultureIgnoreCase))?.Value;
-            if (userRole != UserRole.Company) throw new Exception("Couldn't get company profile because you didn't authenticated as company representative");
-
-            var profile = await userAuthenticationService.GetCompanyProfile(operation, id);
-            return new CompanyProfileModel().ToModel(profile);
-        });
-
         #endregion
 
         #region Client
+
+        /// <summary>
+        /// Obtains client profile
+        /// </summary>
+        /// <returns>Client profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize]
+        [HttpGet("client")]
+        public async Task<ActionResult<ClientProfileModel>> GetClientProfile() => await Exec(async operation =>
+        {
+            var possibleId = User.Claims.Get(AccountClaimName.UserId);
+            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
+
+            var userRole = User.Claims.Get(AccountClaimName.UserRole);
+            if (userRole != UserRole.Client) throw new Exception("Couldn't get client profile because you didn't authenticated as client");
+
+            var profile = await userAuthenticationService.GetClientProfile(operation, id);
+            return new ClientProfileModel().ToModel(profile);
+        });
 
         /// <summary>
         /// Authenticates some user as client via cookies
@@ -135,6 +157,55 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         });
 
         /// <summary>
+        /// Begins Google authentication
+        /// </summary>
+        /// <returns>Result of challenge</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [AllowAnonymous]
+        [HttpGet("client/sign-in/google")]
+        public IActionResult SignInViaGoogle()
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
+                return new ChallengeResult(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties
+                {
+                    RedirectUri = "/api/account/client/sign-in/google/complete"
+                });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorResult(e));
+            }
+        }
+
+        /// <summary>
+        /// Completes Google authentication
+        /// </summary>
+        /// <returns>Redirect result object</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [Authorize]
+        [HttpGet("client/sign-in/google/complete")]
+        public async Task<RedirectResult> CompleteSignInViaGoogle()
+        {
+            await Exec(async operation =>
+            {
+                var profile = await userAuthenticationService.TrySignIn(operation, new ExternalClientSignInEntity
+                {
+                    ExternalId = User.Claims.Get(ClaimTypes.NameIdentifier),
+                    Email = User.Claims.Get(ClaimTypes.Email),
+                    FirstName = User.Claims.Get(ClaimTypes.GivenName) ?? User.Claims.Get(ClaimTypes.Name) ?? "",
+                    LastName = User.Claims.Get(ClaimTypes.Surname) ?? "",
+                    Schema = UserExternalAuthenticationSchema.Google
+                });
+                await LoginChallenge(profile, UserRole.Client);
+            });
+            return Redirect("/");
+        }
+
+        /// <summary>
         /// Registers new user as client via cookies
         /// </summary>
         /// <param name="clientSignUpModel">Registration client model</param>
@@ -159,27 +230,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 await LogoutChallenge();
                 throw;
             }
-        });
-
-        /// <summary>
-        /// Obtains client profile
-        /// </summary>
-        /// <returns>Client profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
-        [HttpGet("client")]
-        public async Task<ActionResult<ClientProfileModel>> GetClientProfile() => await Exec(async operation =>
-        {
-            var possibleId = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
-            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
-
-            var userRole = User.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserRole, StringComparison.InvariantCultureIgnoreCase))?.Value;
-            if (userRole != UserRole.Client) throw new Exception("Couldn't get client profile because you didn't authenticated as client");
-
-            var profile = await userAuthenticationService.GetClientProfile(operation, id);
-            return new ClientProfileModel().ToModel(profile);
         });
 
         #endregion

@@ -1,4 +1,6 @@
 using System.IO;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +57,17 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             {
                 options.Cookie.Name = ".CarWashService.Cookies.Session";
                 options.EventsType = typeof(UserCookieAuthenticationEvents);
+            }).AddGoogle(options =>
+            {
+                options.ClientId = Configuration["Authentication:Google:ClientId"];
+                options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                options.ClaimActions.Clear();
+                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
             });
 
             services.AddControllersWithViews();

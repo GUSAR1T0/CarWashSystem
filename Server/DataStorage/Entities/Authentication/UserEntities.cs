@@ -17,10 +17,4 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authenticatio
         int Id { get; set; }
         string Email { get; set; }
     }
-    
-    public class UserProfileEntity : IUserProfileEntity
-    {
-        public int Id { get; set; }
-        public string Email { get; set; } = "";
-    }
 }

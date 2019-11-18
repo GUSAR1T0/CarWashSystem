@@ -1,7 +1,7 @@
 CREATE TABLE [authentication].[User] (
     [Id]          INT              IDENTITY (1, 1) NOT NULL,
     [Email]       NVARCHAR (255)   NOT NULL,
-    [Password]    NVARCHAR (255)   NOT NULL,
+    [Password]    NVARCHAR (255)   NULL,
     [ClientId]    INT              NULL,
     [CompanyId]   INT              NULL,
     [IsActive]    BIT              DEFAULT ((1)) NOT NULL,

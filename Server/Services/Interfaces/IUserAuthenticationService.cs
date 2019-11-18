@@ -23,6 +23,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
         #region Client
 
         Task<ClientProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity);
+        Task<ClientProfileEntity?> TrySignIn(IOperation operation, ExternalClientSignInEntity entity);
         Task<ClientProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
         Task<ClientProfileEntity?> GetClientProfile(IOperation operation, int id);
 

@@ -10,7 +10,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
         #region User
 
         Task<bool> IsActive(IOperation operation, int id);
-        Task<UserProfileEntity?> GetUserProfileById(IOperation operation, int id);
         Task<bool> IsUserExist(IOperation operation, string email);
 
         #endregion
@@ -27,6 +26,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
 
         Task<ClientProfileEntity?> GetClientProfileById(IOperation operation, int id);
         Task<int?> TrySignIn(IOperation operation, ClientSignInEntity entity);
+        Task<int?> TrySignIn(IOperation operation, ExternalClientSignInEntity entity);
         Task<int?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
 
         #endregion
