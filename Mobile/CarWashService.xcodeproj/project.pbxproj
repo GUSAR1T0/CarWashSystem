@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0E2F52A2381DE5400A7A839 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E2F5292381DE5400A7A839 /* Utils.swift */; };
+		A0E2F52C23820F9900A7A839 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E2F52B23820F9900A7A839 /* LogoView.swift */; };
+		A0E2F52E238213D100A7A839 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E2F52D238213D100A7A839 /* SignInView.swift */; };
+		A0E2F530238213EE00A7A839 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E2F52F238213EE00A7A839 /* SignUpView.swift */; };
 		EEB56DA8236E1DE80062503F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA7236E1DE80062503F /* AppDelegate.swift */; };
 		EEB56DAA236E1DE80062503F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA9236E1DE80062503F /* SceneDelegate.swift */; };
 		EEB56DAD236E1DE80062503F /* CarWashService.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DAB236E1DE80062503F /* CarWashService.xcdatamodeld */; };
@@ -17,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A0E2F5292381DE5400A7A839 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		A0E2F52B23820F9900A7A839 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		A0E2F52D238213D100A7A839 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		A0E2F52F238213EE00A7A839 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		EEB56DA4236E1DE80062503F /* CarWashService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarWashService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEB56DA7236E1DE80062503F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEB56DA9236E1DE80062503F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +67,10 @@
 			isa = PBXGroup;
 			children = (
 				EEB56DA7236E1DE80062503F /* AppDelegate.swift */,
+				A0E2F5292381DE5400A7A839 /* Utils.swift */,
+				A0E2F52D238213D100A7A839 /* SignInView.swift */,
+				A0E2F52B23820F9900A7A839 /* LogoView.swift */,
+				A0E2F52F238213EE00A7A839 /* SignUpView.swift */,
 				EEB56DA9236E1DE80062503F /* SceneDelegate.swift */,
 				EEB56DAE236E1DE80062503F /* ContentView.swift */,
 				EEB56DB0236E1DE90062503F /* Assets.xcassets */,
@@ -149,7 +161,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0E2F52A2381DE5400A7A839 /* Utils.swift in Sources */,
+				A0E2F52E238213D100A7A839 /* SignInView.swift in Sources */,
+				A0E2F52C23820F9900A7A839 /* LogoView.swift in Sources */,
 				EEB56DA8236E1DE80062503F /* AppDelegate.swift in Sources */,
+				A0E2F530238213EE00A7A839 /* SignUpView.swift in Sources */,
 				EEB56DAD236E1DE80062503F /* CarWashService.xcdatamodeld in Sources */,
 				EEB56DAF236E1DE80062503F /* ContentView.swift in Sources */,
 				EEB56DAA236E1DE80062503F /* SceneDelegate.swift in Sources */,
@@ -291,7 +307,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CarWashService/Preview Content\"";
-				DEVELOPMENT_TEAM = 57NA83VNEW;
+				DEVELOPMENT_TEAM = 6T88KA53WG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CarWashService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -299,7 +315,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = store.vxdesign.CarWashService;
+				PRODUCT_BUNDLE_IDENTIFIER = store.vxdesign.CarWashService1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -313,7 +329,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CarWashService/Preview Content\"";
-				DEVELOPMENT_TEAM = 57NA83VNEW;
+				DEVELOPMENT_TEAM = 6T88KA53WG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CarWashService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -321,7 +337,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = store.vxdesign.CarWashService;
+				PRODUCT_BUNDLE_IDENTIFIER = store.vxdesign.CarWashService1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
