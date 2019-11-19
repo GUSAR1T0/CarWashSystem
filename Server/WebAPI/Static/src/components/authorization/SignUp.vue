@@ -107,9 +107,9 @@
                         this.$router.push("/");
                         const h = this.$createElement;
                         this.$notify.success({
-                            title: "You are registered",
+                            title: "Successful registration",
                             message: h("div", null, [
-                                "Welcome to the system as \"",
+                                "You are signed up as \"",
                                 h("strong", null, this.getCompanyName),
                                 "\" company representative"
                             ])

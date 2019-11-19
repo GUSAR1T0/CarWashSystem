@@ -79,9 +79,9 @@
                         this.$router.push("/");
                         const h = this.$createElement;
                         this.$notify.success({
-                            title: "You are logged in",
+                            title: "Successful authorization",
                             message: h("div", null, [
-                                "Welcome back as \"",
+                                "You are signed in as \"",
                                 h("strong", null, this.getCompanyName),
                                 "\" company representative"
                             ])

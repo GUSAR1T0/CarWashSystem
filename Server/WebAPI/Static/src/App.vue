@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-        <NavigationBar v-if="isAuthenticated"/>
+        <ApplicationNavigationBar v-if="isAuthenticated"/>
+        <AuthenticationNavigationBar v-else/>
         <el-container class="app-container" v-if="!loadingIsActive">
             <el-main class="app-main">
                 <router-view/>
@@ -14,7 +15,7 @@
 
 <style>
     * {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        font-family: -apple-system, system-ui, 'Avenir', Helvetica, Arial, sans-serif;
     }
 
     html, body {
@@ -56,12 +57,14 @@
 
 <script>
     import { ON_LOAD_REQUEST, RESET_PATH_FOR_REDIRECTION } from "@/constants/actions";
-    import NavigationBar from "@/components/navigation-bar/NavigationBar";
+    import ApplicationNavigationBar from "@/components/navigation-bar/ApplicationNavigationBar";
+    import AuthenticationNavigationBar from "@/components/navigation-bar/AuthenticationNavigationBar";
     import { mapGetters } from "vuex";
 
     export default {
         components: {
-            NavigationBar
+            ApplicationNavigationBar,
+            AuthenticationNavigationBar
         },
         data() {
             return {
@@ -97,7 +100,6 @@
                 } else if (this.isAuthenticated && redirectTo === "/auth") {
                     redirectTo = "/";
                 }
-
                 this.$router.push(redirectTo).then(() => completeLoading()).catch(() => {
                     // TODO: Error case handling
                     completeLoading();

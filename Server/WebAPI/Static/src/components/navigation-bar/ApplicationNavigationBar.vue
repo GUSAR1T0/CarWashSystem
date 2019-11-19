@@ -1,18 +1,19 @@
 <template>
     <div class="nav">
         <el-menu class="el-nav-menu-horizontal" :router="true" :default-active="$route.path" mode="horizontal">
-            <el-menu-item class="el-nav-menu-horizontal-header" index="/">
-                <div style="font-size: 30px">
-                    CAR WASH SYSTEM
-                </div>
+            <el-menu-item class="el-nav-menu-horizontal-header el-nav-menu-horizontal-main-item" index="/">
+                <Title/>
             </el-menu-item>
             <!-- B: Pages -->
-            <el-submenu class="el-nav-menu-horizontal-users" index="Pages">
+            <el-submenu class="el-nav-menu-horizontal-pages el-nav-menu-horizontal-main-item"
+                        index="Pages">
                 <template slot="title">
                     <i class="el-icon-files"></i>
                 </template>
                 <el-menu-item-group>
-                    <span slot="title" class="el-nav-menu-horizontal-group-title">Pages</span>
+                    <span slot="title" class="el-nav-menu-horizontal-group-title">
+                        <strong>Pages</strong>
+                    </span>
                     <el-divider/>
                     <el-menu-item index="/about">
                         <span slot="title" class="el-nav-menu-horizontal-item">About</span>
@@ -21,15 +22,20 @@
             </el-submenu>
             <!-- E: Pages -->
             <!-- B: Account -->
-            <el-submenu class="el-nav-menu-horizontal-users" index="Account">
+            <el-submenu class="el-nav-menu-horizontal-account el-nav-menu-horizontal-main-item"
+                        index="Account">
                 <template slot="title">
                     <i class="el-icon-user-solid"></i>
                 </template>
                 <el-menu-item-group>
-                    <span slot="title" class="el-nav-menu-horizontal-group-title">Account</span>
+                    <span slot="title" class="el-nav-menu-horizontal-group-title">
+                        <strong>Account</strong>
+                    </span>
                     <el-divider/>
                     <el-menu-item index="">
-                        <span slot="title" class="el-nav-menu-horizontal-item">Company: "<strong>{{ getCompanyName }}</strong>"</span>
+                        <span slot="title" class="el-nav-menu-horizontal-item">
+                            Company Profile
+                        </span>
                     </el-menu-item>
                     <el-menu-item index="" @click="logoutAction">
                         <span slot="title" class="el-nav-menu-horizontal-item">Sign Out</span>
@@ -43,7 +49,22 @@
 
 <style>
     .el-divider--horizontal {
-        margin: 5px 0 10px 0 !important;
+        margin: 5px 0 5px 0 !important;
+    }
+
+    .el-menu--horizontal > .el-menu-item {
+        line-height: 54px !important;
+    }
+
+    .el-nav-menu-horizontal-main-item:hover,
+    .el-nav-menu-horizontal-main-item.is-active,
+    .el-nav-menu-horizontal-main-item:hover .el-submenu__title > i,
+    .el-nav-menu-horizontal-main-item.is-active .el-submenu__title > i,
+    .el-nav-menu-horizontal-main-item.is-opened .el-submenu__title > i,
+    .el-menu-item:hover > span,
+    .el-menu-item.is-active > span,
+    .el-menu-item.is-opened > span {
+        color: #631D76 !important;
     }
 </style>
 
@@ -52,8 +73,9 @@
         margin-left: -25px;
         text-transform: uppercase;
         font-size: 12px;
+        color: #2c3e50;
     }
-    
+
     .el-nav-menu-horizontal-item {
         padding: 5px;
         font-size: 18px;
@@ -62,14 +84,12 @@
 
 <script>
     import { SIGN_OUT_REQUEST } from "@/constants/actions";
-    import { mapGetters } from "vuex";
+    import Title from "@/components/navigation-bar/Title";
 
     export default {
-        name: "NavigationBar",
-        computed: {
-            ...mapGetters([
-                "getCompanyName"
-            ])
+        name: "ApplicationNavigationBar",
+        components: {
+            Title
         },
         methods: {
             logoutAction() {
@@ -77,8 +97,8 @@
                     this.$router.push("/auth").catch(() => {
                     });
                     this.$notify.success({
-                        title: "You are logged out",
-                        message: "Waiting for you again"
+                        title: "Successful log out",
+                        message: "You are signed out"
                     });
                 }).catch(() => {
                     this.$router.push("/auth").catch(() => {

@@ -1,8 +1,5 @@
 <template>
     <div id="auth">
-        <div style="font-size: 30px; text-align: center">
-            CAR WASH SYSTEM
-        </div>
         <el-tabs :stretch="true">
             <el-tab-pane>
                 <span slot="label">Sign In</span>
