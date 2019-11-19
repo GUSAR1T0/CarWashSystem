@@ -307,7 +307,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CarWashService/Preview Content\"";
-				DEVELOPMENT_TEAM = 6T88KA53WG;
+				DEVELOPMENT_TEAM = 57NA83VNEW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CarWashService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -315,7 +315,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = store.vxdesign.CarWashService1;
+				PRODUCT_BUNDLE_IDENTIFIER = store.vxdesign.CarWashService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -329,7 +329,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CarWashService/Preview Content\"";
-				DEVELOPMENT_TEAM = 6T88KA53WG;
+				DEVELOPMENT_TEAM = 57NA83VNEW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CarWashService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -337,7 +337,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = store.vxdesign.CarWashService1;
+				PRODUCT_BUNDLE_IDENTIFIER = store.vxdesign.CarWashService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
