@@ -22,7 +22,7 @@ struct SignInView: View {
     var body: some View {
         NavigationView {
             VStack {
-                LogoView(subTitle: AuthenticationViewText.SignInTitleText)
+                LogoAuthenticationView(subTitle: AuthenticationViewText.SignInTitleText)
                 CreateTextFieldForSignInForm(fieldName: AuthenticationFieldName.Email, textField: $emailAddress)
                 CreateTextFieldForSignInForm(fieldName: AuthenticationFieldName.Password, textField: $password)
                 HStack {

@@ -10,7 +10,7 @@
 		94C3738160416EF4C1C42D9C /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374423A6F02DEC89E2DC1 /* SignInView.swift */; };
 		94C373FE93B99F4D55DB0E4D /* AuthenticationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37368BDBA4905A6EB7CBB /* AuthenticationEnums.swift */; };
 		94C3746C6A3C9C816398D02A /* ApplicationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374A5592A7B5A19ED401C /* ApplicationEnums.swift */; };
-		94C374A7BBF4F2205EFD8B71 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3752A6CEAEB36F20A4B7F /* LogoView.swift */; };
+		94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */; };
 		94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37BD336E52AA80AA1909E /* SignUpView.swift */; };
 		94C379351C26625661AF64B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37999D9BE8145F7D5048C /* ContentView.swift */; };
 		EEB56DA8236E1DE80062503F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA7236E1DE80062503F /* AppDelegate.swift */; };
@@ -25,7 +25,7 @@
 		94C37368BDBA4905A6EB7CBB /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
 		94C374423A6F02DEC89E2DC1 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		94C374A5592A7B5A19ED401C /* ApplicationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationEnums.swift; sourceTree = "<group>"; };
-		94C3752A6CEAEB36F20A4B7F /* LogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoAuthenticationView.swift; sourceTree = "<group>"; };
 		94C37999D9BE8145F7D5048C /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		94C37BD336E52AA80AA1909E /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		EEB56DA4236E1DE80062503F /* CarWashService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarWashService.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +54,6 @@
 			children = (
 				94C37999D9BE8145F7D5048C /* ContentView.swift */,
 				94C37F0D16E4848C1BF9436D /* Authentication */,
-				94C3752A6CEAEB36F20A4B7F /* LogoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -73,6 +72,7 @@
 			children = (
 				94C374423A6F02DEC89E2DC1 /* SignInView.swift */,
 				94C37BD336E52AA80AA1909E /* SignUpView.swift */,
+				94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -194,9 +194,9 @@
 				94C379351C26625661AF64B5 /* ContentView.swift in Sources */,
 				94C3738160416EF4C1C42D9C /* SignInView.swift in Sources */,
 				94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */,
-				94C374A7BBF4F2205EFD8B71 /* LogoView.swift in Sources */,
 				94C373FE93B99F4D55DB0E4D /* AuthenticationEnums.swift in Sources */,
 				94C3746C6A3C9C816398D02A /* ApplicationEnums.swift in Sources */,
+				94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct LogoView: View {
+struct LogoAuthenticationView: View {
     var subTitle: String
 
     var body: some View {

@@ -23,7 +23,7 @@ struct SignUpView: View {
 
     var body: some View {
         VStack {
-            LogoView(subTitle: AuthenticationViewText.SignUpTitleText).edgesIgnoringSafeArea(.top)
+            LogoAuthenticationView(subTitle: AuthenticationViewText.SignUpTitleText).edgesIgnoringSafeArea(.top)
             CreateTextFieldForSignUpForm(fieldName: AuthenticationFieldName.FirstName, textField: $firstName)
             CreateTextFieldForSignUpForm(fieldName: AuthenticationFieldName.LastName, textField: $lastName)
             CreateTextFieldForSignUpForm(fieldName: AuthenticationFieldName.Email, textField: $emailAddress)
