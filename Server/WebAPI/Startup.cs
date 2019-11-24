@@ -112,7 +112,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
 
             app.UseRouting();
 
-            app.UseHttpsRedirection();
+            if (!env.IsDevelopment())
+            {
+                app.UseHttpsRedirection();
+            }
+
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseAuthorization();

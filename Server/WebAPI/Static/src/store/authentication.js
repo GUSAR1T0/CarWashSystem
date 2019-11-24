@@ -5,6 +5,7 @@ import {
     SIGN_UP_ENDPOINT
 } from "@/constants/endpoints";
 import {
+    DELETE_HTTP_REQUEST,
     GET_HTTP_REQUEST,
     ON_LOAD_REQUEST,
     POST_HTTP_REQUEST,
@@ -80,7 +81,7 @@ export default {
         },
         [SIGN_OUT_REQUEST]: ({commit, dispatch}) => {
             return new Promise((resolve, reject) => {
-                dispatch(POST_HTTP_REQUEST, {
+                dispatch(DELETE_HTTP_REQUEST, {
                     endpoint: SIGN_OUT_ENDPOINT,
                     ignoreReloadPage: true
                 }).then(() => {

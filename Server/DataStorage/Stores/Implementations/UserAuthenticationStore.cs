@@ -111,7 +111,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
         public async Task<int?> TrySignIn(IOperation operation, ClientSignInEntity entity)
         {
             return await operation.QuerySingleOrDefaultAsync<int?>(entity, @"
-                SELECT TOP 1 [Id]
+                SELECT TOP 1 au.[Id]
                 FROM [authentication].[User] au
                 INNER JOIN [authentication].[Client] ac ON ac.[Id] = au.[ClientId]
                 WHERE au.[Email] = @Email AND au.[Password] = @Password AND ac.[Schema] = 0 AND au.[IsActive] = 1;

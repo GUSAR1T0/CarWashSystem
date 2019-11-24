@@ -6,7 +6,7 @@
 import Foundation
 import SwiftUI
 
-class ApplicationText {
+struct ApplicationText {
     static let LogoTitle = "CAR WASH: CLIENT"
 }
 

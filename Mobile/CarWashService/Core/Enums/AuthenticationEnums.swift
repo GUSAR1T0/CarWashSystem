@@ -5,7 +5,7 @@
 
 import Foundation
 
-class AuthenticationFieldName {
+struct AuthenticationFieldName {
     static let Email = "Email Address"
     static let Password = "Password"
     static let PasswordConfirmation = "Password Confirmation"
@@ -13,7 +13,7 @@ class AuthenticationFieldName {
     static let LastName = "Last Name"
 }
 
-class AuthenticationViewText {
+struct AuthenticationViewText {
     static let SignInTitleText = "Sign in to your account"
     static let SignUpTitleText = "Create account"
     static let SignInButtonText = "Sign In"

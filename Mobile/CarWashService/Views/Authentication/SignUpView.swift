@@ -9,30 +9,62 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @EnvironmentObject var storage: Storage
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var emailAddress = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-
-    private func CreateTextFieldForSignUpForm(fieldName: String, textField: Binding<String>) -> some View {
-        TextField(fieldName, text: textField)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(5)
-    }
+//    @State private var googleAuthenticationModal: Bool = false
+    @State private var vkAuthenticationModal: Bool = false
 
     var body: some View {
         VStack {
             LogoAuthenticationView(subTitle: AuthenticationViewText.SignUpTitleText).edgesIgnoringSafeArea(.top)
-            CreateTextFieldForSignUpForm(fieldName: AuthenticationFieldName.FirstName, textField: $firstName)
-            CreateTextFieldForSignUpForm(fieldName: AuthenticationFieldName.LastName, textField: $lastName)
-            CreateTextFieldForSignUpForm(fieldName: AuthenticationFieldName.Email, textField: $emailAddress)
-            CreateTextFieldForSignUpForm(fieldName: AuthenticationFieldName.Password, textField: $password)
-            CreateTextFieldForSignUpForm(fieldName: AuthenticationFieldName.PasswordConfirmation, textField: $confirmPassword)
+            TextField(AuthenticationFieldName.FirstName, text: $firstName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(5)
+            TextField(AuthenticationFieldName.LastName, text: $lastName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(5)
+            TextField(AuthenticationFieldName.Email, text: $emailAddress)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .padding(5)
+            SecureField(AuthenticationFieldName.Password, text: $password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .padding(5)
+            SecureField(AuthenticationFieldName.PasswordConfirmation, text: $confirmPassword)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .padding(5)
             HStack {
                 Spacer()
                 Button(action: {
-                    // TODO: Add sign up action
+                    // TODO: Validate form
+                    guard self.password == self.confirmPassword else {
+                        return
+                    }
+
+                    let service = HttpClientService()
+                    let model = ClientSignUpModel(email: self.emailAddress, password: self.password, firstName: self.firstName, lastName: self.lastName)
+
+                    var flag = false
+                    let semaphore = DispatchSemaphore(value: 0)
+                    try! service.post(endpoint: Requests.SignUp, request: model, success: { (response: ClientProfileModel) in
+                        flag = true
+                        semaphore.signal()
+                    }, error: { error in
+                        if let error = error.response {
+                            print("ERROR: \(error.message)")
+                        } else if let error = error.httpClientError {
+                            print("ERROR: \(error)")
+                        }
+                        semaphore.signal()
+                    })
+                    semaphore.wait()
+                    self.storage.isAuthenticated = flag
                 }) {
                     Text(AuthenticationViewText.SignUpButtonText)
                             .bold()
@@ -43,8 +75,40 @@ struct SignUpView: View {
                             .padding(10)
                 }
             }.padding()
-            Spacer()
-            Text(AuthenticationViewText.QuestionAboutSocialAuthorization)
+//            Spacer()
+//            VStack {
+//                Text(AuthenticationViewText.QuestionAboutSocialAuthorization).padding(.bottom, 10)
+//                HStack {
+//                    Button(action: {
+//                        self.googleAuthenticationModal = true
+//                    }) {
+//                        Text("Google")
+//                                .bold()
+//                                .padding()
+//                                .frame(minWidth: 0, maxWidth: .infinity)
+//                                .background(ApplicationColor.Primary.toRGB())
+//                                .cornerRadius(5)
+//                                .foregroundColor(.white)
+//                                .padding(10)
+//                    }.sheet(isPresented: $googleAuthenticationModal) {
+//                        SafariView(url: "\(ServerConfiguration.host)\(Requests.InitializeExternalSignIn)", schema: 1)
+//                    }
+//                    Button(action: {
+//                        self.vkAuthenticationModal = true
+//                    }) {
+//                        Text("VK")
+//                                .bold()
+//                                .padding()
+//                                .frame(minWidth: 0, maxWidth: .infinity)
+//                                .background(ApplicationColor.Primary.toRGB())
+//                                .cornerRadius(5)
+//                                .foregroundColor(.white)
+//                                .padding(10)
+//                    }.sheet(isPresented: $vkAuthenticationModal) {
+//                        ExternalSignInWebView(url: "\(ServerConfiguration.host)\(Requests.InitializeExternalSignIn)", schema: 2)
+//                    }
+//                }
+//            }.padding()
         }.padding()
     }
 }

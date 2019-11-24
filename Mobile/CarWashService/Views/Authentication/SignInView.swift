@@ -9,26 +9,45 @@
 import SwiftUI
 
 struct SignInView: View {
+    @EnvironmentObject var storage: Storage
     @State private var emailAddress = ""
     @State private var password = ""
-    @State var selection: Int? = nil
-
-    private func CreateTextFieldForSignInForm(fieldName: String, textField: Binding<String>) -> some View {
-        TextField(fieldName, text: textField)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-    }
+    @State private var selection: Int? = nil
 
     var body: some View {
         NavigationView {
             VStack {
                 LogoAuthenticationView(subTitle: AuthenticationViewText.SignInTitleText)
-                CreateTextFieldForSignInForm(fieldName: AuthenticationFieldName.Email, textField: $emailAddress)
-                CreateTextFieldForSignInForm(fieldName: AuthenticationFieldName.Password, textField: $password)
+                TextField(AuthenticationFieldName.Email, text: $emailAddress)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocapitalization(.none)
+                        .padding()
+                SecureField(AuthenticationFieldName.Password, text: $password)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocapitalization(.none)
+                        .padding()
                 HStack {
                     Spacer()
                     Button(action: {
-                        // TODO: Add sign in action
+                        // TODO: Validate form
+                        let service = HttpClientService()
+                        let model = ClientSignInModel(email: self.emailAddress, password: self.password)
+
+                        var flag = false
+                        let semaphore = DispatchSemaphore(value: 0)
+                        try! service.post(endpoint: Requests.SignIn, request: model, success: { (response: ClientProfileModel) in
+                            flag = true
+                            semaphore.signal()
+                        }, error: { (error: ErrorResult) in
+                            if let error = error.response {
+                                print("ERROR: \(error.message)")
+                            } else if let error = error.httpClientError {
+                                print("ERROR: \(error)")
+                            }
+                            semaphore.signal()
+                        })
+                        semaphore.wait()
+                        self.storage.isAuthenticated = flag
                     }) {
                         Text(AuthenticationViewText.SignInButtonText)
                                 .bold()
@@ -42,7 +61,7 @@ struct SignInView: View {
                 Spacer()
                 HStack {
                     Text(AuthenticationViewText.QuestionAboutAccountExist)
-                    NavigationLink(destination: SignUpView(), tag: 1, selection: $selection) {
+                    NavigationLink(destination: SignUpView(), tag: 1, selection: self.$selection) {
                         Button(action: {
                             self.selection = 1
                         }) {
@@ -51,7 +70,6 @@ struct SignInView: View {
                                     .bold()
                                     .foregroundColor(ApplicationColor.Primary.toRGB())
                         }
-
                     }
                 }.padding()
             }.padding()
