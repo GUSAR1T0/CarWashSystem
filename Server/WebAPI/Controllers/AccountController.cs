@@ -160,7 +160,9 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// <summary>
         /// Initializes external authentication
         /// </summary>
+        /// <param name="schema">Type of external authentication</param>
         /// <returns>Result of challenge</returns>
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
@@ -192,14 +194,15 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// <summary>
         /// Completes external authentication
         /// </summary>
-        /// <returns>Redirect result object</returns>
-        [ProducesResponseType(StatusCodes.Status301MovedPermanently)]
+        /// <param name="schema">Type of external authentication</param>
+        /// <returns>Nothing to return</returns>
+        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [Authorize]
         [HttpGet("client/sign-in/external/complete")]
-        public async Task<RedirectResult> CompleteExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
+        public async Task<ActionResult<ClientProfileModel>> CompleteExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
         {
-            await Exec(async operation =>
+            return await Exec(async operation =>
             {
                 var profile = await userAuthenticationService.TrySignIn(operation, new ExternalClientSignInEntity
                 {
@@ -209,8 +212,8 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                     Schema = schema
                 });
                 await LoginChallenge(profile, UserRole.Client);
+                return new ClientProfileModel().ToModel(profile);
             });
-            return Redirect("/");
         }
 
         /// <summary>
@@ -252,7 +255,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize]
-        [HttpPost("sign-out")]
+        [HttpDelete("sign-out")]
         public async Task<ActionResult> SignOut() => await Exec(async _ => await LogoutChallenge());
 
         #endregion
