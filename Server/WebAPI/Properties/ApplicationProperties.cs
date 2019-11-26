@@ -1,7 +1,7 @@
-namespace CarWashSystem.Server.WebAPI.Properties
+namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Properties
 {
     public class ApplicationProperties
     {
-        public string DatabaseConnectionString { get; set; }
+        public string? DatabaseConnectionString { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
@@ -5,6 +6,9 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>VXDesign.Store.CarWashSystem.Server.WebAPI</AssemblyName>
         <RootNamespace>VXDesign.Store.CarWashSystem.Server.WebAPI</RootNamespace>
+        <LangVersion>8.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>f8d7a2a0-2743-4663-8d24-577c9b3ca0a6</UserSecretsId>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -13,8 +17,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-      <PackageReference Include="NSwag.AspNetCore" Version="13.1.3" />
+        <PackageReference Include="AspNet.Security.OAuth.Vkontakte" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+        <PackageReference Include="NSwag.AspNetCore" Version="13.1.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,8 +28,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataStorage\DataStorage.csproj" />
-      <ProjectReference Include="..\Services\Services.csproj" />
+        <ProjectReference Include="..\DataStorage\DataStorage.csproj" />
+        <ProjectReference Include="..\Services\Services.csproj" />
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

@@ -1,5 +1,7 @@
 using System.IO;
-using CarWashSystem.Server.WebAPI.Properties;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +14,8 @@ using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces;
 using VXDesign.Store.CarWashSystem.Server.Services.Implementations;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Utils.Helpers;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI
 {
@@ -33,10 +37,45 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             });
 
             // Stores
-            services.AddScoped<IExampleStore, ExampleStore>();
+            services.AddScoped<IUserAuthenticationStore, UserAuthenticationStore>();
 
             // Services
-            services.AddScoped<IExampleService, ExampleService>();
+            services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddScoped<UserCookieAuthenticationEvents>();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.Cookie.Name = ".CarWashService.Cookies.Session";
+                options.EventsType = typeof(UserCookieAuthenticationEvents);
+            }).AddGoogle(options =>
+            {
+                options.ClientId = Configuration["Authentication:Google:ClientId"];
+                options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                options.ClaimActions.Clear();
+                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+            }).AddVkontakte(options =>
+            {
+                options.ClientId = Configuration["Authentication:VK:ClientId"];
+                options.ClientSecret = Configuration["Authentication:VK:ClientSecret"];
+                options.ClaimActions.Clear();
+                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "first_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
+            });
 
             services.AddControllersWithViews();
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -66,15 +105,21 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
             app.UseRouting();
+
+            if (!env.IsDevelopment())
+            {
+                app.UseHttpsRedirection();
+            }
+
+            app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

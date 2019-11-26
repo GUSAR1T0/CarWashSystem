@@ -21,10 +21,13 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// </summary>
         /// <returns>Error with message</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Route("Error")]
+        [Route("error")]
         public IActionResult Error()
         {
             return BadRequest("Error page");
         }
+
+        [HttpGet("value")]
+        public string Method() => "{\"value\": 5}";
     }
 }
