@@ -16,6 +16,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Database
         public static class Table
         {
             public const string User = "User";
+            public const string ExternalClient = "ExternalClient";
             public const string Client = "Client";
             public const string Company = "Company";
         }

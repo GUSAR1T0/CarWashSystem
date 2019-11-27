@@ -13,6 +13,11 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
                 Execute.EmbeddedScript("CreateAuthenticationSchema.sql");
             }
 
+            if (!authorizationSchema.Table(Common.Table.ExternalClient).Exists())
+            {
+                Execute.EmbeddedScript("CreateExternalClientTable.sql");
+            }
+
             if (!authorizationSchema.Table(Common.Table.Client).Exists())
             {
                 Execute.EmbeddedScript("CreateClientTable.sql");
@@ -42,6 +47,11 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
                 if (authorizationSchema.Table(Common.Table.Client).Exists())
                 {
                     Execute.EmbeddedScript("DropClientTable.sql");
+                }
+
+                if (authorizationSchema.Table(Common.Table.ExternalClient).Exists())
+                {
+                    Execute.EmbeddedScript("DropExternalClientTable.sql");
                 }
 
                 if (authorizationSchema.Table(Common.Table.Company).Exists())

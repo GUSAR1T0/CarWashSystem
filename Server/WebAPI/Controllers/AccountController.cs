@@ -158,65 +158,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         });
 
         /// <summary>
-        /// Initializes external authentication
-        /// </summary>
-        /// <param name="schema">Type of external authentication</param>
-        /// <returns>Result of challenge</returns>
-
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
-        [AllowAnonymous]
-        [HttpGet("client/sign-in/external/initialize")]
-        public IActionResult InitializeExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
-        {
-            try
-            {
-                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
-
-                string GetExternalAuthenticationScheme() => schema switch
-                {
-                    UserExternalAuthenticationSchema.Google => GoogleDefaults.AuthenticationScheme,
-                    UserExternalAuthenticationSchema.Vk => VkontakteAuthenticationDefaults.AuthenticationScheme,
-                    _ => throw new ArgumentOutOfRangeException(nameof(schema), schema, null)
-                };
-
-                return new ChallengeResult(GetExternalAuthenticationScheme(), new AuthenticationProperties
-                {
-                    RedirectUri = $"/api/account/client/sign-in/external/complete?schema={schema:D}"
-                });
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorResult(e));
-            }
-        }
-
-        /// <summary>
-        /// Completes external authentication
-        /// </summary>
-        /// <param name="schema">Type of external authentication</param>
-        /// <returns>Nothing to return</returns>
-        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
-        [Authorize]
-        [HttpGet("client/sign-in/external/complete")]
-        public async Task<ActionResult<ClientProfileModel>> CompleteExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
-        {
-            return await Exec(async operation =>
-            {
-                var profile = await userAuthenticationService.TrySignIn(operation, new ExternalClientSignInEntity
-                {
-                    ExternalId = User.Claims.Get(ClaimTypes.NameIdentifier),
-                    FirstName = User.Claims.Get(ClaimTypes.GivenName) ?? User.Claims.Get(ClaimTypes.Name) ?? "",
-                    LastName = User.Claims.Get(ClaimTypes.Surname) ?? "",
-                    Schema = schema
-                });
-                await LoginChallenge(profile, UserRole.Client);
-                return new ClientProfileModel().ToModel(profile);
-            });
-        }
-
-        /// <summary>
         /// Registers new user as client via cookies
         /// </summary>
         /// <param name="clientSignUpModel">Registration client model</param>
@@ -242,6 +183,83 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 throw;
             }
         });
+
+        /// <summary>
+        /// Initializes external authentication
+        /// </summary>
+        /// <param name="schema">Type of external authentication</param>
+        /// <returns>Result of challenge</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [AllowAnonymous]
+        [HttpGet("client/sign-in/external/initialize")]
+        public IActionResult InitializeExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
+
+                string GetExternalAuthenticationScheme() => schema switch
+                {
+                    UserExternalAuthenticationSchema.Google => GoogleDefaults.AuthenticationScheme,
+                    UserExternalAuthenticationSchema.Vk => VkontakteAuthenticationDefaults.AuthenticationScheme,
+                    _ => throw new ArgumentOutOfRangeException(nameof(schema), schema, null)
+                };
+
+                return new ChallengeResult(GetExternalAuthenticationScheme(), new AuthenticationProperties
+                {
+                    RedirectUri = $"/api/account/client/sign-in/external/verify?schema={schema:D}"
+                });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorResult(e));
+            }
+        }
+
+        /// <summary>
+        /// Verifies external authentication
+        /// </summary>
+        /// <param name="schema">Type of external authentication</param>
+        /// <returns>Redirect link</returns>
+        [ProducesResponseType(StatusCodes.Status302Found)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [Authorize]
+        [HttpGet("client/sign-in/external/verify")]
+        public async Task<RedirectResult> VerifyExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
+        {
+            var token = Guid.Empty;
+            await Exec(async operation =>
+            {
+                token = await userAuthenticationService.TryExternalSignIn(operation, new ExternalClientSignInEntity
+                {
+                    ExternalId = User.Claims.Get(ClaimTypes.NameIdentifier),
+                    FirstName = User.Claims.Get(ClaimTypes.GivenName) ?? User.Claims.Get(ClaimTypes.Name) ?? "",
+                    LastName = User.Claims.Get(ClaimTypes.Surname) ?? "",
+                    Schema = schema
+                });
+            });
+            return Redirect($"cws://sign-in?token={token}");
+        }
+
+        /// <summary>
+        /// Completes external authentication
+        /// </summary>
+        /// <param name="token">Token for external authentication</param>
+        /// <returns>Nothing to return</returns>
+        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [AllowAnonymous]
+        [HttpGet("client/sign-in/external/complete")]
+        public async Task<ActionResult<ClientProfileModel>> CompleteExternalSignIn([FromQuery] Guid token)
+        {
+            return await Exec(async operation =>
+            {
+                var profile = await userAuthenticationService.TryExternalSignIn(operation, token);
+                await LoginChallenge(profile, UserRole.Client);
+                return new ClientProfileModel().ToModel(profile);
+            });
+        }
 
         #endregion
 
