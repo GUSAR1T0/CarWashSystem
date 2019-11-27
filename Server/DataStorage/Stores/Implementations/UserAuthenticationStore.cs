@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
@@ -114,47 +115,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 SELECT TOP 1 au.[Id]
                 FROM [authentication].[User] au
                 INNER JOIN [authentication].[Client] ac ON ac.[Id] = au.[ClientId]
-                WHERE au.[Email] = @Email AND au.[Password] = @Password AND ac.[Schema] = 0 AND au.[IsActive] = 1;
-            ");
-        }
-
-        public async Task<int?> TrySignIn(IOperation operation, ExternalClientSignInEntity entity)
-        {
-            return await operation.QuerySingleOrDefaultAsync<int?>(entity, @"
-                DECLARE @ClientId TABLE ([Id] INT);
-                DECLARE @UserId TABLE ([Id] INT);
-
-                INSERT INTO @UserId ([Id])
-                SELECT au.[Id]
-                FROM [authentication].[User] au
-                INNER JOIN [authentication].[Client] ac ON ac.[Id] = au.[ClientId]
-                WHERE ac.[Schema] = @Schema AND ac.[ExternalId] = @ExternalId AND au.[IsActive] = 1;
-
-                IF NOT EXISTS (SELECT TOP 1 1 FROM @UserId)
-                BEGIN
-
-                    INSERT INTO [authentication].[Client] (
-                        [FirstName],
-                        [LastName],
-                        [Schema],
-                        [ExternalId]
-                    )
-                    OUTPUT INSERTED.[Id] INTO @ClientId
-                    VALUES (
-                        @FirstName,
-                        @LastName,
-                        @Schema,
-                        @ExternalId
-                    );
-
-                    INSERT INTO [authentication].[User] ([ClientId])
-                    OUTPUT INSERTED.[Id] INTO @UserId
-                    SELECT [Id]
-                    FROM @ClientId;
-
-                END;
-
-                SELECT [Id] FROM @UserId;
+                WHERE au.[Email] = @Email AND au.[Password] = @Password AND ac.[ExternalClientId] IS NULL AND au.[IsActive] = 1;
             ");
         }
 
@@ -185,6 +146,96 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     @Password,
                     [Id]
                 FROM @ClientId;
+
+                SELECT [Id] FROM @UserId;
+            ");
+        }
+
+        public async Task<Guid?> TryExternalSignIn(IOperation operation, ExternalClientSignInEntity entity)
+        {
+            return await operation.QuerySingleOrDefaultAsync<Guid?>(entity, @"
+                DECLARE @ClientId TABLE ([Id] INT);
+                DECLARE @UserId TABLE ([Id] INT, [IsActive] BIT);
+
+                INSERT INTO @UserId (
+                    [Id],
+                    [IsActive]
+                )
+                SELECT
+                    au.[Id],
+                    au.[IsActive]
+                FROM [authentication].[User] au
+                INNER JOIN [authentication].[Client] ac ON ac.[Id] = au.[ClientId]
+                INNER JOIN [authentication].[ExternalClient] aec ON aec.[Id] = ac.[ExternalClientId]
+                WHERE aec.[Schema] = @Schema AND aec.[ExternalId] = @ExternalId;
+
+                IF NOT EXISTS (SELECT TOP 1 1 FROM @UserId)
+                BEGIN
+
+                    DECLARE @ExternalClientId TABLE ([Id] INT);
+
+                    INSERT INTO [authentication].[ExternalClient] (
+                        [ExternalId],
+                        [Schema]
+                    )
+                    OUTPUT INSERTED.[Id] INTO @ExternalClientId
+                    VALUES (
+                        @ExternalId,
+                        @Schema
+                    );
+
+                    INSERT INTO [authentication].[Client] (
+                        [FirstName],
+                        [LastName],
+                        [ExternalClientId]
+                    )
+                    OUTPUT INSERTED.[Id] INTO @ClientId
+                    SELECT
+                        @FirstName,
+                        @LastName,
+                        i.[Id]
+                    FROM @ExternalClientId i;
+
+                    INSERT INTO [authentication].[User] ([ClientId])
+                    OUTPUT INSERTED.[Id], 1 INTO @UserId
+                    SELECT [Id]
+                    FROM @ClientId;
+
+                END;
+
+                DECLARE @ExternalClientAuthenticationToken TABLE ([AuthenticationToken] UNIQUEIDENTIFIER);
+
+                UPDATE aec
+                SET aec.[AuthenticationToken] = NEWID()
+                OUTPUT INSERTED.[AuthenticationToken] INTO @ExternalClientAuthenticationToken
+                FROM [authentication].[ExternalClient] aec
+                INNER JOIN [authentication].[Client] ac ON ac.[ExternalClientId] = aec.[Id]
+                INNER JOIN [authentication].[User] au ON ac.[Id] = au.[ClientId]
+                INNER JOIN @UserId ui ON ui.[Id] = au.[Id]
+                WHERE ui.[IsActive] = 1;
+
+                SELECT [AuthenticationToken] FROM @ExternalClientAuthenticationToken;
+            ");
+        }
+
+        public async Task<int?> TryExternalSignIn(IOperation operation, Guid token)
+        {
+            return await operation.QuerySingleOrDefaultAsync<int?>(new { Token = token }, @"
+                DECLARE @UserId TABLE ([Id] INT);
+
+                INSERT INTO @UserId ([Id])
+                SELECT au.[Id]
+                FROM [authentication].[User] au
+                INNER JOIN [authentication].[Client] ac ON ac.[Id] = au.[ClientId]
+                INNER JOIN [authentication].[ExternalClient] aec ON aec.[Id] = ac.[ExternalClientId]
+                WHERE aec.[AuthenticationToken] = @Token AND au.[IsActive] = 1;
+
+                UPDATE aec
+                SET aec.[AuthenticationToken] = NULL
+                FROM [authentication].[ExternalClient] aec
+                INNER JOIN [authentication].[Client] ac ON ac.[ExternalClientId] = aec.[Id]
+                INNER JOIN [authentication].[User] au ON ac.[Id] = au.[ClientId]
+                INNER JOIN @UserId ui ON ui.[Id] = au.[Id];
 
                 SELECT [Id] FROM @UserId;
             ");

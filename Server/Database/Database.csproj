@@ -18,10 +18,12 @@
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateAuthenticationSchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateClientTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateCompanyTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateExternalClientTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateUserTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropAuthenticationSchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropClientTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropCompanyTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropExternalClientTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropUserTable.sql" />
     </ItemGroup>
 

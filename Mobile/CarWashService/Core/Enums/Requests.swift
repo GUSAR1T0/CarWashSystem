@@ -11,5 +11,7 @@ class Requests {
     public static let SignOut = "/api/account/sign-out"
     public static let GetClientData = "/api/account/client"
     public static let InitializeExternalSignIn = "/api/account/client/sign-in/external/initialize"
+    public static let VerifyExternalSignIn = "/api/account/client/sign-in/external/verify"
     public static let CompleteExternalSignIn = "/api/account/client/sign-in/external/complete"
+    public static let RedirectExternalSignIn = "cws://sign-in"
 }

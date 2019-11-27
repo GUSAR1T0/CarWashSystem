@@ -13,6 +13,7 @@ struct SignInView: View {
     @State private var emailAddress = ""
     @State private var password = ""
     @State private var selection: Int? = nil
+    let accountController = AccountController()
 
     var body: some View {
         NavigationView {
@@ -30,24 +31,10 @@ struct SignInView: View {
                     Spacer()
                     Button(action: {
                         // TODO: Validate form
-                        let service = HttpClientService()
                         let model = ClientSignInModel(email: self.emailAddress, password: self.password)
-
-                        var flag = false
-                        let semaphore = DispatchSemaphore(value: 0)
-                        try! service.post(endpoint: Requests.SignIn, request: model, success: { (response: ClientProfileModel) in
-                            flag = true
-                            semaphore.signal()
-                        }, error: { (error: ErrorResult) in
-                            if let error = error.response {
-                                print("ERROR: \(error.message)")
-                            } else if let error = error.httpClientError {
-                                print("ERROR: \(error)")
-                            }
-                            semaphore.signal()
-                        })
-                        semaphore.wait()
-                        self.storage.isAuthenticated = flag
+                        let clientProfile = self.accountController.signIn(model)
+                        self.storage.isAuthenticated = clientProfile != nil
+                        self.storage.clientProfile = clientProfile
                     }) {
                         Text(AuthenticationViewText.SignInButtonText)
                                 .bold()

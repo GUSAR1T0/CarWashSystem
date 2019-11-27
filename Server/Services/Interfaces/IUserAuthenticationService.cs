@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
@@ -23,8 +24,9 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
         #region Client
 
         Task<ClientProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity);
-        Task<ClientProfileEntity?> TrySignIn(IOperation operation, ExternalClientSignInEntity entity);
         Task<ClientProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
+        Task<Guid> TryExternalSignIn(IOperation operation, ExternalClientSignInEntity entity);
+        Task<ClientProfileEntity?> TryExternalSignIn(IOperation operation, Guid token);
         Task<ClientProfileEntity?> GetClientProfile(IOperation operation, int id);
 
         #endregion

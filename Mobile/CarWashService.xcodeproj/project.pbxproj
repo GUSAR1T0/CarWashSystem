@@ -13,7 +13,6 @@
 		94C3761D17B1C3B4BE626BAC /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */; };
 		94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */; };
 		94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37BD336E52AA80AA1909E /* SignUpView.swift */; };
-		94C376AAB5042005E8D04C2E /* ExternalSignInWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37BAA7920344B78A6820D /* ExternalSignInWebView.swift */; };
 		94C376ED2A0B10A58282D055 /* AuthenticationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */; };
 		94C379351C26625661AF64B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37999D9BE8145F7D5048C /* ContentView.swift */; };
 		94C379E3588B77C726EC2498 /* ApplicationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C378FD8F0AEB53AA81F3C1 /* ApplicationEnums.swift */; };
@@ -21,8 +20,10 @@
 		94C379FDEFEF54FA167A5181 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37678D452CBEB21CA6262 /* EmptyResponse.swift */; };
 		94C37A35B8BD01687C1D9244 /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */; };
 		94C37A3C1D042EE77E5F1031 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37FB3BA835ACC70732D2E /* MainView.swift */; };
+		94C37C855EFAE64BE1CB6A61 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3776DB7C98327A0D9550E /* AccountController.swift */; };
 		94C37DA5B21E73B8F1CE529E /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37332524E6A41A59DF47E /* Requests.swift */; };
 		94C37E40AE36AD6B44AF7228 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C377C55A1D3C61B1942770 /* ErrorResponse.swift */; };
+		94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */; };
 		EEB56DA8236E1DE80062503F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA7236E1DE80062503F /* AppDelegate.swift */; };
 		EEB56DAA236E1DE80062503F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA9236E1DE80062503F /* SceneDelegate.swift */; };
 		EEB56DAD236E1DE80062503F /* CarWashService.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DAB236E1DE80062503F /* CarWashService.xcdatamodeld */; };
@@ -32,17 +33,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalSignInService.swift; sourceTree = "<group>"; };
 		94C37332524E6A41A59DF47E /* Requests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
 		94C374423A6F02DEC89E2DC1 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		94C374F0631BA324401190AB /* HttpClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientError.swift; sourceTree = "<group>"; };
 		94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		94C37678D452CBEB21CA6262 /* EmptyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
+		94C3776DB7C98327A0D9550E /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
 		94C377C55A1D3C61B1942770 /* ErrorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		94C378FD8F0AEB53AA81F3C1 /* ApplicationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationEnums.swift; sourceTree = "<group>"; };
 		94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoAuthenticationView.swift; sourceTree = "<group>"; };
 		94C37999D9BE8145F7D5048C /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		94C37BAA7920344B78A6820D /* ExternalSignInWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalSignInWebView.swift; sourceTree = "<group>"; };
 		94C37BD336E52AA80AA1909E /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		94C37C934C255042B4817FA8 /* ErrorResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResult.swift; sourceTree = "<group>"; };
 		94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
@@ -104,8 +106,17 @@
 			isa = PBXGroup;
 			children = (
 				94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */,
+				94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		94C3785A2AFF738655D288F6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				94C3776DB7C98327A0D9550E /* AccountController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		94C3796A2522290F05348C72 /* Entities */ = {
@@ -134,7 +145,6 @@
 				94C374423A6F02DEC89E2DC1 /* SignInView.swift */,
 				94C37BD336E52AA80AA1909E /* SignUpView.swift */,
 				94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */,
-				94C37BAA7920344B78A6820D /* ExternalSignInWebView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -167,6 +177,7 @@
 				EEB56DB2236E1DE90062503F /* Preview Content */,
 				94C374FBD1D87004805A9907 /* Views */,
 				94C3728052CCF85A84C53592 /* Core */,
+				94C3785A2AFF738655D288F6 /* Controllers */,
 			);
 			path = CarWashService;
 			sourceTree = "<group>";
@@ -268,7 +279,8 @@
 				94C37A3C1D042EE77E5F1031 /* MainView.swift in Sources */,
 				94C37DA5B21E73B8F1CE529E /* Requests.swift in Sources */,
 				94C3761D17B1C3B4BE626BAC /* ServerConfiguration.swift in Sources */,
-				94C376AAB5042005E8D04C2E /* ExternalSignInWebView.swift in Sources */,
+				94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */,
+				94C37C855EFAE64BE1CB6A61 /* AccountController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
