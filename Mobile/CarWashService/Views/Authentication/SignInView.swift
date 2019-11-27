@@ -32,7 +32,9 @@ struct SignInView: View {
                     Button(action: {
                         // TODO: Validate form
                         let model = ClientSignInModel(email: self.emailAddress, password: self.password)
-                        self.storage.isAuthenticated = self.accountController.signIn(model)
+                        let clientProfile = self.accountController.signIn(model)
+                        self.storage.isAuthenticated = clientProfile != nil
+                        self.storage.clientProfile = clientProfile
                     }) {
                         Text(AuthenticationViewText.SignInButtonText)
                                 .bold()

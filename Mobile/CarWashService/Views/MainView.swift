@@ -10,6 +10,11 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject private var storage: Storage
+    var fullName: String {
+        get {
+            (storage.clientProfile?.firstName ?? "") + " " + (storage.clientProfile?.lastName ?? "")
+        }
+    }
 
     var body: some View {
         VStack {
@@ -17,8 +22,9 @@ struct MainView: View {
                 let service = HttpClientService()
                 try! service.delete(endpoint: Requests.SignOut)
                 self.storage.isAuthenticated = false
+                self.storage.clientProfile = nil
             }) {
-                Text("Log out")
+                Text("Log out from account \"\(self.fullName)\"")
                         .bold()
                         .padding()
                         .background(ApplicationColor.Primary.toRGB())

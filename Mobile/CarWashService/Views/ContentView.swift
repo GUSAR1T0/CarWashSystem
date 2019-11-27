@@ -1,13 +1,15 @@
 import SwiftUI
 
 class Storage: ObservableObject {
-    @Published var isAuthenticated: Bool = false
+    @Published var isAuthenticated = false
+    @Published var clientProfile: ClientProfileModel? = nil
 
     init() {
         let service = HttpClientService()
         let semaphore = DispatchSemaphore(value: 0)
         try! service.get(endpoint: Requests.GetClientData, success: { (response: ClientProfileModel) in
             self.isAuthenticated = true
+            self.clientProfile = response
             semaphore.signal()
         }, error: { (error: ErrorResult) in
             if error.reasonCode != 401 {

@@ -46,7 +46,9 @@ struct SignUpView: View {
                         return
                     }
                     let model = ClientSignUpModel(email: self.emailAddress, password: self.password, firstName: self.firstName, lastName: self.lastName)
-                    self.storage.isAuthenticated = self.accountController.signUp(model)
+                    let clientProfile = self.accountController.signUp(model)
+                    self.storage.isAuthenticated = clientProfile != nil
+                    self.storage.clientProfile = clientProfile
                 }) {
                     Text(AuthenticationViewText.SignUpButtonText)
                             .bold()
@@ -63,7 +65,9 @@ struct SignUpView: View {
                 HStack {
                     Button(action: {
                         self.accountController.externalSignInThroughGoogle(UIApplication.shared.keyWindow, handler: { token in
-                            self.storage.isAuthenticated = self.accountController.externalSignIn(token)
+                            let clientProfile = self.accountController.externalSignIn(token)
+                            self.storage.isAuthenticated = clientProfile != nil
+                            self.storage.clientProfile = clientProfile
                         })
                     }) {
                         Text("Google")
@@ -77,7 +81,9 @@ struct SignUpView: View {
                     }
                     Button(action: {
                         self.accountController.externalSignInThroughVk(UIApplication.shared.keyWindow, handler: { token in
-                            self.storage.isAuthenticated = self.accountController.externalSignIn(token)
+                            let clientProfile = self.accountController.externalSignIn(token)
+                            self.storage.isAuthenticated = clientProfile != nil
+                            self.storage.clientProfile = clientProfile
                         })
                     }) {
                         Text("VK")

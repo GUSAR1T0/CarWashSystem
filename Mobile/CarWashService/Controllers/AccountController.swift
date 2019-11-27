@@ -10,11 +10,11 @@ class AccountController {
     let service = HttpClientService()
     let externalSignInService = ExternalSignInService()
 
-    func signIn(_ model: ClientSignInModel) -> Bool {
-        var flag = false
+    func signIn(_ model: ClientSignInModel) -> ClientProfileModel? {
+        var clientProfile: ClientProfileModel? = nil
         let semaphore = DispatchSemaphore(value: 0)
         try! service.post(endpoint: Requests.SignIn, request: model, success: { (response: ClientProfileModel) in
-            flag = true
+            clientProfile = response
             semaphore.signal()
         }, error: { (error: ErrorResult) in
             if let error = error.response {
@@ -25,14 +25,14 @@ class AccountController {
             semaphore.signal()
         })
         semaphore.wait()
-        return flag
+        return clientProfile
     }
 
-    func signUp(_ model: ClientSignUpModel) -> Bool {
-        var flag = false
+    func signUp(_ model: ClientSignUpModel) -> ClientProfileModel? {
+        var clientProfile: ClientProfileModel? = nil
         let semaphore = DispatchSemaphore(value: 0)
         try! service.post(endpoint: Requests.SignUp, request: model, success: { (response: ClientProfileModel) in
-            flag = true
+            clientProfile = response
             semaphore.signal()
         }, error: { error in
             if let error = error.response {
@@ -43,14 +43,14 @@ class AccountController {
             semaphore.signal()
         })
         semaphore.wait()
-        return flag
+        return clientProfile
     }
 
-    func externalSignIn(_ token: String) -> Bool {
-        var flag = false
+    func externalSignIn(_ token: String) -> ClientProfileModel? {
+        var clientProfile: ClientProfileModel? = nil
         let semaphore = DispatchSemaphore(value: 0)
         try! self.service.get(endpoint: "\(Requests.CompleteExternalSignIn)?token=\(token)", success: { (response: ClientProfileModel) in
-            flag = true
+            clientProfile = response
             semaphore.signal()
         }, error: { error in
             if let error = error.response {
@@ -61,7 +61,7 @@ class AccountController {
             semaphore.signal()
         })
         semaphore.wait()
-        return flag
+        return clientProfile
     }
 
     private func externalSignIn(_ window: UIWindow?, schema: Int, handler: @escaping (String) -> Void) {
