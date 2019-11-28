@@ -7,25 +7,32 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
     {
         public override void Up()
         {
+            PrepareAuthenticationSchema();
+            PrepareClientSchema();
+            PrepareCompanySchema();
+        }
+
+        private void PrepareAuthenticationSchema()
+        {
             var authorizationSchema = Schema.Schema(Common.Schema.Authentication);
             if (!authorizationSchema.Exists())
             {
                 Execute.EmbeddedScript("CreateAuthenticationSchema.sql");
             }
 
-            if (!authorizationSchema.Table(Common.Table.ExternalClient).Exists())
+            if (!authorizationSchema.Table(Common.Table.InternalUser).Exists())
             {
-                Execute.EmbeddedScript("CreateExternalClientTable.sql");
+                Execute.EmbeddedScript("CreateInternalUserTable.sql");
             }
 
-            if (!authorizationSchema.Table(Common.Table.Client).Exists())
+            if (!authorizationSchema.Table(Common.Table.ExternalUserAuthenticationSchemaEnum).Exists())
             {
-                Execute.EmbeddedScript("CreateClientTable.sql");
+                Execute.EmbeddedScript("CreateExternalUserAuthenticationSchemaEnumTable.sql");
             }
 
-            if (!authorizationSchema.Table(Common.Table.Company).Exists())
+            if (!authorizationSchema.Table(Common.Table.ExternalUser).Exists())
             {
-                Execute.EmbeddedScript("CreateCompanyTable.sql");
+                Execute.EmbeddedScript("CreateExternalUserTable.sql");
             }
 
             if (!authorizationSchema.Table(Common.Table.User).Exists())
@@ -34,7 +41,70 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
             }
         }
 
+        private void PrepareClientSchema()
+        {
+            var clientSchema = Schema.Schema(Common.Schema.Client);
+            if (!clientSchema.Exists())
+            {
+                Execute.EmbeddedScript("CreateClientSchema.sql");
+            }
+
+            if (!clientSchema.Table(Common.Table.Client).Exists())
+            {
+                Execute.EmbeddedScript("CreateClientTable.sql");
+            }
+        }
+
+        private void PrepareCompanySchema()
+        {
+            var companySchema = Schema.Schema(Common.Schema.Company);
+            if (!companySchema.Exists())
+            {
+                Execute.EmbeddedScript("CreateCompanySchema.sql");
+            }
+
+            if (!companySchema.Table(Common.Table.Company).Exists())
+            {
+                Execute.EmbeddedScript("CreateCompanyTable.sql");
+            }
+        }
+
         public override void Down()
+        {
+            DropClientSchema();
+            DropCompanySchema();
+            DropAuthenticationSchema();
+        }
+
+        private void DropClientSchema()
+        {
+            var clientSchema = Schema.Schema(Common.Schema.Client);
+            if (clientSchema.Exists())
+            {
+                if (clientSchema.Table(Common.Table.Client).Exists())
+                {
+                    Execute.EmbeddedScript("DropClientTable.sql");
+                }
+
+                Execute.EmbeddedScript("DropClientSchema.sql");
+            }
+        }
+
+        private void DropCompanySchema()
+        {
+            var companySchema = Schema.Schema(Common.Schema.Company);
+            if (companySchema.Exists())
+            {
+                if (companySchema.Table(Common.Table.Company).Exists())
+                {
+                    Execute.EmbeddedScript("DropCompanyTable.sql");
+                }
+
+                Execute.EmbeddedScript("DropCompanySchema.sql");
+            }
+        }
+
+        private void DropAuthenticationSchema()
         {
             var authorizationSchema = Schema.Schema(Common.Schema.Authentication);
             if (authorizationSchema.Exists())
@@ -44,19 +114,19 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
                     Execute.EmbeddedScript("DropUserTable.sql");
                 }
 
-                if (authorizationSchema.Table(Common.Table.Client).Exists())
+                if (authorizationSchema.Table(Common.Table.ExternalUser).Exists())
                 {
-                    Execute.EmbeddedScript("DropClientTable.sql");
+                    Execute.EmbeddedScript("DropExternalUserTable.sql");
                 }
 
-                if (authorizationSchema.Table(Common.Table.ExternalClient).Exists())
+                if (authorizationSchema.Table(Common.Table.ExternalUserAuthenticationSchemaEnum).Exists())
                 {
-                    Execute.EmbeddedScript("DropExternalClientTable.sql");
+                    Execute.EmbeddedScript("DropExternalUserAuthenticationSchemaEnumTable.sql");
                 }
 
-                if (authorizationSchema.Table(Common.Table.Company).Exists())
+                if (authorizationSchema.Table(Common.Table.InternalUser).Exists())
                 {
-                    Execute.EmbeddedScript("DropCompanyTable.sql");
+                    Execute.EmbeddedScript("DropInternalUserTable.sql");
                 }
 
                 Execute.EmbeddedScript("DropAuthenticationSchema.sql");

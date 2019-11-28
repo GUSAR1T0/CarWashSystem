@@ -16,14 +16,22 @@
 
     <ItemGroup>
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateAuthenticationSchema.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateClientSchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateClientTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateCompanySchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateCompanyTable.sql" />
-      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateExternalClientTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateExternalUserAuthenticationSchemaEnumTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateExternalUserTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateInternalUserTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateUserTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropAuthenticationSchema.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropClientSchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropClientTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropCompanySchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropCompanyTable.sql" />
-      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropExternalClientTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropExternalUserAuthenticationSchemaEnumTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropExternalUserTable.sql" />
+      <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropInternalUserTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\DropUserTable.sql" />
     </ItemGroup>
 

@@ -1,1 +1,1 @@
-DROP TABLE [authentication].[Company];
+DROP TABLE [company].[Company];

@@ -1,11 +1,9 @@
 CREATE TABLE [authentication].[User] (
-    [Id]          INT              IDENTITY (1, 1) NOT NULL,
-    [Email]       NVARCHAR (255)   NULL,
-    [Password]    NVARCHAR (255)   NULL,
-    [ClientId]    INT              NULL,
-    [CompanyId]   INT              NULL,
-    [IsActive]    BIT              DEFAULT ((1)) NOT NULL,
+    [Id]               INT   IDENTITY (1, 1) NOT NULL,
+    [InternalUserId]   INT   NULL,
+    [ExternalUserId]   INT   NULL,
+    [IsActivated]      BIT   DEFAULT ((1)) NOT NULL,
     CONSTRAINT [PK_User_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_User_Client] FOREIGN KEY ([ClientId]) REFERENCES [authentication].[Client] ([Id]) ON DELETE CASCADE,
-    CONSTRAINT [FK_User_Company] FOREIGN KEY ([CompanyId]) REFERENCES [authentication].[Company] ([Id]) ON DELETE CASCADE
+    CONSTRAINT [FK_User_InternalUser] FOREIGN KEY ([InternalUserId]) REFERENCES [authentication].[InternalUser] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_User_ExternalUser] FOREIGN KEY ([ExternalUserId]) REFERENCES [authentication].[ExternalUser] ([Id]) ON DELETE CASCADE
 );
