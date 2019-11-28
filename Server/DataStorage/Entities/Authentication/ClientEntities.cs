@@ -25,7 +25,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authenticatio
         public string? ExternalId { get; set; }
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
-        public UserExternalAuthenticationSchema? Schema { get; set; }
+        public ExternalUserAuthenticationSchema? Schema { get; set; }
     }
 
     public class ClientProfileEntity : IClientProfileEntity, IUserProfileEntity
