@@ -18,7 +18,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
         #region User
 
-        public async Task<bool> IsActive(IOperation operation, int id) => await userAuthenticationStore.IsActive(operation, id);
+        public async Task<bool> IsActive(IOperation operation, int id) => await userAuthenticationStore.IsUserActivated(operation, id);
 
         #endregion
 

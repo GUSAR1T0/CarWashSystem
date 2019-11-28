@@ -1,1 +1,1 @@
-DROP TABLE [authentication].[Client];
+DROP TABLE [client].[Client];

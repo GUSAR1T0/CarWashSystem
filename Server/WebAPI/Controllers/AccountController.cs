@@ -193,7 +193,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpGet("client/sign-in/external/initialize")]
-        public IActionResult InitializeExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
+        public IActionResult InitializeExternalSignIn([FromQuery] ExternalUserAuthenticationSchema schema)
         {
             try
             {
@@ -201,8 +201,8 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
 
                 string GetExternalAuthenticationScheme() => schema switch
                 {
-                    UserExternalAuthenticationSchema.Google => GoogleDefaults.AuthenticationScheme,
-                    UserExternalAuthenticationSchema.Vk => VkontakteAuthenticationDefaults.AuthenticationScheme,
+                    ExternalUserAuthenticationSchema.Google => GoogleDefaults.AuthenticationScheme,
+                    ExternalUserAuthenticationSchema.Vk => VkontakteAuthenticationDefaults.AuthenticationScheme,
                     _ => throw new ArgumentOutOfRangeException(nameof(schema), schema, null)
                 };
 
@@ -226,7 +226,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [Authorize]
         [HttpGet("client/sign-in/external/verify")]
-        public async Task<RedirectResult> VerifyExternalSignIn([FromQuery] UserExternalAuthenticationSchema schema)
+        public async Task<RedirectResult> VerifyExternalSignIn([FromQuery] ExternalUserAuthenticationSchema schema)
         {
             var token = Guid.Empty;
             await Exec(async operation =>

@@ -9,7 +9,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
     {
         #region User
 
-        Task<bool> IsActive(IOperation operation, int id);
+        Task<bool> IsUserActivated(IOperation operation, int id);
         Task<bool> IsUserExist(IOperation operation, string email);
 
         #endregion
