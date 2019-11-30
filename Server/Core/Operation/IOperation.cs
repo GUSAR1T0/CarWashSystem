@@ -4,7 +4,7 @@ using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 
-namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Operation
+namespace VXDesign.Store.CarWashSystem.Server.Core.Operation
 {
     public interface IOperation : IAsyncDisposable
     {
@@ -63,6 +63,5 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Operation
         Task<SqlMapper.GridReader> QueryMultipleAsync(DynamicParameters parameters, string command, CommandType? commandType = null, int? commandTimeout = null);
 
         #endregion
-
     }
 }

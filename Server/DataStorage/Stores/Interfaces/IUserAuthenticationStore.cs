@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using VXDesign.Store.CarWashSystem.Server.Core.Operation;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
-using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
 
 namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
 {
@@ -21,7 +21,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
         Task<int?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
 
         #endregion
-        
+
         #region Client
 
         Task<ClientAuthenticationProfileEntity?> GetClientProfileById(IOperation operation, int id);

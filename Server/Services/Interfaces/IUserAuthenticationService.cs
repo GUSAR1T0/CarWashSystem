@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using VXDesign.Store.CarWashSystem.Server.Core.Operation;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
-using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
 
 namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
 {
@@ -9,7 +9,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
     {
         #region User
 
-        Task<bool> IsActive(IOperation operation, int id);
+        Task<bool> IsActivated(IOperation operation, int id);
 
         #endregion
 

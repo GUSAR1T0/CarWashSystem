@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using VXDesign.Store.CarWashSystem.Server.Core.Operation;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
-using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces;
 
 namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
@@ -46,13 +46,10 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 Id = id
             }, @"
                 SELECT
-                    cc.[UserId],
-                    aiu.[Email],
-                    cc.[Name]
-                FROM [company].[Company] cc
-                INNER JOIN [authentication].[User] au ON cc.[UserId] = au.[Id]
-                INNER JOIN [authentication].[InternalUser] aiu ON au.[InternalUserId] = aiu.[Id]
-                WHERE cc.[UserId] = @Id;
+                    [UserId] AS [Id],
+                    [Name]
+                FROM [company].[Company]
+                WHERE [UserId] = @Id;
             ");
         }
 
@@ -119,7 +116,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 Id = id
             }, @"
                 SELECT
-                    [UserId],
+                    [UserId] AS [Id],
                     [FirstName],
                     [LastName]
                 FROM [client].[Client]

@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
-using VXDesign.Store.CarWashSystem.Server.WebAPI.Common;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Extensions;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
@@ -31,7 +31,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         #region Company
 
         /// <summary>
-        /// Obtains company profile
+        /// Obtains company authentication profile
         /// </summary>
         /// <returns>Company profile model if the process is successful</returns>
         [ProducesResponseType(typeof(CompanyAuthenticationProfileModel), StatusCodes.Status200OK)]
@@ -105,7 +105,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         #region Client
 
         /// <summary>
-        /// Obtains client profile
+        /// Obtains client authentication profile
         /// </summary>
         /// <returns>Client authentication profile model if the process is successful</returns>
         [ProducesResponseType(typeof(ClientAuthenticationProfileModel), StatusCodes.Status200OK)]
@@ -286,16 +286,5 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         }
 
         private async Task LogoutChallenge() => await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-        private int VerifyUser(string requiredUserRole)
-        {
-            var userRole = User.Claims.Get(AccountClaimName.UserRole);
-            if (userRole != requiredUserRole) throw new Exception(ExceptionMessage.RoleIsNotSuitable(requiredUserRole));
-
-            var possibleId = User.Claims.Get(AccountClaimName.UserId);
-            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
-
-            return id;
-        }
     }
 }

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 
-namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Operation
+namespace VXDesign.Store.CarWashSystem.Server.Core.Operation
 {
     public class Operation : IOperation
     {
