@@ -47,13 +47,13 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication
         };
     }
     
-    public class ClientProfileModel : IEntityToModelConvertible<ClientProfileEntity, ClientProfileModel>
+    public class ClientAuthenticationProfileModel : IEntityToModelConvertible<ClientAuthenticationProfileEntity, ClientAuthenticationProfileModel>
     {
         public int? Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
 
-        public ClientProfileModel ToModel(ClientProfileEntity? entity)
+        public ClientAuthenticationProfileModel ToModel(ClientAuthenticationProfileEntity? entity)
         {
             Id = entity?.Id;
             FirstName = entity?.FirstName;

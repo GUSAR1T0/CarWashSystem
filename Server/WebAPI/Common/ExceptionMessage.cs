@@ -3,7 +3,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Common
     public static class ExceptionMessage
     {
         public const string DatabaseConnectionIsMissed = "Database connection string is not set";
-        
+
         #region Authentication
 
         public const string UserHasAlreadyAuthenticated = "Authentication process failed: you have already authenticated";
@@ -13,6 +13,13 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Common
         public const string ClientSignUpFailedDueToInvalidModel = "Authentication process failed: you couldn't be signed up as client due to invalid model data";
         public const string FailedToIdentifyUserId = "Failed to identify user ID";
         public const string CouldNotGetAccountProfile = "Authentication process failed: couldn't get account profile";
+
+        public static string RoleIsNotSuitable(string userRole) => userRole switch
+        {
+            UserRole.Company => "Couldn't get company profile because you didn't authenticated as company representative",
+            UserRole.Client => "Couldn't get client profile because you didn't authenticated as client",
+            _ => "Couldn't get profile because you didn't authenticated"
+        };
 
         #endregion
     }

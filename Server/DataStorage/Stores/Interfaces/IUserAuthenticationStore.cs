@@ -16,7 +16,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
 
         #region Company
 
-        Task<CompanyProfileEntity?> GetCompanyProfileById(IOperation operation, int id);
+        Task<CompanyAuthenticationProfileEntity?> GetCompanyProfileById(IOperation operation, int id);
         Task<int?> TrySignIn(IOperation operation, CompanySignInEntity entity);
         Task<int?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
 
@@ -24,7 +24,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
         
         #region Client
 
-        Task<ClientProfileEntity?> GetClientProfileById(IOperation operation, int id);
+        Task<ClientAuthenticationProfileEntity?> GetClientProfileById(IOperation operation, int id);
         Task<int?> TrySignIn(IOperation operation, ClientSignInEntity entity);
         Task<int?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
         Task<Guid?> TryExternalSignIn(IOperation operation, ExternalClientSignInEntity entity);

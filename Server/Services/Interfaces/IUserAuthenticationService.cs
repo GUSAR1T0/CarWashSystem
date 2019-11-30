@@ -15,19 +15,19 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
 
         #region Company
 
-        Task<CompanyProfileEntity?> TrySignIn(IOperation operation, CompanySignInEntity entity);
-        Task<CompanyProfileEntity?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
-        Task<CompanyProfileEntity?> GetCompanyProfile(IOperation operation, int id);
+        Task<CompanyAuthenticationProfileEntity?> TrySignIn(IOperation operation, CompanySignInEntity entity);
+        Task<CompanyAuthenticationProfileEntity?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
+        Task<CompanyAuthenticationProfileEntity?> GetCompanyProfile(IOperation operation, int id);
 
         #endregion
 
         #region Client
 
-        Task<ClientProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity);
-        Task<ClientProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
+        Task<ClientAuthenticationProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity);
+        Task<ClientAuthenticationProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
         Task<Guid> TryExternalSignIn(IOperation operation, ExternalClientSignInEntity entity);
-        Task<ClientProfileEntity?> TryExternalSignIn(IOperation operation, Guid token);
-        Task<ClientProfileEntity?> GetClientProfile(IOperation operation, int id);
+        Task<ClientAuthenticationProfileEntity?> TryExternalSignIn(IOperation operation, Guid token);
+        Task<ClientAuthenticationProfileEntity?> GetClientProfile(IOperation operation, int id);
 
         #endregion
     }

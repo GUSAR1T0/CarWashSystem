@@ -42,13 +42,13 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication
         };
     }
 
-    public class CompanyProfileModel : IEntityToModelConvertible<CompanyProfileEntity, CompanyProfileModel>
+    public class CompanyAuthenticationProfileModel : IEntityToModelConvertible<CompanyAuthenticationProfileEntity, CompanyAuthenticationProfileModel>
     {
         public int? Id { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }
 
-        public CompanyProfileModel ToModel(CompanyProfileEntity? entity)
+        public CompanyAuthenticationProfileModel ToModel(CompanyAuthenticationProfileEntity? entity)
         {
             Id = entity?.Id;
             Email = entity?.Email;

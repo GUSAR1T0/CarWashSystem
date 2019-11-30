@@ -39,9 +39,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 
         #region Company
 
-        public async Task<CompanyProfileEntity?> GetCompanyProfileById(IOperation operation, int id)
+        public async Task<CompanyAuthenticationProfileEntity?> GetCompanyProfileById(IOperation operation, int id)
         {
-            return await operation.QuerySingleOrDefaultAsync<CompanyProfileEntity?>(new
+            return await operation.QuerySingleOrDefaultAsync<CompanyAuthenticationProfileEntity?>(new
             {
                 Id = id
             }, @"
@@ -112,9 +112,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 
         #region Client
 
-        public async Task<ClientProfileEntity?> GetClientProfileById(IOperation operation, int id)
+        public async Task<ClientAuthenticationProfileEntity?> GetClientProfileById(IOperation operation, int id)
         {
-            return await operation.QuerySingleOrDefaultAsync<ClientProfileEntity?>(new
+            return await operation.QuerySingleOrDefaultAsync<ClientAuthenticationProfileEntity?>(new
             {
                 Id = id
             }, @"

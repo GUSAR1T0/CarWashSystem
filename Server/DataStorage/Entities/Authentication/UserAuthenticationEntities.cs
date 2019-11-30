@@ -12,7 +12,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authenticatio
         string Password { get; set; }
     }
 
-    public interface IUserProfileEntity
+    public interface IUserAuthenticationProfileEntity
     {
         int Id { get; set; }
     }
