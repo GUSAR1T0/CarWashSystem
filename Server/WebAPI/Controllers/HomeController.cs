@@ -26,8 +26,5 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         {
             return BadRequest("Error page");
         }
-
-        [HttpGet("value")]
-        public string Method() => "{\"value\": 5}";
     }
 }

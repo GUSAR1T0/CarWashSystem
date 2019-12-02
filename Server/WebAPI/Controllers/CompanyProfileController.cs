@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using VXDesign.Store.CarWashSystem.Server.Core;
 using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile;
@@ -66,17 +65,17 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// <summary>
         /// Obtains company car washes
         /// </summary>
-        /// <returns>List of company car washes shortly</returns>
-        [ProducesResponseType(typeof(IEnumerable<CarWashShortModel>), StatusCodes.Status200OK)]
+        /// <returns>List of company car washes fully</returns>
+        [ProducesResponseType(typeof(IEnumerable<CarWashFullModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize]
         [HttpGet("car-wash/list")]
-        public async Task<ActionResult<IEnumerable<CarWashShortModel>>> GetCarWashList() => await Exec(async operation =>
+        public async Task<ActionResult<IEnumerable<CarWashFullModel>>> GetCarWashList() => await Exec(async operation =>
         {
             var id = VerifyUser(UserRole.Company);
-            var list = await companyProfileService.GetCarWashListByCompany(operation, id);
-            return list.Select(item => new CarWashShortModel().ToModel(item));
+            var list = await companyProfileService.GetCarWashListFullByCompany(operation, id);
+            return list.Select(item => new CarWashFullModel().ToModel(item));
         });
 
         /// <summary>

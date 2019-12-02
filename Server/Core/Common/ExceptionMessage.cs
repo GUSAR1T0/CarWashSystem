@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace VXDesign.Store.CarWashSystem.Server.Core.Common
 {
     public static class ExceptionMessage
@@ -34,6 +36,11 @@ namespace VXDesign.Store.CarWashSystem.Server.Core.Common
 
         public const string CarWashIsNotExist = "Such car wash is not exist";
 
+        public static string IncorrectWorkingHoursData(IEnumerable<string> invalidatedHours)
+        {
+            return $"Needs to correct working hours for the following days: {string.Join(", ", invalidatedHours)}";
+        }
+        
         #endregion
     }
 }

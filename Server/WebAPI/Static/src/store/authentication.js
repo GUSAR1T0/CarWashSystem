@@ -1,5 +1,5 @@
 import {
-    GET_COMPANY_PROFILE_ENDPOINT,
+    GET_COMPANY_AUTHENTICATION_PROFILE_ENDPOINT,
     SIGN_IN_ENDPOINT,
     SIGN_OUT_ENDPOINT,
     SIGN_UP_ENDPOINT
@@ -18,8 +18,9 @@ export default {
     state: {
         isAuthenticated: false,
         id: null,
-        email: null,
-        name: null
+        name: null,
+        yandexMapsApiKey: null,
+        dadataApiKey: null
     },
     getters: {
         isAuthenticated: state => {
@@ -27,27 +28,35 @@ export default {
         },
         getCompanyName: state => {
             return state.name;
+        },
+        getYandexMapsApiKey: state => {
+            return state.yandexMapsApiKey;
+        },
+        getDadataApiKey: state => {
+            return state.dadataApiKey;
         }
     },
     mutations: {
         [SIGN_IN_REQUEST]: (state, data) => {
             state.isAuthenticated = true;
             state.id = data.id;
-            state.email = data.email;
             state.name = data.name;
+            state.yandexMapsApiKey = data.yandexMapsApiKey;
+            state.dadataApiKey = data.dadataApiKey;
         },
         [SIGN_OUT_REQUEST]: state => {
             state.isAuthenticated = false;
             state.id = null;
-            state.email = null;
             state.name = null;
+            state.yandexMapsApiKey = null;
+            state.dadataApiKey = null;
         }
     },
     actions: {
         [ON_LOAD_REQUEST]: ({commit, dispatch}, redirectTo) => {
             return new Promise((resolve, reject) => {
                 dispatch(GET_HTTP_REQUEST, {
-                    endpoint: GET_COMPANY_PROFILE_ENDPOINT,
+                    endpoint: GET_COMPANY_AUTHENTICATION_PROFILE_ENDPOINT,
                     ignoreReloadPage: true
                 }).then(response => {
                     commit(SIGN_IN_REQUEST, response.data);

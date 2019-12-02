@@ -1,0 +1,20 @@
+CREATE TABLE [company].[CarWashWorkingHours] (
+    [Id]                   INT        IDENTITY (1, 1) NOT NULL,
+    [CarWashId]            INT        NOT NULL,
+    [MondayStartTime]      TIME (0)   NULL,
+    [MondayStopTime]       TIME (0)   NULL,
+    [TuesdayStartTime]     TIME (0)   NULL,
+    [TuesdayStopTime]      TIME (0)   NULL,
+    [WednesdayStartTime]   TIME (0)   NULL,
+    [WednesdayStopTime]    TIME (0)   NULL,
+    [ThursdayStartTime]    TIME (0)   NULL,
+    [ThursdayStopTime]     TIME (0)   NULL,
+    [FridayStartTime]      TIME (0)   NULL,
+    [FridayStopTime]       TIME (0)   NULL,
+    [SaturdayStartTime]    TIME (0)   NULL,
+    [SaturdayStopTime]     TIME (0)   NULL,
+    [SundayStartTime]      TIME (0)   NULL,
+    [SundayStopTime]       TIME (0)   NULL,
+    CONSTRAINT [PK_CarWashWorkingHours_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_CarWashWorkingHours_CarWash] FOREIGN KEY ([CarWashId]) REFERENCES [company].[CarWash] ([Id]) ON DELETE CASCADE
+);

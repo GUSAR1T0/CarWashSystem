@@ -1,4 +1,4 @@
-export default class SignUpValidations {
+export class SignUpValidations {
     constructor(ruleForm) {
         this.ruleForm = ruleForm;
     }

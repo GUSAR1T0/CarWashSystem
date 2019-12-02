@@ -16,7 +16,9 @@
 
     <ItemGroup>
       <EmbeddedResource Include="Scripts\CarWashManagement\AlterCompanyTableDropColumn.sql" />
+      <EmbeddedResource Include="Scripts\CarWashManagement\CreateCarWashWorkingHoursTable.sql" />
       <EmbeddedResource Include="Scripts\CarWashManagement\DropCarWashTable.sql" />
+      <EmbeddedResource Include="Scripts\CarWashManagement\DropCarWashWorkingHoursTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateAuthenticationSchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateClientSchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateClientTable.sql" />

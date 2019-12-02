@@ -22,16 +22,17 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public async Task<bool> IsUserExist(IOperation operation, string email)
+        public async Task<bool> IsUserExist(IOperation operation, string email, int? id = null)
         {
             return await operation.QuerySingleOrDefaultAsync<bool>(new
             {
-                Email = email
-            }, @"
+                Email = email,
+                Id = id
+            }, $@"
                 SELECT TOP 1 1
                 FROM [authentication].[User] au
                 INNER JOIN [authentication].[InternalUser] aiu ON au.[InternalUserId] = aiu.[Id]
-                WHERE aiu.[Email] = @Email;
+                WHERE aiu.[Email] = @Email{(id.HasValue ? " AND au.[Id] <> @Id" : "")};
             ");
         }
 

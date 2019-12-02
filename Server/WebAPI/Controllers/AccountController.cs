@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
@@ -21,10 +22,12 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
     [Route("api/[controller]")]
     public class AccountController : BaseApiController
     {
+        private readonly IConfiguration configuration;
         private readonly IUserAuthenticationService userAuthenticationService;
 
-        public AccountController(ApplicationProperties properties, IUserAuthenticationService userAuthenticationService) : base(properties)
+        public AccountController(ApplicationProperties properties, IConfiguration configuration, IUserAuthenticationService userAuthenticationService) : base(properties)
         {
+            this.configuration = configuration;
             this.userAuthenticationService = userAuthenticationService;
         }
 
@@ -43,7 +46,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         {
             var id = VerifyUser(UserRole.Company);
             var profile = await userAuthenticationService.GetCompanyProfile(operation, id);
-            return new CompanyAuthenticationProfileModel().ToModel(profile);
+            return new CompanyAuthenticationProfileModel
+            {
+                YandexMapsApiKey = configuration["Plugins:YandexMaps:ApiKey"],
+                DadataApiKey = configuration["Plugins:DaData:ApiKey"]
+            }.ToModel(profile);
         });
 
         /// <summary>
@@ -64,7 +71,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 if (!ModelState.IsValid) throw new Exception(ExceptionMessage.CompanySignInFailedDueToInvalidModel);
                 var profile = await userAuthenticationService.TrySignIn(operation, companySignInModel.ToEntity());
                 await LoginChallenge(profile, UserRole.Company);
-                return new CompanyAuthenticationProfileModel().ToModel(profile);
+                return new CompanyAuthenticationProfileModel
+                {
+                    YandexMapsApiKey = configuration["Plugins:YandexMaps:ApiKey"],
+                    DadataApiKey = configuration["Plugins:DaData:ApiKey"]
+                }.ToModel(profile);
             }
             catch
             {
@@ -91,7 +102,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 if (!ModelState.IsValid) throw new Exception(ExceptionMessage.CompanySignUpFailedDueToInvalidModel);
                 var profile = await userAuthenticationService.TrySignUp(operation, companySignUpModel.ToEntity());
                 await LoginChallenge(profile, UserRole.Company);
-                return new CompanyAuthenticationProfileModel().ToModel(profile);
+                return new CompanyAuthenticationProfileModel
+                {
+                    YandexMapsApiKey = configuration["Plugins:YandexMaps:ApiKey"],
+                    DadataApiKey = configuration["Plugins:DaData:ApiKey"]
+                }.ToModel(profile);
             }
             catch
             {

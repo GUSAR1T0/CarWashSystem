@@ -46,6 +46,8 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication
     {
         public int? Id { get; set; }
         public string? Name { get; set; }
+        public string? YandexMapsApiKey { get; set; }
+        public string? DadataApiKey { get; set; }
 
         public CompanyAuthenticationProfileModel ToModel(CompanyAuthenticationProfileEntity? entity)
         {

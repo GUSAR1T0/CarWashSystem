@@ -16,7 +16,8 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
 
         #region Car Wash
 
-        Task<IEnumerable<CarWashShortEntity>> GetCarWashListByCompany(IOperation operation, int companyId);
+        Task<IEnumerable<CarWashShortEntity>> GetCarWashListShortByCompany(IOperation operation, int companyId);
+        Task<IEnumerable<CarWashFullEntity>> GetCarWashListFullByCompany(IOperation operation, int companyId);
         Task<CarWashFullEntity> GetCarWashById(IOperation operation, int id);
         Task<CarWashShortEntity> AddCarWash(IOperation operation, int companyId, CarWashFullEntity entity);
         Task<CarWashShortEntity> UpdateCarWash(IOperation operation, CarWashFullEntity entity);
