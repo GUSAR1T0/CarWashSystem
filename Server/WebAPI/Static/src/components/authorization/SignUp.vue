@@ -51,7 +51,7 @@
 </style>
 
 <script>
-    import SignUpValidations from "@/extensions/validations";
+    import { SignUpValidations } from "@/extensions/validations";
     import { SIGN_UP_REQUEST } from "@/constants/actions";
     import { mapGetters } from "vuex";
     import { renderErrorNotificationMessage } from "@/extensions/utils";

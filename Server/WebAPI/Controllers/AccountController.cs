@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
-using VXDesign.Store.CarWashSystem.Server.WebAPI.Common;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Extensions;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
@@ -21,46 +22,47 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
     [Route("api/[controller]")]
     public class AccountController : BaseApiController
     {
+        private readonly IConfiguration configuration;
         private readonly IUserAuthenticationService userAuthenticationService;
 
-        public AccountController(ApplicationProperties properties, IUserAuthenticationService userAuthenticationService) : base(properties)
+        public AccountController(ApplicationProperties properties, IConfiguration configuration, IUserAuthenticationService userAuthenticationService) : base(properties)
         {
+            this.configuration = configuration;
             this.userAuthenticationService = userAuthenticationService;
         }
 
         #region Company
 
         /// <summary>
-        /// Obtains company profile
+        /// Obtains company authentication profile
         /// </summary>
         /// <returns>Company profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(CompanyProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CompanyAuthenticationProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize]
         [HttpGet("company")]
-        public async Task<ActionResult<CompanyProfileModel>> GetCompanyProfile() => await Exec(async operation =>
+        public async Task<ActionResult<CompanyAuthenticationProfileModel>> GetCompanyProfile() => await Exec(async operation =>
         {
-            var possibleId = User.Claims.Get(AccountClaimName.UserId);
-            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
-
-            var userRole = User.Claims.Get(AccountClaimName.UserRole);
-            if (userRole != UserRole.Company) throw new Exception("Couldn't get company profile because you didn't authenticated as company representative");
-
+            var id = VerifyUser(UserRole.Company);
             var profile = await userAuthenticationService.GetCompanyProfile(operation, id);
-            return new CompanyProfileModel().ToModel(profile);
+            return new CompanyAuthenticationProfileModel
+            {
+                YandexMapsApiKey = configuration["Plugins:YandexMaps:ApiKey"],
+                DadataApiKey = configuration["Plugins:DaData:ApiKey"]
+            }.ToModel(profile);
         });
 
         /// <summary>
         /// Authenticates some user as company representative via cookies
         /// </summary>
         /// <param name="companySignInModel">Authorization company model</param>
-        /// <returns>Company profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(CompanyProfileModel), StatusCodes.Status200OK)]
+        /// <returns>Company authentication profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(CompanyAuthenticationProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost("company/sign-in")]
-        public async Task<ActionResult<CompanyProfileModel>> SignIn([FromBody] CompanySignInModel companySignInModel) => await Exec(async operation =>
+        public async Task<ActionResult<CompanyAuthenticationProfileModel>> SignIn([FromBody] CompanySignInModel companySignInModel) => await Exec(async operation =>
         {
             if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
 
@@ -69,7 +71,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 if (!ModelState.IsValid) throw new Exception(ExceptionMessage.CompanySignInFailedDueToInvalidModel);
                 var profile = await userAuthenticationService.TrySignIn(operation, companySignInModel.ToEntity());
                 await LoginChallenge(profile, UserRole.Company);
-                return new CompanyProfileModel().ToModel(profile);
+                return new CompanyAuthenticationProfileModel
+                {
+                    YandexMapsApiKey = configuration["Plugins:YandexMaps:ApiKey"],
+                    DadataApiKey = configuration["Plugins:DaData:ApiKey"]
+                }.ToModel(profile);
             }
             catch
             {
@@ -82,12 +88,12 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// Registers new user as company representative via cookies
         /// </summary>
         /// <param name="companySignUpModel">Registration company model</param>
-        /// <returns>Company profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(CompanyProfileModel), StatusCodes.Status200OK)]
+        /// <returns>Company authentication profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(CompanyAuthenticationProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost("company/sign-up")]
-        public async Task<ActionResult<CompanyProfileModel>> SignUp([FromBody] CompanySignUpModel companySignUpModel) => await Exec(async operation =>
+        public async Task<ActionResult<CompanyAuthenticationProfileModel>> SignUp([FromBody] CompanySignUpModel companySignUpModel) => await Exec(async operation =>
         {
             if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
 
@@ -96,7 +102,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 if (!ModelState.IsValid) throw new Exception(ExceptionMessage.CompanySignUpFailedDueToInvalidModel);
                 var profile = await userAuthenticationService.TrySignUp(operation, companySignUpModel.ToEntity());
                 await LoginChallenge(profile, UserRole.Company);
-                return new CompanyProfileModel().ToModel(profile);
+                return new CompanyAuthenticationProfileModel
+                {
+                    YandexMapsApiKey = configuration["Plugins:YandexMaps:ApiKey"],
+                    DadataApiKey = configuration["Plugins:DaData:ApiKey"]
+                }.ToModel(profile);
             }
             catch
             {
@@ -110,36 +120,31 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         #region Client
 
         /// <summary>
-        /// Obtains client profile
+        /// Obtains client authentication profile
         /// </summary>
-        /// <returns>Client profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        /// <returns>Client authentication profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(ClientAuthenticationProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize]
         [HttpGet("client")]
-        public async Task<ActionResult<ClientProfileModel>> GetClientProfile() => await Exec(async operation =>
+        public async Task<ActionResult<ClientAuthenticationProfileModel>> GetClientProfile() => await Exec(async operation =>
         {
-            var possibleId = User.Claims.Get(AccountClaimName.UserId);
-            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
-
-            var userRole = User.Claims.Get(AccountClaimName.UserRole);
-            if (userRole != UserRole.Client) throw new Exception("Couldn't get client profile because you didn't authenticated as client");
-
+            var id = VerifyUser(UserRole.Client);
             var profile = await userAuthenticationService.GetClientProfile(operation, id);
-            return new ClientProfileModel().ToModel(profile);
+            return new ClientAuthenticationProfileModel().ToModel(profile);
         });
 
         /// <summary>
         /// Authenticates some user as client via cookies
         /// </summary>
         /// <param name="clientSignInModel">Authorization client model</param>
-        /// <returns>Client profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        /// <returns>Client authentication profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(ClientAuthenticationProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost("client/sign-in")]
-        public async Task<ActionResult<ClientProfileModel>> SignIn([FromBody] ClientSignInModel clientSignInModel) => await Exec(async operation =>
+        public async Task<ActionResult<ClientAuthenticationProfileModel>> SignIn([FromBody] ClientSignInModel clientSignInModel) => await Exec(async operation =>
         {
             if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
 
@@ -148,7 +153,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ClientSignInFailedDueToInvalidModel);
                 var profile = await userAuthenticationService.TrySignIn(operation, clientSignInModel.ToEntity());
                 await LoginChallenge(profile, UserRole.Client);
-                return new ClientProfileModel().ToModel(profile);
+                return new ClientAuthenticationProfileModel().ToModel(profile);
             }
             catch
             {
@@ -161,12 +166,12 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// Registers new user as client via cookies
         /// </summary>
         /// <param name="clientSignUpModel">Registration client model</param>
-        /// <returns>Client profile model if the process is successful</returns>
-        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        /// <returns>Client authentication profile model if the process is successful</returns>
+        [ProducesResponseType(typeof(ClientAuthenticationProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpPost("client/sign-up")]
-        public async Task<ActionResult<ClientProfileModel>> SignUp([FromBody] ClientSignUpModel clientSignUpModel) => await Exec(async operation =>
+        public async Task<ActionResult<ClientAuthenticationProfileModel>> SignUp([FromBody] ClientSignUpModel clientSignUpModel) => await Exec(async operation =>
         {
             if (User.Identity.IsAuthenticated) throw new Exception(ExceptionMessage.UserHasAlreadyAuthenticated);
 
@@ -175,7 +180,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                 if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ClientSignUpFailedDueToInvalidModel);
                 var profile = await userAuthenticationService.TrySignUp(operation, clientSignUpModel.ToEntity());
                 await LoginChallenge(profile, UserRole.Client);
-                return new ClientProfileModel().ToModel(profile);
+                return new ClientAuthenticationProfileModel().ToModel(profile);
             }
             catch
             {
@@ -247,17 +252,17 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// </summary>
         /// <param name="token">Token for external authentication</param>
         /// <returns>Nothing to return</returns>
-        [ProducesResponseType(typeof(ClientProfileModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ClientAuthenticationProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
         [HttpGet("client/sign-in/external/complete")]
-        public async Task<ActionResult<ClientProfileModel>> CompleteExternalSignIn([FromQuery] Guid token)
+        public async Task<ActionResult<ClientAuthenticationProfileModel>> CompleteExternalSignIn([FromQuery] Guid token)
         {
             return await Exec(async operation =>
             {
                 var profile = await userAuthenticationService.TryExternalSignIn(operation, token);
                 await LoginChallenge(profile, UserRole.Client);
-                return new ClientProfileModel().ToModel(profile);
+                return new ClientAuthenticationProfileModel().ToModel(profile);
             });
         }
 
@@ -278,7 +283,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
 
         #endregion
 
-        private async Task LoginChallenge(IUserProfileEntity? profile, string userRole)
+        private async Task LoginChallenge(IUserAuthenticationProfileEntity? profile, string userRole)
         {
             if (profile != null)
             {

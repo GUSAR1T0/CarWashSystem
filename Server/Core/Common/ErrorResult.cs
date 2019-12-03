@@ -1,6 +1,6 @@
 using System;
 
-namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Common
+namespace VXDesign.Store.CarWashSystem.Server.Core.Common
 {
     public class ErrorResult
     {

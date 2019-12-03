@@ -22,6 +22,26 @@ const routes = [
         path: "/auth",
         name: "authentication",
         component: () => import(/* webpackChunkName: "auth" */ "../views/Authentication.vue")
+    },
+    {
+        path: "/profile",
+        name: "companyProfile",
+        component: () => import(/* webpackChunkName: "profile" */ "../views/company-profile/CompanyProfile.vue")
+    },
+    {
+        path: "/profile/edit",
+        name: "companyProfileEdit",
+        component: () => import(/* webpackChunkName: "company-profile-edit" */ "../views/company-profile/CompanyProfileEdit.vue")
+    },
+    {
+        path: "/profile/car-wash",
+        name: "carWashList",
+        component: () => import(/* webpackChunkName: "car-wash-list" */ "../views/company-profile/CarWashList.vue")
+    },
+    {
+        path: "/profile/car-wash/:id",
+        name: "carWashEdit",
+        component: () => import(/* webpackChunkName: "car-wash-edit" */ "../views/company-profile/CarWashEdit.vue")
     }
 ];
 

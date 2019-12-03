@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.first-line {
+    margin-bottom: 35px;
+}
+
+.contacts-button {
+    width: 100%;
+    text-align: center;
+}

@@ -32,18 +32,27 @@
                         <strong>Account</strong>
                     </span>
                     <el-divider/>
-                    <el-menu-item index="">
+                    <el-menu-item index="/profile">
                         <span slot="title" class="el-nav-menu-horizontal-item">
                             Company Profile
                         </span>
                     </el-menu-item>
-                    <el-menu-item index="" @click="logoutAction">
+                    <el-menu-item index="/profile/car-wash">
+                        <span slot="title" class="el-nav-menu-horizontal-item">
+                            Car Wash List
+                        </span>
+                    </el-menu-item>
+                    <el-menu-item index="" @click="logoutDialogStatus.visible = true">
                         <span slot="title" class="el-nav-menu-horizontal-item">Sign Out</span>
                     </el-menu-item>
                 </el-menu-item-group>
             </el-submenu>
             <!-- E: Account -->
         </el-menu>
+        <ConfirmationDialog :dialog-status="logoutDialogStatus"
+                            :confirmation-text="() => 'Are you sure that you want to sign out?'"
+                            :cancel-click-action="() => logoutDialogStatus.visible = false"
+                            :submit-click-action="logoutAction"/>
     </div>
 </template>
 
@@ -85,15 +94,26 @@
 <script>
     import { SIGN_OUT_REQUEST } from "@/constants/actions";
     import Title from "@/components/navigation-bar/Title";
+    import ConfirmationDialog from "@/components/core/ConfirmationDialog";
 
     export default {
         name: "ApplicationNavigationBar",
         components: {
-            Title
+            Title,
+            ConfirmationDialog
+        },
+        data() {
+            return {
+                logoutDialogStatus: {
+                    visible: false
+                }
+            };
         },
         methods: {
-            logoutAction() {
+            logoutAction(button) {
+                button.loading = true;
                 this.$store.dispatch(SIGN_OUT_REQUEST).then(() => {
+                    button.loading = false;
                     this.$router.push("/auth").catch(() => {
                     });
                     this.$notify.success({
@@ -101,7 +121,12 @@
                         message: "You are signed out"
                     });
                 }).catch(() => {
+                    button.loading = false;
                     this.$router.push("/auth").catch(() => {
+                    });
+                    this.$notify.error({
+                        title: "Unsuccessful log out",
+                        message: "Operation is failed"
                     });
                 });
             }

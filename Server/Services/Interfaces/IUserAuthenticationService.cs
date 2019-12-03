@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using VXDesign.Store.CarWashSystem.Server.Core.Operation;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
-using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
 
 namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
 {
@@ -9,25 +9,25 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
     {
         #region User
 
-        Task<bool> IsActive(IOperation operation, int id);
+        Task<bool> IsActivated(IOperation operation, int id);
 
         #endregion
 
         #region Company
 
-        Task<CompanyProfileEntity?> TrySignIn(IOperation operation, CompanySignInEntity entity);
-        Task<CompanyProfileEntity?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
-        Task<CompanyProfileEntity?> GetCompanyProfile(IOperation operation, int id);
+        Task<CompanyAuthenticationProfileEntity?> TrySignIn(IOperation operation, CompanySignInEntity entity);
+        Task<CompanyAuthenticationProfileEntity?> TrySignUp(IOperation operation, CompanySignUpEntity entity);
+        Task<CompanyAuthenticationProfileEntity?> GetCompanyProfile(IOperation operation, int id);
 
         #endregion
 
         #region Client
 
-        Task<ClientProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity);
-        Task<ClientProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
+        Task<ClientAuthenticationProfileEntity?> TrySignIn(IOperation operation, ClientSignInEntity entity);
+        Task<ClientAuthenticationProfileEntity?> TrySignUp(IOperation operation, ClientSignUpEntity entity);
         Task<Guid> TryExternalSignIn(IOperation operation, ExternalClientSignInEntity entity);
-        Task<ClientProfileEntity?> TryExternalSignIn(IOperation operation, Guid token);
-        Task<ClientProfileEntity?> GetClientProfile(IOperation operation, int id);
+        Task<ClientAuthenticationProfileEntity?> TryExternalSignIn(IOperation operation, Guid token);
+        Task<ClientAuthenticationProfileEntity?> GetClientProfile(IOperation operation, int id);
 
         #endregion
     }

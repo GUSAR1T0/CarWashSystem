@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using VXDesign.Store.CarWashSystem.Server.Core.Operation;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
-using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces;
 
 namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
@@ -22,16 +22,17 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public async Task<bool> IsUserExist(IOperation operation, string email)
+        public async Task<bool> IsUserExist(IOperation operation, string email, int? id = null)
         {
             return await operation.QuerySingleOrDefaultAsync<bool>(new
             {
-                Email = email
-            }, @"
+                Email = email,
+                Id = id
+            }, $@"
                 SELECT TOP 1 1
                 FROM [authentication].[User] au
                 INNER JOIN [authentication].[InternalUser] aiu ON au.[InternalUserId] = aiu.[Id]
-                WHERE aiu.[Email] = @Email;
+                WHERE aiu.[Email] = @Email{(id.HasValue ? " AND au.[Id] <> @Id" : "")};
             ");
         }
 
@@ -39,20 +40,17 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 
         #region Company
 
-        public async Task<CompanyProfileEntity?> GetCompanyProfileById(IOperation operation, int id)
+        public async Task<CompanyAuthenticationProfileEntity?> GetCompanyProfileById(IOperation operation, int id)
         {
-            return await operation.QuerySingleOrDefaultAsync<CompanyProfileEntity?>(new
+            return await operation.QuerySingleOrDefaultAsync<CompanyAuthenticationProfileEntity?>(new
             {
                 Id = id
             }, @"
                 SELECT
-                    cc.[UserId],
-                    aiu.[Email],
-                    cc.[Name]
-                FROM [company].[Company] cc
-                INNER JOIN [authentication].[User] au ON cc.[UserId] = au.[Id]
-                INNER JOIN [authentication].[InternalUser] aiu ON au.[InternalUserId] = aiu.[Id]
-                WHERE cc.[UserId] = @Id;
+                    [UserId] AS [Id],
+                    [Name]
+                FROM [company].[Company]
+                WHERE [UserId] = @Id;
             ");
         }
 
@@ -112,14 +110,14 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 
         #region Client
 
-        public async Task<ClientProfileEntity?> GetClientProfileById(IOperation operation, int id)
+        public async Task<ClientAuthenticationProfileEntity?> GetClientProfileById(IOperation operation, int id)
         {
-            return await operation.QuerySingleOrDefaultAsync<ClientProfileEntity?>(new
+            return await operation.QuerySingleOrDefaultAsync<ClientAuthenticationProfileEntity?>(new
             {
                 Id = id
             }, @"
                 SELECT
-                    [UserId],
+                    [UserId] AS [Id],
                     [FirstName],
                     [LastName]
                 FROM [client].[Client]

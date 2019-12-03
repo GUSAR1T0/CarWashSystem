@@ -13,46 +13,7 @@
     </div>
 </template>
 
-<style>
-    * {
-        font-family: -apple-system, system-ui, 'Avenir', Helvetica, Arial, sans-serif;
-    }
-
-    html, body {
-        height: 100%;
-    }
-
-    body {
-        margin: 0;
-    }
-
-    #app {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-    }
-
-    .app-footer {
-        margin: 20px 0;
-        font-size: 14px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .main-loading-spinner-custom > div > .el-icon-loading {
-        font-size: 48px;
-    }
-
-    .main-loading-spinner-custom > div > .el-loading-text {
-        font-size: 24px;
-    }
+<style src="@/styles/application.css">
 </style>
 
 <script>

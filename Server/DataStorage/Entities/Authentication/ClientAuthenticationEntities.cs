@@ -1,6 +1,6 @@
 namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication
 {
-    public interface IClientProfileEntity
+    public interface IClientAuthenticationProfileEntity
     {
         string FirstName { get; set; }
         string LastName { get; set; }
@@ -12,7 +12,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authenticatio
         public string Password { get; set; } = "";
     }
 
-    public class ClientSignUpEntity : IClientProfileEntity, IUserSignUpEntity
+    public class ClientSignUpEntity : IClientAuthenticationProfileEntity, IUserSignUpEntity
     {
         public string Email { get; set; } = "";
         public string Password { get; set; } = "";
@@ -20,7 +20,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authenticatio
         public string LastName { get; set; } = "";
     }
 
-    public class ExternalClientSignInEntity : IClientProfileEntity
+    public class ExternalClientSignInEntity : IClientAuthenticationProfileEntity
     {
         public string? ExternalId { get; set; }
         public string FirstName { get; set; } = "";
@@ -28,7 +28,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authenticatio
         public ExternalUserAuthenticationSchema? Schema { get; set; }
     }
 
-    public class ClientProfileEntity : IClientProfileEntity, IUserProfileEntity
+    public class ClientAuthenticationProfileEntity : IClientAuthenticationProfileEntity, IUserAuthenticationProfileEntity
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = "";

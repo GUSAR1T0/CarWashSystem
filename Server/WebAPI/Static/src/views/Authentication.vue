@@ -1,6 +1,6 @@
 <template>
     <div id="auth">
-        <el-tabs :stretch="true">
+        <el-tabs :stretch="true" class="auth-tabs">
             <el-tab-pane>
                 <span slot="label">Sign In</span>
                 <SignIn/>
@@ -14,7 +14,7 @@
 </template>
 
 <style>
-    .el-tabs__item {
+    .auth-tabs.el-tabs > .el-tabs__header > .el-tabs__nav-wrap > .el-tabs__nav-scroll > .el-tabs__nav > .el-tabs__item {
         line-height: 36px !important;
         font-size: 18px !important;
     }

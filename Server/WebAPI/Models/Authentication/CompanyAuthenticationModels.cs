@@ -3,7 +3,7 @@ using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication
 {
-    public class ClientSignInModel : IModelToEntityConvertible<ClientSignInEntity>
+    public class CompanySignInModel : IModelToEntityConvertible<CompanySignInEntity>
     {
         [Required]
         [EmailAddress]
@@ -13,22 +13,18 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication
         [StringLength(255)]
         public string? Password { get; set; }
 
-        public ClientSignInEntity ToEntity() => new ClientSignInEntity
+        public CompanySignInEntity ToEntity() => new CompanySignInEntity
         {
             Email = Email!,
             Password = Password!
         };
     }
-    
-    public class ClientSignUpModel : IModelToEntityConvertible<ClientSignUpEntity>
+
+    public class CompanySignUpModel : IModelToEntityConvertible<CompanySignUpEntity>
     {
         [Required]
         [StringLength(50)]
-        public string? FirstName { get; set; }
-        
-        [Required]
-        [StringLength(50)]
-        public string? LastName { get; set; }
+        public string? Name { get; set; }
 
         [Required]
         [EmailAddress]
@@ -38,26 +34,25 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication
         [StringLength(255)]
         public string? Password { get; set; }
 
-        public ClientSignUpEntity ToEntity() => new ClientSignUpEntity
+        public CompanySignUpEntity ToEntity() => new CompanySignUpEntity
         {
-            FirstName = FirstName!,
-            LastName = LastName!,
+            Name = Name!,
             Email = Email!,
             Password = Password!
         };
     }
-    
-    public class ClientProfileModel : IEntityToModelConvertible<ClientProfileEntity, ClientProfileModel>
+
+    public class CompanyAuthenticationProfileModel : IEntityToModelConvertible<CompanyAuthenticationProfileEntity, CompanyAuthenticationProfileModel>
     {
         public int? Id { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
+        public string? Name { get; set; }
+        public string? YandexMapsApiKey { get; set; }
+        public string? DadataApiKey { get; set; }
 
-        public ClientProfileModel ToModel(ClientProfileEntity? entity)
+        public CompanyAuthenticationProfileModel ToModel(CompanyAuthenticationProfileEntity? entity)
         {
             Id = entity?.Id;
-            FirstName = entity?.FirstName;
-            LastName = entity?.LastName;
+            Name = entity?.Name;
             return this;
         }
     }

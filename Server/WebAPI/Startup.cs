@@ -38,9 +38,12 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
 
             // Stores
             services.AddScoped<IUserAuthenticationStore, UserAuthenticationStore>();
+            services.AddScoped<ICompanyProfileStore, CompanyProfileStore>();
+            services.AddScoped<ICarWashStore, CarWashStore>();
 
             // Services
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddScoped<ICompanyProfileService, CompanyProfileService>();
             services.AddScoped<UserCookieAuthenticationEvents>();
 
             services.AddCors(options =>

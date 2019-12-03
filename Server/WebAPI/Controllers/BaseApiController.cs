@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
-using VXDesign.Store.CarWashSystem.Server.WebAPI.Common;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
+using VXDesign.Store.CarWashSystem.Server.Core.Operation;
+using VXDesign.Store.CarWashSystem.Server.WebAPI.Extensions;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
@@ -52,6 +53,17 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
             {
                 return BadRequest(new ErrorResult(e));
             }
+        }
+
+        protected int VerifyUser(string requiredUserRole)
+        {
+            var userRole = User.Claims.Get(AccountClaimName.UserRole);
+            if (userRole != requiredUserRole) throw new Exception(ExceptionMessage.RoleIsNotSuitable(requiredUserRole));
+
+            var possibleId = User.Claims.Get(AccountClaimName.UserId);
+            var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
+
+            return id;
         }
     }
 }

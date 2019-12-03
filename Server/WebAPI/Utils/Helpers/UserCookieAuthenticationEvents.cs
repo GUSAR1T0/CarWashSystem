@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using VXDesign.Store.CarWashSystem.Server.DataStorage.Operation;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
+using VXDesign.Store.CarWashSystem.Server.Core.Operation;
 using VXDesign.Store.CarWashSystem.Server.Services.Interfaces;
-using VXDesign.Store.CarWashSystem.Server.WebAPI.Common;
 using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Utils.Helpers
@@ -34,7 +34,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Utils.Helpers
             await Operation.MakeAction(properties.DatabaseConnectionString, async operation =>
             {
                 var possibleId = user.Claims.FirstOrDefault(c => string.Equals(c.Type, AccountClaimName.UserId, StringComparison.InvariantCultureIgnoreCase))?.Value;
-                if (possibleId != null && int.TryParse(possibleId, out var id) && !await userAuthenticationService.IsActive(operation, id))
+                if (possibleId != null && int.TryParse(possibleId, out var id) && !await userAuthenticationService.IsActivated(operation, id))
                 {
                     context.RejectPrincipal();
                     await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
