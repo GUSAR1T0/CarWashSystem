@@ -45,9 +45,9 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
             return await carWashStore.GetAllShortByCompanyId(operation, companyId);
         }
 
-        public async Task<IEnumerable<CarWashFullEntity>> GetCarWashListFullByCompany(IOperation operation, int companyId)
+        public async Task<IEnumerable<CarWashFullEntity>> GetCarWashListFullByCompany(IOperation operation, int userId)
         {
-            return await carWashStore.GetAllFullByCompanyId(operation, companyId);
+            return await carWashStore.GetAllFullByCompanyId(operation, userId);
         }
 
         public async Task<CarWashFullEntity> GetCarWashById(IOperation operation, int id)
@@ -56,11 +56,11 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
             return await carWashStore.GetById(operation, id);
         }
 
-        public async Task<CarWashShortEntity> AddCarWash(IOperation operation, int companyId, CarWashFullEntity entity)
+        public async Task<CarWashShortEntity> AddCarWash(IOperation operation, int userId, CarWashFullEntity entity)
         {
             var invalidatedHours = ValidateCarWashWorkingHours(entity).ToList();
             if (invalidatedHours.Any()) throw new Exception(ExceptionMessage.IncorrectWorkingHoursData(invalidatedHours)); 
-            return await carWashStore.Add(operation, companyId, entity);
+            return await carWashStore.Add(operation, userId, entity);
         }
 
         public async Task<CarWashShortEntity> UpdateCarWash(IOperation operation, CarWashFullEntity entity)

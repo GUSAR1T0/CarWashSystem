@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>VXDesign.Store.CarWashSystem.Server.WebAPI</AssemblyName>
         <RootNamespace>VXDesign.Store.CarWashSystem.Server.WebAPI</RootNamespace>

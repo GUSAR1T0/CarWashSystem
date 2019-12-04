@@ -32,20 +32,15 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
         [StringLength(1024)]
         public string? Description { get; set; }
 
-        [Required]
-        public bool HasCafe { get; set; }
+        public bool? HasCafe { get; set; }
 
-        [Required]
-        public bool HasRestZone { get; set; }
+        public bool? HasRestZone { get; set; }
 
-        [Required]
-        public bool HasParking { get; set; }
+        public bool? HasParking { get; set; }
 
-        [Required]
-        public bool HasWC { get; set; }
+        public bool? HasWC { get; set; }
 
-        [Required]
-        public bool HasCardPayment { get; set; }
+        public bool? HasCardPayment { get; set; }
 
         public CarWashWorkingHoursModel? WorkingHours { get; set; }
 
@@ -93,11 +88,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
                 CoordinateX = CoordinateX,
                 CoordinateY = CoordinateY,
                 Description = Description,
-                HasCafe = HasCafe,
-                HasRestZone = HasRestZone,
-                HasParking = HasParking,
-                HasWC = HasWC,
-                HasCardPayment = HasCardPayment,
+                HasCafe = HasCafe ?? false,
+                HasRestZone = HasRestZone ?? false,
+                HasParking = HasParking ?? false,
+                HasWC = HasWC ?? false,
+                HasCardPayment = HasCardPayment ?? false,
                 MondayStartTime = monday == true ? mondayHours?.startTime : null,
                 MondayStopTime = monday == true  ? mondayHours?.stopTime : null,
                 TuesdayStartTime = tuesday == true  ? tuesdayHours?.startTime : null,

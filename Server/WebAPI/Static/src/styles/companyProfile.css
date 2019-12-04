@@ -11,3 +11,11 @@
     width: 100%;
     text-align: center;
 }
+
+.edit-page-title {
+    font-size: 28px;
+}
+
+.edit-page-form {
+    padding-top: 35px;
+}

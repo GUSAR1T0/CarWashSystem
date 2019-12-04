@@ -13,6 +13,7 @@ using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
 {
     [Route("api/company/profile")]
+    [Authorize]
     public class CompanyProfileController : BaseApiController
     {
         private readonly ICompanyProfileService companyProfileService;
@@ -31,7 +32,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(CompanyProfileModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<CompanyProfileModel>> GetCompanyFullProfile() => await Exec(async operation =>
         {
@@ -48,7 +48,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
         [HttpPut]
         public async Task<ActionResult> UpdateCompanyFullProfile([FromBody] CompanyProfileModel companyProfileModel) => await Exec(async operation =>
         {
@@ -69,7 +68,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(IEnumerable<CarWashFullModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
         [HttpGet("car-wash/list")]
         public async Task<ActionResult<IEnumerable<CarWashFullModel>>> GetCarWashList() => await Exec(async operation =>
         {
@@ -85,7 +83,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(CarWashFullModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
         [HttpGet("car-wash/{carWashId}")]
         public async Task<ActionResult<CarWashFullModel>> GetCarWash(int carWashId) => await Exec(async operation =>
         {
@@ -101,7 +98,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(CarWashShortModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
         [HttpPost("car-wash")]
         public async Task<ActionResult<CarWashShortModel>> AddCarWash([FromBody] CarWashFullModel model) => await Exec(async operation =>
         {
@@ -118,7 +114,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(CarWashShortModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
         [HttpPut("car-wash/{carWashId}")]
         public async Task<ActionResult<CarWashShortModel>> UpdateCarWash(int carWashId, [FromBody] CarWashFullModel model) => await Exec(async operation =>
         {
@@ -135,7 +130,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(CarWashShortModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
         [HttpDelete("car-wash/{carWashId}")]
         public async Task<ActionResult<CarWashShortModel>> DeleteCarWash(int carWashId) => await Exec(async operation =>
         {

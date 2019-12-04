@@ -70,6 +70,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
                 options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
                 options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
                 options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
             }).AddVkontakte(options =>
             {
                 options.ClientId = Configuration["Authentication:VK:ClientId"];
