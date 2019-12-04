@@ -19,6 +19,11 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
             {
                 Execute.EmbeddedScript("CreateCarWashWorkingHoursTable.sql");
             }
+
+            if (!companySchema.Table(Common.Table.CarWashServicePrice).Exists())
+            {
+                Execute.EmbeddedScript("CreateCarWashServicePriceTable.sql");
+            }
         }
 
         public override void Down()
@@ -26,7 +31,12 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
             Execute.EmbeddedScript("CarWashManagement.AlterCompanyTableDropColumn.sql");
 
             var companySchema = Schema.Schema(Common.Schema.Company);
-            if (companySchema.Table(Common.Table.CarWash).Exists())
+            if (companySchema.Table(Common.Table.CarWashServicePrice).Exists())
+            {
+                Execute.EmbeddedScript("DropCarWashServicePriceTable.sql");
+            }
+
+            if (companySchema.Table(Common.Table.CarWashWorkingHours).Exists())
             {
                 Execute.EmbeddedScript("DropCarWashWorkingHoursTable.sql");
             }
