@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.CompanyProfile;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
@@ -11,7 +13,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         [Required]
         [StringLength(50)]
-        public string Name { get; set; } = "";
+        public string? Name { get; set; }
 
         [EmailAddress]
         public string? Email { get; set; }
@@ -21,13 +23,13 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         [Required]
         [StringLength(512)]
-        public string Location { get; set; } = "";
+        public string? Location { get; set; }
 
         [Required]
-        public decimal CoordinateX { get; set; }
+        public decimal? CoordinateX { get; set; }
 
         [Required]
-        public decimal CoordinateY { get; set; }
+        public decimal? CoordinateY { get; set; }
 
         [StringLength(1024)]
         public string? Description { get; set; }
@@ -44,21 +46,25 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         public CarWashWorkingHoursModel? WorkingHours { get; set; }
 
+        public IEnumerable<CarWashServicePriceModel> ServicePrices { get; set; }
+
         public CarWashFullModel ToModel(CarWashFullEntity? entity)
         {
-            Id = entity?.Id ?? 0;
-            Name = entity?.Name ?? "";
-            Email = entity?.Email;
-            Phone = entity?.Phone;
-            Location = entity?.Location ?? "";
-            CoordinateX = entity?.CoordinateX ?? new decimal();
-            CoordinateY = entity?.CoordinateY ?? new decimal();
-            Description = entity?.Description;
-            HasCafe = entity?.HasCafe ?? false;
-            HasRestZone = entity?.HasRestZone ?? false;
-            HasParking = entity?.HasParking ?? false;
-            HasWC = entity?.HasWC ?? false;
-            HasCardPayment = entity?.HasCardPayment ?? false;
+            if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
+
+            Id = entity.Id;
+            Name = entity.Name;
+            Email = entity.Email;
+            Phone = entity.Phone;
+            Location = entity.Location;
+            CoordinateX = entity.CoordinateX;
+            CoordinateY = entity.CoordinateY;
+            Description = entity.Description;
+            HasCafe = entity.HasCafe;
+            HasRestZone = entity.HasRestZone;
+            HasParking = entity.HasParking;
+            HasWC = entity.HasWC;
+            HasCardPayment = entity.HasCardPayment;
             WorkingHours = new CarWashWorkingHoursModel().ToModel(entity);
             return this;
         }
@@ -81,12 +87,12 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
             var sunday = WorkingHours?.Sunday?.TryToGet(out sundayHours);
             return new CarWashFullEntity
             {
-                Name = Name,
+                Name = Name!,
                 Email = Email,
                 Phone = Phone,
                 Location = Location,
-                CoordinateX = CoordinateX,
-                CoordinateY = CoordinateY,
+                CoordinateX = CoordinateX ?? new decimal(),
+                CoordinateY = CoordinateY ?? new decimal(),
                 Description = Description,
                 HasCafe = HasCafe ?? false,
                 HasRestZone = HasRestZone ?? false,
@@ -125,8 +131,10 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         public CarWashShortModel ToModel(CarWashShortEntity? entity)
         {
-            Id = entity?.Id ?? 0;
-            Name = entity?.Name ?? "";
+            if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
+
+            Id = entity.Id;
+            Name = entity.Name;
             return this;
         }
     }

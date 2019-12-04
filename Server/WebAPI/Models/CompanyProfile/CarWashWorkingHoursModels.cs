@@ -1,4 +1,5 @@
 using System;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.CompanyProfile;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
@@ -31,13 +32,15 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         public CarWashWorkingHoursModel ToModel(CarWashFullEntity? entity)
         {
-            Monday = new CarWashWorkingDayModel(entity?.MondayStartTime, entity?.MondayStopTime);
-            Tuesday = new CarWashWorkingDayModel(entity?.TuesdayStartTime, entity?.TuesdayStopTime);
-            Wednesday = new CarWashWorkingDayModel(entity?.WednesdayStartTime, entity?.WednesdayStopTime);
-            Thursday = new CarWashWorkingDayModel(entity?.ThursdayStartTime, entity?.ThursdayStopTime);
-            Friday = new CarWashWorkingDayModel(entity?.FridayStartTime, entity?.FridayStopTime);
-            Saturday = new CarWashWorkingDayModel(entity?.SaturdayStartTime, entity?.SaturdayStopTime);
-            Sunday = new CarWashWorkingDayModel(entity?.SundayStartTime, entity?.SundayStopTime);
+            if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
+
+            Monday = new CarWashWorkingDayModel(entity.MondayStartTime, entity.MondayStopTime);
+            Tuesday = new CarWashWorkingDayModel(entity.TuesdayStartTime, entity.TuesdayStopTime);
+            Wednesday = new CarWashWorkingDayModel(entity.WednesdayStartTime, entity.WednesdayStopTime);
+            Thursday = new CarWashWorkingDayModel(entity.ThursdayStartTime, entity.ThursdayStopTime);
+            Friday = new CarWashWorkingDayModel(entity.FridayStartTime, entity.FridayStopTime);
+            Saturday = new CarWashWorkingDayModel(entity.SaturdayStartTime, entity.SaturdayStopTime);
+            Sunday = new CarWashWorkingDayModel(entity.SundayStartTime, entity.SundayStopTime);
             return this;
         }
     }

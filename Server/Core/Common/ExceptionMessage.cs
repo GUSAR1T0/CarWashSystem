@@ -6,6 +6,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Core.Common
     {
         public const string DatabaseConnectionIsMissed = "Database connection string is not set";
         public const string ModelIsInvalid = "Input data is invalid";
+        public const string EmptyResponse = "Entity for response is empty";
 
         #region Authentication
 
@@ -35,6 +36,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Core.Common
         #region Company
 
         public const string CarWashIsNotExist = "Such car wash is not exist";
+        public const string CarWashServicePriceIsNotExist = "Such car wash service price is not exist";
 
         public static string IncorrectWorkingHoursData(IEnumerable<string> invalidatedHours)
         {

@@ -8,20 +8,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 {
     public class CarWashStore : ICarWashStore
     {
-        public Task<IEnumerable<CarWashShortEntity>> GetAllShortByCompanyId(IOperation operation, int companyId)
-        {
-            return operation.QueryAsync<CarWashShortEntity>(new
-            {
-                CompanyId = companyId
-            }, @"
-                SELECT
-                    [Id],
-                    [Name]
-                FROM [company].[CarWash]
-                WHERE [CompanyId] = @CompanyId
-            ");
-        }
-
         public Task<IEnumerable<CarWashFullEntity>> GetAllFullByCompanyId(IOperation operation, int userId)
         {
             return operation.QueryAsync<CarWashFullEntity>(new
@@ -59,7 +45,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 FROM [company].[CarWash] ccw
                 INNER JOIN [company].[Company] cc ON ccw.[CompanyId] = cc.[Id]
                 INNER JOIN [company].[CarWashWorkingHours] ccwwh ON ccw.[Id] = ccwwh.[CarWashId]
-                WHERE cc.[UserId] = @UserId
+                WHERE cc.[UserId] = @UserId;
             ");
         }
 
@@ -71,7 +57,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             }, @"
                 SELECT TOP 1 1
                 FROM [company].[CarWash]
-                WHERE [Id] = @Id
+                WHERE [Id] = @Id;
             ");
         }
 
@@ -111,7 +97,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     ccwwh.[SundayStopTime]
                 FROM [company].[CarWash] ccw
                 INNER JOIN [company].[CarWashWorkingHours] ccwwh ON ccw.[Id] = ccwwh.[CarWashId]
-                WHERE ccw.[Id] = @Id
+                WHERE ccw.[Id] = @Id;
             ");
         }
 
@@ -284,7 +270,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 FROM [company].[CarWash]
                 WHERE [Id] = @Id;
 
-                -- Working Hours data should be automatically removed after cascade action
+                -- Working Hours and Service Prices data should be automatically removed after cascade action
 
                 SELECT
                     [Id],
