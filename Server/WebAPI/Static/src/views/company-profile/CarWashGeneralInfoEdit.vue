@@ -252,7 +252,7 @@
     import { renderErrorNotificationMessage } from "@/extensions/utils";
 
     export default {
-        name: "CarWashEdit",
+        name: "CarWashGeneralInfoEdit",
         components: {
             LoadingContainer
         },

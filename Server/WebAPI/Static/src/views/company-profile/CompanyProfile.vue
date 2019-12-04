@@ -15,7 +15,7 @@
                     <el-table :data="[model]">
                         <el-table-column width="auto">
                             <template slot="header">
-                                <div class="advantage-header">Email Address</div>
+                                <div class="table-header">Email Address</div>
                             </template>
                             <template slot-scope="scope">
                                 <a v-if="scope.row.email" :href="`mailto:${scope.row.email}`">
@@ -28,7 +28,7 @@
                         </el-table-column>
                         <el-table-column width="auto">
                             <template slot="header">
-                                <div class="advantage-header">Phone</div>
+                                <div class="table-header">Phone</div>
                             </template>
                             <template slot-scope="scope">
                                 <a v-if="scope.row.phone" :href="`tel:${scope.row.phone}`">

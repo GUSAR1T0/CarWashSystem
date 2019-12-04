@@ -14,184 +14,19 @@
                     <div class="header">
                         <span><b style="font-size: 32px">{{ carWash.name }}</b></span>
                         <div style="margin-left: auto">
-                            <el-button class="functional-button" type="primary" icon="el-icon-edit"
-                                       @click="$router.push(`/profile/car-wash/${carWash.id}`)"/>
                             <el-button class="functional-button" type="primary" icon="el-icon-circle-close"
                                        @click="openDeleteDialog(carWash)"/>
                         </div>
                     </div>
                 </div>
-                <CarWashInfoRow name="Description" style="padding-bottom: 20px">
-                    <template slot="value">
-                        <div v-if="carWash.description" class="description">
-                            {{ carWash.description }}
-                        </div>
-                        <div v-else>—</div>
-                    </template>
-                </CarWashInfoRow>
-                <el-divider/>
-                <CarWashInfoRow name="Contacts" style="padding: 20px 0">
-                    <template slot="value">
-                        <el-table :data="[carWash]">
-                            <el-table-column width="auto">
-                                <template slot="header">
-                                    <div class="advantage-header">Email Address</div>
-                                </template>
-                                <template slot-scope="scope">
-                                    <a v-if="scope.row.email" :href="`mailto:${scope.row.email}`">
-                                        <el-button class="functional-button contacts-button">
-                                            {{ scope.row.email }}
-                                        </el-button>
-                                    </a>
-                                    <div v-else>—</div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column width="auto">
-                                <template slot="header">
-                                    <div class="advantage-header">Phone</div>
-                                </template>
-                                <template slot-scope="scope">
-                                    <a v-if="scope.row.phone" :href="`tel:${scope.row.phone}`">
-                                        <el-button class="functional-button contacts-button">
-                                            {{ scope.row.phone }}
-                                        </el-button>
-                                    </a>
-                                    <div v-else>—</div>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </template>
-                </CarWashInfoRow>
-                <el-divider/>
-                <CarWashInfoRow name="Location" style="padding: 20px 0">
-                    <template slot="value">
-                        <yandex-map :settings="getYandexMapsSettings" :coords="getCoordinates(carWash)"
-                                    zoom="15" class="map">
-                            <ymap-marker :marker-id="carWash.id" :coords="getCoordinates(carWash)"/>
-                        </yandex-map>
-                        <div style="padding-top: 25px; width: 100%; text-align: center">{{ carWash.location }}</div>
-                    </template>
-                </CarWashInfoRow>
-                <el-divider/>
-                <CarWashInfoRow name="Working Hours" style="padding: 20px 0">
-                    <template slot="value">
-                        <el-table :data="[carWash]">
-                            <el-table-column width="auto" header-align="center">
-                                <template slot="header">
-                                    <div class="advantage-header">Mo</div>
-                                </template>
-                                <template slot-scope="scope" style="white-space: pre-line;">
-                                    <div style="white-space: pre-line; text-align: center">
-                                        {{ getFormattedHours(scope.row.workingHours.monday) }}
-                                    </div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column width="auto" header-align="center">
-                                <template slot="header">
-                                    <div class="advantage-header">Tu</div>
-                                </template>
-                                <template slot-scope="scope">
-                                    <div style="white-space: pre-line; text-align: center">
-                                        {{ getFormattedHours(scope.row.workingHours.tuesday) }}
-                                    </div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column width="auto" header-align="center">
-                                <template slot="header">
-                                    <div class="advantage-header">We</div>
-                                </template>
-                                <template slot-scope="scope">
-                                    <div style="white-space: pre-line; text-align: center">
-                                        {{ getFormattedHours(scope.row.workingHours.wednesday) }}
-                                    </div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column width="auto" header-align="center">
-                                <template slot="header">
-                                    <div class="advantage-header">Th</div>
-                                </template>
-                                <template slot-scope="scope">
-                                    <div style="white-space: pre-line; text-align: center">
-                                        {{ getFormattedHours(scope.row.workingHours.thursday) }}
-                                    </div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column width="auto" header-align="center">
-                                <template slot="header">
-                                    <div class="advantage-header">Fr</div>
-                                </template>
-                                <template slot-scope="scope">
-                                    <div style="white-space: pre-line; text-align: center">
-                                        {{ getFormattedHours(scope.row.workingHours.friday) }}
-                                    </div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column width="auto" header-align="center">
-                                <template slot="header">
-                                    <div class="advantage-header">Sa</div>
-                                </template>
-                                <template slot-scope="scope">
-                                    <div style="white-space: pre-line; text-align: center">
-                                        {{ getFormattedHours(scope.row.workingHours.saturday) }}
-                                    </div>
-                                </template>
-                            </el-table-column>
-                            <el-table-column width="auto" header-align="center">
-                                <template slot="header">
-                                    <div class="advantage-header">Su</div>
-                                </template>
-                                <template slot-scope="scope">
-                                    <div style="white-space: pre-line; text-align: center">
-                                        {{ getFormattedHours(scope.row.workingHours.sunday) }}
-                                    </div>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </template>
-                </CarWashInfoRow>
-                <el-divider/>
-                <el-table :data="[carWash]" style="padding-top: 20px">
-                    <el-table-column width="auto">
-                        <template slot="header">
-                            <div class="advantage-header">Cafe</div>
-                        </template>
-                        <template slot-scope="scope">
-                            <TagForBoolean :value="scope.row.hasCafe"/>
-                        </template>
-                    </el-table-column>
-                    <el-table-column width="auto">
-                        <template slot="header">
-                            <div class="advantage-header">Rest Zone</div>
-                        </template>
-                        <template slot-scope="scope">
-                            <TagForBoolean :value="scope.row.hasRestZone"/>
-                        </template>
-                    </el-table-column>
-                    <el-table-column width="auto">
-                        <template slot="header">
-                            <div class="advantage-header">Parking</div>
-                        </template>
-                        <template slot-scope="scope">
-                            <TagForBoolean :value="scope.row.hasParking"/>
-                        </template>
-                    </el-table-column>
-                    <el-table-column width="auto">
-                        <template slot="header">
-                            <div class="advantage-header">WC</div>
-                        </template>
-                        <template slot-scope="scope">
-                            <TagForBoolean :value="scope.row.hasWC"/>
-                        </template>
-                    </el-table-column>
-                    <el-table-column width="auto">
-                        <template slot="header">
-                            <div class="advantage-header">Card Payment</div>
-                        </template>
-                        <template slot-scope="scope">
-                            <TagForBoolean :value="scope.row.hasCardPayment"/>
-                        </template>
-                    </el-table-column>
-                </el-table>
+                <el-collapse v-model="activeCollapseItems">
+                    <el-collapse-item title="General Info" name="generalInfo">
+                        <CarWashGeneralInfo :car-wash="carWash"/>
+                    </el-collapse-item>
+                    <el-collapse-item title="Service Prices" name="servicePrices">
+                        <CarWashServicePrices :service-prices="[]"/>
+                    </el-collapse-item>
+                </el-collapse>
                 <ConfirmationDialog :dialog-status="deleteDialogStatus"
                                     :confirmation-text="getConfirmationTextOnDeleteCarWash"
                                     :cancel-click-action="cancelDeleteDialog"
@@ -207,48 +42,27 @@
 <style scoped src="@/styles/companyProfile.css">
 </style>
 
-<style scoped>
-    .advantage-header {
-        text-transform: uppercase;
-    }
-
-    .map {
-        width: auto;
-        height: 300px;
-    }
-
-    .description {
-        border-left: 3px solid #631D76;
-        line-height: 1.8em;
-        margin: 0 1em;
-        padding: 0 1em;
-        position: relative;
-    }
-</style>
-
 <script>
     import LoadingContainer from "@/components/core/LoadingContainer";
     import ConfirmationDialog from "@/components/core/ConfirmationDialog";
-    import CarWashInfoRow from "@/components/company-profile/CarWashInfoRow";
-    import TagForBoolean from "@/components/core/TagForBoolean";
+    import CarWashGeneralInfo from "@/components/company-profile/CarWashGeneralInfo";
+    import CarWashServicePrices from "@/components/company-profile/CarWashServicePrices";
     import { mapGetters } from "vuex";
     import { DELETE_CAR_WASH_REQUEST, GET_CAR_WASH_LIST_REQUEST } from "@/constants/actions";
     import { renderErrorNotificationMessage } from "@/extensions/utils";
-    import { yandexMap, ymapMarker } from "vue-yandex-maps";
 
     export default {
         name: "CarWashList",
         components: {
             LoadingContainer,
             ConfirmationDialog,
-            CarWashInfoRow,
-            TagForBoolean,
-            yandexMap,
-            ymapMarker
+            CarWashGeneralInfo,
+            CarWashServicePrices
         },
         data() {
             return {
                 loadingIsActive: true,
+                activeCollapseItems: [ "" ],
                 deleteDialogStatus: {
                     visible: false,
                     item: null
@@ -257,17 +71,8 @@
         },
         computed: {
             ...mapGetters([
-                "getCarWashList",
-                "getYandexMapsApiKey"
-            ]),
-            getYandexMapsSettings() {
-                return {
-                    apiKey: this.getYandexMapsApiKey,
-                    lang: "en_US",
-                    coordorder: "latlong",
-                    version: "2.1"
-                };
-            }
+                "getCarWashList"
+            ])
         },
         methods: {
             loadCarWashList() {
@@ -296,12 +101,6 @@
                     return "margin-bottom: 35px";
                 }
                 return "";
-            },
-            getFormattedHours(hours) {
-                return hours.startTime && hours.stopTime ? hours.startTime + "\n" + hours.stopTime : "—";
-            },
-            getCoordinates(carWash) {
-                return [ carWash.coordinateX, carWash.coordinateY ];
             },
             openDeleteDialog(item) {
                 this.deleteDialogStatus.visible = true;
