@@ -7,6 +7,43 @@ import {
 } from "@/constants/actions";
 import format from "string-format";
 
+function prepareWorkingHoursData(day) {
+    return day.isChecked ? {
+        startTime: day.startTime,
+        stopTime: day.stopTime
+    } : {
+        startTime: null,
+        stopTime: null
+    };
+}
+
+function prepareModelRequest(model) {
+    return {
+        id: model.id,
+        name: model.name,
+        email: model.email,
+        phone: model.phone,
+        location: model.location,
+        coordinateX: parseFloat(model.coordinateX),
+        coordinateY: parseFloat(model.coordinateY),
+        description: model.description,
+        hasCafe: model.hasCafe,
+        hasRestZone: model.hasRestZone,
+        hasParking: model.hasParking,
+        hasWC: model.hasWC,
+        hasCardPayment: model.hasCardPayment,
+        workingHours: {
+            monday: prepareWorkingHoursData(model.workingHours.monday),
+            tuesday: prepareWorkingHoursData(model.workingHours.tuesday),
+            wednesday: prepareWorkingHoursData(model.workingHours.wednesday),
+            thursday: prepareWorkingHoursData(model.workingHours.thursday),
+            friday: prepareWorkingHoursData(model.workingHours.friday),
+            saturday: prepareWorkingHoursData(model.workingHours.saturday),
+            sunday: prepareWorkingHoursData(model.workingHours.sunday)
+        }
+    };
+}
+
 export default {
     state: {
         id: null,
@@ -167,22 +204,20 @@ export default {
         },
         [ADD_CAR_WASH_REQUEST]: ({dispatch}, model) => {
             return new Promise((resolve, reject) => {
-                model.id = undefined;
-                model.coordinateX = parseFloat(model.coordinateX);
-                model.coordinateY = parseFloat(model.coordinateY);
+                let request = prepareModelRequest(model);
+                request.id = undefined;
                 dispatch(POST_HTTP_REQUEST, {
                     endpoint: ADD_CAR_WASH_ENDPOINT,
-                    data: model
+                    data: request
                 }).then(response => resolve(response.data)).catch(error => reject(error));
             });
         },
         [UPDATE_CAR_WASH_REQUEST]: ({dispatch}, model) => {
             return new Promise((resolve, reject) => {
-                model.coordinateX = parseFloat(model.coordinateX);
-                model.coordinateY = parseFloat(model.coordinateY);
+                let request = prepareModelRequest(model);
                 dispatch(PUT_HTTP_REQUEST, {
                     endpoint: format(UPDATE_CAR_WASH_ENDPOINT, {id: model.id}),
-                    data: model
+                    data: request
                 }).then(response => resolve(response.data)).catch(error => reject(error));
             });
         }

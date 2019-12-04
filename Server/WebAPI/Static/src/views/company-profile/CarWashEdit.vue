@@ -1,8 +1,8 @@
 <template>
     <LoadingContainer :loading-state="loadingIsActive">
         <template slot="content">
-            <b class="title">{{ !isNew ? 'Edit' : 'Create' }} Car Wash</b>
-            <el-form class="form" :model="model" :rules="rules" ref="form" label-width="200px"
+            <b class="edit-page-title">{{ !isNew ? 'Edit' : 'Create' }} Car Wash</b>
+            <el-form class="edit-page-form" :model="model" :rules="rules" ref="form" label-width="200px"
                      @submit.native.prevent="submitForm('form')">
                 <el-row class="edit-field-element" type="flex" justify="center" align="middle">
                     <el-col :xs="24" :sm="20" :md="16" :lg="16" :xl="16">
@@ -28,7 +28,7 @@
                 <el-row class="edit-field-element" type="flex" justify="center" align="middle">
                     <el-col :xs="24" :sm="20" :md="16" :lg="16" :xl="16">
                         <el-form-item prop="location" label="Location">
-                            <el-select v-model="model.location" filterable remote reserve-keyword placeholder="Select"
+                            <el-select v-model="model.location" filterable remote placeholder="Enter an address"
                                        :value="model.location" style="width: 100%" :remote-method="loadLocations"
                                        :loading="locationLoadingIsActive">
                                 <el-option v-for="item in locations" :key="item.value" :label="item.value"
@@ -236,14 +236,7 @@
     }
 </style>
 
-<style scoped>
-    .title {
-        font-size: 28px;
-    }
-
-    .form {
-        padding-top: 35px;
-    }
+<style scoped src="@/styles/companyProfile.css">
 </style>
 
 <script>
@@ -269,7 +262,17 @@
                 locationLoadingIsActive: false,
                 locations: [],
                 isNew: true,
-                model: {},
+                model: {
+                    workingHours: {
+                        monday: {},
+                        tuesday: {},
+                        wednesday: {},
+                        thursday: {},
+                        friday: {},
+                        saturday: {},
+                        sunday: {}
+                    }
+                },
                 timeOptions: {start: "00:00", step: "00:15", end: "23:45"},
                 rules: {
                     name: [

@@ -203,12 +203,14 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 
                     INSERT INTO [authentication].[ExternalUser] (
                         [ExternalId],
-                        [SchemaId]
+                        [SchemaId],
+                        [Email]
                     )
                     OUTPUT INSERTED.[Id] INTO @ExternalUserId
                     VALUES (
                         @ExternalId,
-                        @Schema
+                        @Schema,
+                        @Email
                     );
 
                     INSERT INTO [authentication].[User] ([ExternalUserId])

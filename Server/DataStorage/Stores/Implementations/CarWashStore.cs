@@ -22,11 +22,11 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public Task<IEnumerable<CarWashFullEntity>> GetAllFullByCompanyId(IOperation operation, int companyId)
+        public Task<IEnumerable<CarWashFullEntity>> GetAllFullByCompanyId(IOperation operation, int userId)
         {
             return operation.QueryAsync<CarWashFullEntity>(new
             {
-                CompanyId = companyId
+                UserId = userId
             }, @"
                 SELECT
                     ccw.[Id],
@@ -57,8 +57,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     ccwwh.[SundayStartTime],
                     ccwwh.[SundayStopTime]
                 FROM [company].[CarWash] ccw
+                INNER JOIN [company].[Company] cc ON ccw.[CompanyId] = cc.[Id]
                 INNER JOIN [company].[CarWashWorkingHours] ccwwh ON ccw.[Id] = ccwwh.[CarWashId]
-                WHERE ccw.[CompanyId] = @CompanyId
+                WHERE cc.[UserId] = @UserId
             ");
         }
 
@@ -114,11 +115,11 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public Task<CarWashShortEntity> Add(IOperation operation, int companyId, CarWashFullEntity entity)
+        public Task<CarWashShortEntity> Add(IOperation operation, int userId, CarWashFullEntity entity)
         {
             return operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(new
             {
-                CompanyId = companyId,
+                UserId = userId,
                 entity.Name,
                 entity.Email,
                 entity.Phone,
@@ -164,8 +165,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     [HasCardPayment]
                 )
                 OUTPUT INSERTED.[Id], INSERTED.[Name] INTO @NewCarWash
-                VALUES (
-                    @CompanyId,
+                SELECT
+                    [Id],
                     @Name,
                     @Email,
                     @Phone,
@@ -178,7 +179,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     @HasParking,
                     @HasWC,
                     @HasCardPayment
-                );
+                FROM [company].[Company]
+                WHERE [UserId] = @UserId;
 
                 INSERT INTO [company].[CarWashWorkingHours] (
                     [CarWashId],
