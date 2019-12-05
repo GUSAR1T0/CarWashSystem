@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div style="padding-top: 20px">
         <el-button class="functional-button" type="primary" icon="el-icon-plus"
                    @click="addServicePriceRow" :disabled="isDisabledEditAndAddButtons">
             Add New Service
         </el-button>
         <el-table :data="services" style="padding-top: 20px">
-            <el-table-column width="auto" header-align="center" align="center">
+            <el-table-column width="200px" header-align="center" align="center">
                 <template slot="header">
                     <div class="table-header">Operations</div>
                 </template>
@@ -19,9 +19,9 @@
                                @click="deleteServicePriceRow(scope.row.id)"/>
                 </template>
             </el-table-column>
-            <el-table-column width="100px" header-align="center" align="center">
+            <el-table-column width="150px" header-align="center" align="center">
                 <template slot="header">
-                    <div class="table-header">Active</div>
+                    <div class="table-header">Available</div>
                 </template>
                 <template slot-scope="scope">
                     <TagForBoolean v-if="!scope.row.editable" :value="scope.row.isAvailable"/>
@@ -48,7 +48,7 @@
                         </div>
                         <div v-else class="table-cell">—</div>
                     </div>
-                    <el-input v-else type="textarea" :rows="3" v-model="scope.row.description"
+                    <el-input v-else type="textarea" :rows="2" v-model="scope.row.description"
                               clearable maxlength="1024" show-word-limit/>
                 </template>
             </el-table-column>
@@ -67,7 +67,7 @@
                 </template>
                 <template slot-scope="scope">
                     <div v-if="!scope.row.editable" class="table-cell">{{ scope.row.duration }}</div>
-                    <el-time-select v-else placeholder="Duration (minutes)" style="width: 100%;"
+                    <el-time-select v-else placeholder="Duration (hh:mm)" style="width: 100%;"
                                     v-model="scope.row.duration"
                                     :picker-options="{start: '00:00', step: '00:15', end: '12:00'}"/>
                 </template>
@@ -154,7 +154,7 @@
                         }).catch(error => {
                             button.loading = false;
                             this.$notify.error({
-                                title: "Failed to load car wash services after add",
+                                title: "Failed to load car wash services after adding",
                                 duration: 10000,
                                 message: renderErrorNotificationMessage(this.$createElement, error.response)
                             });

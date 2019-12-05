@@ -1,17 +1,17 @@
 <template>
-    <div>
+    <div style="padding-top: 20px">
         <el-button class="functional-button" type="primary" icon="el-icon-edit"
-                   @click="$router.push(`/profile/car-wash/${carWash.id}`)">
+                   @click="$router.push(`/profile/car-wash/edit/${carWash.id}`)">
             Edit General Info
         </el-button>
-        <CarWashInfoRow name="Description" style="padding: 20px 0">
+        <CompanyProfileInfoRow name="Description" style="padding: 20px 0">
             <template slot="value">
                 <div v-if="carWash.description" class="description">{{ carWash.description }}</div>
                 <div v-else>—</div>
             </template>
-        </CarWashInfoRow>
+        </CompanyProfileInfoRow>
         <el-divider/>
-        <CarWashInfoRow name="Contacts" style="padding: 20px 0">
+        <CompanyProfileInfoRow name="Contacts" style="padding: 20px 0">
             <template slot="value">
                 <el-table :data="[carWash]">
                     <el-table-column width="auto">
@@ -42,20 +42,22 @@
                     </el-table-column>
                 </el-table>
             </template>
-        </CarWashInfoRow>
+        </CompanyProfileInfoRow>
         <el-divider/>
-        <CarWashInfoRow name="Location" style="padding: 20px 0">
+        <CompanyProfileInfoRow name="Location" style="padding: 20px 0">
             <template slot="value">
-                <yandex-map :settings="getYandexMapsSettings" :coords="getCoordinates(carWash)"
-                            zoom="15" class="map">
-                    <ymap-marker :marker-id="carWash.id" :coords="getCoordinates(carWash)"/>
-                </yandex-map>
-                <div style="padding-top: 25px; width: 100%; text-align: center">{{ carWash.location }}
+                <div v-if="getCoordinates(carWash)">
+                    <yandex-map :settings="getYandexMapsSettings" :coords="getCoordinates(carWash)"
+                                zoom="15" class="map">
+                        <ymap-marker :marker-id="carWash.id" :coords="getCoordinates(carWash)"/>
+                    </yandex-map>
+                    <div style="padding-top: 25px; width: 100%; text-align: center">{{ carWash.location }}
+                    </div>
                 </div>
             </template>
-        </CarWashInfoRow>
+        </CompanyProfileInfoRow>
         <el-divider/>
-        <CarWashInfoRow name="Working Hours" style="padding: 20px 0">
+        <CompanyProfileInfoRow name="Working Hours" style="padding: 20px 0">
             <template slot="value">
                 <el-table :data="[carWash]">
                     <el-table-column width="auto" header-align="center" align="center">
@@ -130,7 +132,7 @@
                     </el-table-column>
                 </el-table>
             </template>
-        </CarWashInfoRow>
+        </CompanyProfileInfoRow>
         <el-divider/>
         <el-table :data="[carWash]" style="padding-top: 20px">
             <el-table-column width="auto">
@@ -197,7 +199,7 @@
 </style>
 
 <script>
-    import CarWashInfoRow from "@/components/company-profile/CarWashInfoRow";
+    import CompanyProfileInfoRow from "@/components/company-profile/CompanyProfileInfoRow";
     import TagForBoolean from "@/components/core/TagForBoolean";
     import { yandexMap, ymapMarker } from "vue-yandex-maps";
     import { mapGetters } from "vuex";
@@ -208,7 +210,7 @@
             carWash: Object
         },
         components: {
-            CarWashInfoRow,
+            CompanyProfileInfoRow,
             TagForBoolean,
             yandexMap,
             ymapMarker
@@ -231,7 +233,10 @@
                 return hours.startTime && hours.stopTime ? hours.startTime + "\n" + hours.stopTime : "—";
             },
             getCoordinates(carWash) {
-                return [ carWash.coordinateX, carWash.coordinateY ];
+                if (!!carWash.coordinateX && !!carWash.coordinateY) {
+                    return [ carWash.coordinateX, carWash.coordinateY ];
+                }
+                return undefined;
             },
         }
     };

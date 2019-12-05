@@ -40,6 +40,11 @@ const routes = [
     },
     {
         path: "/profile/car-wash/:id",
+        name: "carWashView",
+        component: () => import(/* webpackChunkName: "car-wash-view" */ "../views/company-profile/CarWashView.vue")
+    },
+    {
+        path: "/profile/car-wash/edit/:id",
         name: "carWashGeneralInfoEdit",
         component: () => import(/* webpackChunkName: "car-wash-general-info-edit" */ "../views/company-profile/CarWashGeneralInfoEdit.vue")
     }

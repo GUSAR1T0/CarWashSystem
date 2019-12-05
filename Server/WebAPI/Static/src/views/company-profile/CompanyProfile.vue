@@ -1,16 +1,15 @@
 <template>
     <LoadingContainer :loading-state="loadingIsActive">
         <template slot="content">
-            <div class="header first-line">
-                <span style="font-size: 24px">Company Profile</span>
-                <div style="margin-left: auto">
-                    <el-button class="functional-button" type="primary" icon="el-icon-edit"
-                               @click="$router.push('/profile/edit')"/>
-                </div>
+            <b style="font-size: 40px">{{ model.name }}</b>
+            <div class="divider">
+                <el-divider/>
             </div>
-            <CompanyProfileInfoRow name="Company Name" :value="model.name" style="padding-bottom: 20px"/>
-            <el-divider/>
-            <CarWashInfoRow name="Contacts" style="padding-top: 20px">
+            <el-button class="functional-button" type="primary" icon="el-icon-edit"
+                       @click="$router.push('/profile/edit')">
+                Edit Company Profile
+            </el-button>
+            <CompanyProfileInfoRow name="Contacts" style="padding-top: 20px">
                 <template slot="value">
                     <el-table :data="[model]">
                         <el-table-column width="auto">
@@ -41,7 +40,7 @@
                         </el-table-column>
                     </el-table>
                 </template>
-            </CarWashInfoRow>
+            </CompanyProfileInfoRow>
         </template>
     </LoadingContainer>
 </template>
@@ -49,11 +48,16 @@
 <style scoped src="@/styles/companyProfile.css">
 </style>
 
+<style scoped>
+    .divider {
+        margin: 25px 0 30px 0 !important;
+    }
+</style>
+
 <script>
     import { mapGetters } from "vuex";
     import LoadingContainer from "@/components/core/LoadingContainer";
     import CompanyProfileInfoRow from "@/components/company-profile/CompanyProfileInfoRow";
-    import CarWashInfoRow from "@/components/company-profile/CarWashInfoRow";
     import { GET_COMPANY_PROFILE_REQUEST } from "@/constants/actions";
     import { renderErrorNotificationMessage } from "@/extensions/utils";
 
@@ -61,8 +65,7 @@
         name: "CompanyProfile",
         components: {
             LoadingContainer,
-            CompanyProfileInfoRow,
-            CarWashInfoRow
+            CompanyProfileInfoRow
         },
         data() {
             return {
@@ -89,7 +92,6 @@
                     this.model.email = model.email;
                     this.model.phone = model.phone;
                 }).catch(error => {
-                    this.loadingIsActive = false;
                     this.$notify.error({
                         title: "Failed to load company profile",
                         duration: 10000,

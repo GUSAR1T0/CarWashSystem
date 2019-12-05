@@ -128,6 +128,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
+        public string Location { get; set; } = "";
 
         public CarWashShortModel ToModel(CarWashShortEntity? entity)
         {
@@ -135,6 +136,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
             Id = entity.Id;
             Name = entity.Name;
+            Location = entity.Location;
             return this;
         }
     }

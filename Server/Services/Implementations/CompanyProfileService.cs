@@ -40,11 +40,11 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
         #endregion
 
-        #region Car Wash
+        #region Car Washes
 
-        public async Task<IEnumerable<CarWashFullEntity>> GetCarWashListFullByCompany(IOperation operation, int userId)
+        public async Task<IEnumerable<CarWashShortEntity>> GetCarWashListByCompany(IOperation operation, int userId)
         {
-            return await carWashStore.GetAllFullByCompanyId(operation, userId);
+            return await carWashStore.GetAllByCompanyId(operation, userId);
         }
 
         public async Task<CarWashFullEntity> GetCarWashById(IOperation operation, int id)
@@ -115,11 +115,6 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
         #endregion
 
         #region Car Wash Services
-
-        public async Task<IEnumerable<CarWashServiceEntity>> GetServiceListByCompany(IOperation operation, int userId)
-        {
-            return await carWashServiceStore.GetListByCompany(operation, userId);
-        }
 
         public async Task<IEnumerable<CarWashServiceEntity>> GetCarWashServiceListByCarWash(IOperation operation, int carWashId)
         {

@@ -198,7 +198,7 @@ export default {
         [GET_CAR_WASH_REQUEST]: ({commit, dispatch}, id) => {
             return new Promise((resolve, reject) => {
                 dispatch(GET_HTTP_REQUEST, {
-                    endpoint: format(GET_CAR_WASH_ENDPOINT, {carWashId: id})
+                    endpoint: format(`${GET_CAR_WASH_ENDPOINT}?s=false`, {carWashId: id})
                 }).then(response => {
                     commit(GET_CAR_WASH_REQUEST, response.data);
                     resolve();

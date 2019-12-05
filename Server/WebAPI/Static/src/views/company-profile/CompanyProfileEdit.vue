@@ -50,6 +50,13 @@
     </LoadingContainer>
 </template>
 
+<style>
+    .el-form-item__label {
+        font-size: 20px !important;
+        font-weight: bold;
+    }
+</style>
+
 <style scoped src="@/styles/companyProfile.css">
 </style>
 
@@ -95,11 +102,11 @@
         },
         methods: {
             loadCompanyProfile() {
+                this.loadingIsActive = true;
                 this.$store.dispatch(GET_COMPANY_PROFILE_REQUEST).then(() => {
+                    this.loadingIsActive = false;
                     this.model = this.getCompanyProfileForm;
-                    this.loadingIsActive = false;
                 }).catch(error => {
-                    this.loadingIsActive = false;
                     this.$notify.error({
                         title: "Failed to load company profile",
                         duration: 10000,

@@ -8,27 +8,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 {
     public class CarWashServiceStore : ICarWashServiceStore
     {
-        public Task<IEnumerable<CarWashServiceEntity>> GetListByCompany(IOperation operation, int userId)
-        {
-            return operation.QueryAsync<CarWashServiceEntity>(new
-            {
-                UserId = userId
-            }, @"
-                SELECT
-                    ccws.[Id],
-                    ccws.[CarWashId],
-                    ccws.[ServiceName],
-                    ccws.[Description],
-                    ccws.[Price],
-                    ccws.[Duration],
-                    ccws.[IsAvailable]
-                FROM [company].[CarWashService] ccws
-                INNER JOIN [company].[CarWash] ccw ON ccws.[CarWashId] = ccw.[Id]
-                INNER JOIN [company].[Company] cc ON ccw.[CompanyId] = cc.[Id]
-                WHERE cc.[UserId] = @UserId;
-            ");
-        }
-
         public Task<IEnumerable<CarWashServiceEntity>> GetListByCarWash(IOperation operation, int carWashId)
         {
             return operation.QueryAsync<CarWashServiceEntity>(new
