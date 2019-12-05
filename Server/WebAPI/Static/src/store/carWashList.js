@@ -35,7 +35,7 @@ export default {
         [DELETE_CAR_WASH_REQUEST]: ({dispatch}, id) => {
             return new Promise((resolve, reject) => {
                 dispatch(DELETE_HTTP_REQUEST, {
-                    endpoint: format(DELETE_CAR_WASH_ENDPOINT, {id: id})
+                    endpoint: format(DELETE_CAR_WASH_ENDPOINT, {carWashId: id})
                 }).then(response => {
                     dispatch(GET_CAR_WASH_LIST_REQUEST)
                         .then(() => resolve(response.data))

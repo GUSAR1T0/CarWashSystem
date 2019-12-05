@@ -28,13 +28,8 @@
                 <el-row class="edit-field-element" type="flex" justify="center" align="middle">
                     <el-col :xs="24" :sm="20" :md="16" :lg="16" :xl="16">
                         <el-form-item prop="location" label="Location">
-                            <el-select v-model="model.location" filterable remote placeholder="Enter an address"
-                                       :value="model.location" style="width: 100%" :remote-method="loadLocations"
-                                       :loading="locationLoadingIsActive">
-                                <el-option v-for="item in locations" :key="item.value" :label="item.value"
-                                           :value="item.value">
-                                </el-option>
-                            </el-select>
+                            <el-autocomplete style="width: 100%" v-model="model.location"
+                                             :fetch-suggestions="loadLocations" placeholder="Enter an address"/>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -209,9 +204,9 @@
                         <el-form-item>
                             <el-row type="flex" justify="center" align="middle" :gutter="20">
                                 <el-col :span="12">
-                                    <el-button type="primary" plain @click="$router.push('/profile/car-wash')"
-                                               style="width: 100%">
-                                        <b style="font-size: 20px">Go to List</b>
+                                    <el-button type="primary" plain style="width: 100%"
+                                               @click="$router.push(`/profile/car-wash${!isNew ? '/' + model.id : ''}`)">
+                                        <b style="font-size: 20px">Go to {{ !isNew ? 'Car Wash' : 'List' }}</b>
                                     </el-button>
                                 </el-col>
                                 <el-col :span="12">
@@ -240,27 +235,20 @@
 </style>
 
 <script>
-    import {
-        ADD_CAR_WASH_REQUEST,
-        GET_CAR_WASH_REQUEST,
-        RESET_CAR_WASH_REQUEST,
-        UPDATE_CAR_WASH_REQUEST
-    } from "@/constants/actions";
+    import { ADD_CAR_WASH_REQUEST, GET_CAR_WASH_REQUEST, UPDATE_CAR_WASH_REQUEST } from "@/constants/actions";
     import { mapGetters } from "vuex";
     import LoadingContainer from "@/components/core/LoadingContainer";
     import Dadata from "dadata-suggestions";
     import { renderErrorNotificationMessage } from "@/extensions/utils";
 
     export default {
-        name: "CarWashEdit",
+        name: "CarWashGeneralInfoEdit",
         components: {
             LoadingContainer
         },
         data() {
             return {
                 loadingIsActive: true,
-                locationLoadingIsActive: false,
-                locations: [],
                 isNew: true,
                 model: {
                     workingHours: {
@@ -316,32 +304,41 @@
         },
         methods: {
             loadCarWashData(id) {
+                this.loadingIsActive = true;
                 if (id !== "new") {
                     this.isNew = false;
                     this.$store.dispatch(GET_CAR_WASH_REQUEST, id).then(() => {
-                        this.model = this.getCarWashForm;
                         this.loadingIsActive = false;
+                        this.model = this.getCarWashForm;
+                    }).catch(error => {
+                        this.$notify.error({
+                            title: "Failed to load car wash data",
+                            duration: 10000,
+                            message: renderErrorNotificationMessage(this.$createElement, error.response)
+                        });
                     });
                 } else {
                     this.model = this.getCarWashForm;
                     this.loadingIsActive = false;
                 }
             },
-            loadLocations(query) {
+            loadLocations(query, callback) {
                 if (query !== "") {
-                    this.locationLoadingIsActive = true;
                     let dadata = new Dadata(this.getDadataApiKey);
                     dadata.address({
                         query: query,
                         count: 10
                     }).then(data => {
-                        this.locationLoadingIsActive = false;
-                        this.locations = data.suggestions;
-                    }).catch(() => {
-                        this.locationLoadingIsActive = false;
+                        callback(data.suggestions);
+                    }).catch(error => {
+                        this.$notify.error({
+                            title: "Failed to load suggestions for location",
+                            duration: 10000,
+                            message: renderErrorNotificationMessage(this.$createElement, error.response)
+                        });
                     });
                 } else {
-                    this.locations = [];
+                    callback([]);
                 }
             },
             submitForm(formName) {
@@ -355,7 +352,7 @@
                     if (this.isNew) {
                         this.$store.dispatch(ADD_CAR_WASH_REQUEST, this.model).then(response => {
                             this.$refs.formButton.loading = false;
-                            this.$router.push("/profile/car-wash");
+                            this.$router.push(`/profile/car-wash/${response.id}`);
                             this.$notify.info({
                                 title: "Action is successful",
                                 message: `Car wash "${response.name}" (ID: ${response.id}) was added`
@@ -371,7 +368,7 @@
                     } else {
                         this.$store.dispatch(UPDATE_CAR_WASH_REQUEST, this.model).then(response => {
                             this.$refs.formButton.loading = false;
-                            this.$router.push("/profile/car-wash");
+                            this.$router.push(`/profile/car-wash/${response.id}`);
                             this.$notify.info({
                                 title: "Action is successful",
                                 message: `Car wash "${response.name}" (ID: ${response.id}) was updated`
@@ -393,10 +390,6 @@
         },
         beforeRouteUpdate(to, from, next) {
             this.loadCarWashData(to.params.id);
-            next();
-        },
-        beforeRouteLeave(to, from, next) {
-            this.$store.commit(RESET_CAR_WASH_REQUEST);
             next();
         }
     };

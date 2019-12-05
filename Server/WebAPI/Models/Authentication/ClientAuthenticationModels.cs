@@ -1,4 +1,6 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Authentication;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication
@@ -55,9 +57,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Authentication
 
         public ClientAuthenticationProfileModel ToModel(ClientAuthenticationProfileEntity? entity)
         {
-            Id = entity?.Id;
-            FirstName = entity?.FirstName;
-            LastName = entity?.LastName;
+            if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
+
+            Id = entity.Id;
+            FirstName = entity.FirstName;
+            LastName = entity.LastName;
             return this;
         }
     }

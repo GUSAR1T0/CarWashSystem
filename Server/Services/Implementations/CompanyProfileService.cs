@@ -15,12 +15,14 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
         private readonly IUserAuthenticationStore userAuthenticationStore;
         private readonly ICompanyProfileStore companyProfileStore;
         private readonly ICarWashStore carWashStore;
+        private readonly ICarWashServiceStore carWashServiceStore;
 
-        public CompanyProfileService(IUserAuthenticationStore userAuthenticationStore, ICompanyProfileStore companyProfileStore, ICarWashStore carWashStore)
+        public CompanyProfileService(IUserAuthenticationStore userAuthenticationStore, ICompanyProfileStore companyProfileStore, ICarWashStore carWashStore, ICarWashServiceStore carWashServiceStore)
         {
             this.userAuthenticationStore = userAuthenticationStore;
             this.companyProfileStore = companyProfileStore;
             this.carWashStore = carWashStore;
+            this.carWashServiceStore = carWashServiceStore;
         }
 
         #region Company Profile
@@ -38,16 +40,11 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
         #endregion
 
-        #region Car Wash
+        #region Car Washes
 
-        public async Task<IEnumerable<CarWashShortEntity>> GetCarWashListShortByCompany(IOperation operation, int companyId)
+        public async Task<IEnumerable<CarWashShortEntity>> GetCarWashListByCompany(IOperation operation, int userId)
         {
-            return await carWashStore.GetAllShortByCompanyId(operation, companyId);
-        }
-
-        public async Task<IEnumerable<CarWashFullEntity>> GetCarWashListFullByCompany(IOperation operation, int userId)
-        {
-            return await carWashStore.GetAllFullByCompanyId(operation, userId);
+            return await carWashStore.GetAllByCompanyId(operation, userId);
         }
 
         public async Task<CarWashFullEntity> GetCarWashById(IOperation operation, int id)
@@ -59,7 +56,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
         public async Task<CarWashShortEntity> AddCarWash(IOperation operation, int userId, CarWashFullEntity entity)
         {
             var invalidatedHours = ValidateCarWashWorkingHours(entity).ToList();
-            if (invalidatedHours.Any()) throw new Exception(ExceptionMessage.IncorrectWorkingHoursData(invalidatedHours)); 
+            if (invalidatedHours.Any()) throw new Exception(ExceptionMessage.IncorrectWorkingHoursData(invalidatedHours));
             return await carWashStore.Add(operation, userId, entity);
         }
 
@@ -67,7 +64,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
         {
             if (!await carWashStore.IsExist(operation, entity.Id)) throw new Exception(ExceptionMessage.CarWashIsNotExist);
             var invalidatedHours = ValidateCarWashWorkingHours(entity).ToList();
-            if (invalidatedHours.Any()) throw new Exception(ExceptionMessage.IncorrectWorkingHoursData(invalidatedHours)); 
+            if (invalidatedHours.Any()) throw new Exception(ExceptionMessage.IncorrectWorkingHoursData(invalidatedHours));
             return await carWashStore.Update(operation, entity);
         }
 
@@ -113,6 +110,34 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
             {
                 yield return "Sunday";
             }
+        }
+
+        #endregion
+
+        #region Car Wash Services
+
+        public async Task<IEnumerable<CarWashServiceEntity>> GetCarWashServiceListByCarWash(IOperation operation, int carWashId)
+        {
+            if (!await carWashStore.IsExist(operation, carWashId)) throw new Exception(ExceptionMessage.CarWashIsNotExist);
+            return await carWashServiceStore.GetListByCarWash(operation, carWashId);
+        }
+
+        public async Task<CarWashServiceShortEntity> AddCarWashService(IOperation operation, int carWashId, CarWashServiceEntity entity)
+        {
+            if (!await carWashStore.IsExist(operation, carWashId)) throw new Exception(ExceptionMessage.CarWashIsNotExist);
+            return await carWashServiceStore.Add(operation, carWashId, entity);
+        }
+
+        public async Task<CarWashServiceShortEntity> UpdateCarWashService(IOperation operation, CarWashServiceEntity entity)
+        {
+            if (!await carWashServiceStore.IsExist(operation, entity.Id)) throw new Exception(ExceptionMessage.CarWashServicePriceIsNotExist);
+            return await carWashServiceStore.Update(operation, entity);
+        }
+
+        public async Task<CarWashServiceShortEntity> DeleteCarWashService(IOperation operation, int id)
+        {
+            if (!await carWashServiceStore.IsExist(operation, id)) throw new Exception(ExceptionMessage.CarWashServicePriceIsNotExist);
+            return await carWashServiceStore.Delete(operation, id);
         }
 
         #endregion
