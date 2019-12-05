@@ -24,13 +24,13 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
 
         #endregion
 
-        #region Car Wash Service Prices
+        #region Car Wash Services
 
-        Task<IEnumerable<CarWashServicePriceEntity>> GetServicePriceListByCompany(IOperation operation, int userId);
-        Task<IEnumerable<CarWashServicePriceEntity>> GetServicePriceListByCarWash(IOperation operation, int carWashId);
-        Task<CarWashServicePriceShortEntity> AddServicePrice(IOperation operation, int carWashId, CarWashServicePriceEntity entity);
-        Task<CarWashServicePriceShortEntity> UpdateServicePrice(IOperation operation, CarWashServicePriceEntity entity);
-        Task<CarWashServicePriceShortEntity> DeleteServicePrice(IOperation operation, int id);
+        Task<IEnumerable<CarWashServiceEntity>> GetServiceListByCompany(IOperation operation, int userId);
+        Task<IEnumerable<CarWashServiceEntity>> GetCarWashServiceListByCarWash(IOperation operation, int carWashId);
+        Task<CarWashServiceShortEntity> AddCarWashService(IOperation operation, int carWashId, CarWashServiceEntity entity);
+        Task<CarWashServiceShortEntity> UpdateCarWashService(IOperation operation, CarWashServiceEntity entity);
+        Task<CarWashServiceShortEntity> DeleteCarWashService(IOperation operation, int id);
 
         #endregion
     }

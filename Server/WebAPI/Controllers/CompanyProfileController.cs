@@ -73,11 +73,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         {
             var id = VerifyUser(UserRole.Company);
             var carWashList = await companyProfileService.GetCarWashListFullByCompany(operation, id);
-            var servicePriceList = await companyProfileService.GetServicePriceListByCompany(operation, id);
+            var serviceList = await companyProfileService.GetServiceListByCompany(operation, id);
             return carWashList.Select(item =>
             {
                 var model = new CarWashFullModel().ToModel(item);
-                model.ServicePrices = servicePriceList.Where(price => price.CarWashId == model.Id).Select(price => new CarWashServicePriceModel().ToModel(price)).ToList();
+                model.Services = serviceList.Where(service => service.CarWashId == model.Id).Select(price => new CarWashServiceModel().ToModel(price)).ToList();
                 return model;
             });
         });
@@ -144,51 +144,70 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
             return new CarWashShortModel().ToModel(carWash);
         });
 
+        #endregion
+
+        #region Car Wash Services
+
         /// <summary>
-        /// Adds a new company car wash service price
+        /// Obtains company car wash services
         /// </summary>
-        /// <returns>Model of new company car wash service price shortly</returns>
-        [ProducesResponseType(typeof(CarWashServicePriceShortModel), StatusCodes.Status200OK)]
+        /// <returns>List of company car wash services fully</returns>
+        [ProducesResponseType(typeof(IEnumerable<CarWashServiceModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpPost("car-wash/{carWashId}/service-price")]
-        public async Task<ActionResult<CarWashServicePriceShortModel>> AddCarWashServicePrice(int carWashId, [FromBody] CarWashServicePriceModel model) => await Exec(async operation =>
+        [HttpGet("car-wash/{carWashId}/service")]
+        public async Task<ActionResult<IEnumerable<CarWashServiceModel>>> GetCarWashServiceList(int carWashId) => await Exec(async operation =>
         {
             VerifyUser(UserRole.Company);
-            if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
-            var servicePrice = await companyProfileService.AddServicePrice(operation, carWashId, model.ToEntity());
-            return new CarWashServicePriceShortModel().ToModel(servicePrice);
+            var serviceList = await companyProfileService.GetCarWashServiceListByCarWash(operation, carWashId);
+            return serviceList.Select(item => new CarWashServiceModel().ToModel(item));
         });
 
         /// <summary>
-        /// Updates an existed company car wash service price
+        /// Adds a new company car wash service
         /// </summary>
-        /// <returns>Model of updated company car wash service price shortly</returns>
-        [ProducesResponseType(typeof(CarWashServicePriceShortModel), StatusCodes.Status200OK)]
+        /// <returns>Model of new company car wash service shortly</returns>
+        [ProducesResponseType(typeof(CarWashServiceShortModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpPut("car-wash/{carWashId}/service-price/{servicePriceId}")]
-        public async Task<ActionResult<CarWashServicePriceShortModel>> UpdateCarWashServicePrice(int servicePriceId, [FromBody] CarWashServicePriceModel model) => await Exec(async operation =>
+        [HttpPost("car-wash/{carWashId}/service")]
+        public async Task<ActionResult<CarWashServiceShortModel>> AddCarWashService(int carWashId, [FromBody] CarWashServiceModel model) => await Exec(async operation =>
         {
             VerifyUser(UserRole.Company);
             if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
-            var servicePrice = await companyProfileService.UpdateServicePrice(operation, model.ToEntity(servicePriceId));
-            return new CarWashServicePriceShortModel().ToModel(servicePrice);
+            var service = await companyProfileService.AddCarWashService(operation, carWashId, model.ToEntity());
+            return new CarWashServiceShortModel().ToModel(service);
         });
 
         /// <summary>
-        /// Removes a company car wash service price
+        /// Updates an existed company car wash service
         /// </summary>
-        /// <returns>Model of updated company car wash service price shortly</returns>
-        [ProducesResponseType(typeof(CarWashServicePriceShortModel), StatusCodes.Status200OK)]
+        /// <returns>Model of updated company car wash service shortly</returns>
+        [ProducesResponseType(typeof(CarWashServiceShortModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpDelete("car-wash/{carWashId}/service-price/{servicePriceId}")]
-        public async Task<ActionResult<CarWashServicePriceShortModel>> DeleteCarWashServicePrice(int servicePriceId) => await Exec(async operation =>
+        [HttpPut("car-wash/{carWashId}/service/{serviceId}")]
+        public async Task<ActionResult<CarWashServiceShortModel>> UpdateCarWashServicePrice(int serviceId, [FromBody] CarWashServiceModel model) => await Exec(async operation =>
         {
             VerifyUser(UserRole.Company);
-            var servicePrice = await companyProfileService.DeleteServicePrice(operation, servicePriceId);
-            return new CarWashServicePriceShortModel().ToModel(servicePrice);
+            if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
+            var service = await companyProfileService.UpdateCarWashService(operation, model.ToEntity(serviceId));
+            return new CarWashServiceShortModel().ToModel(service);
+        });
+
+        /// <summary>
+        /// Removes a company car wash service
+        /// </summary>
+        /// <returns>Model of updated company car wash service shortly</returns>
+        [ProducesResponseType(typeof(CarWashServiceShortModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [HttpDelete("car-wash/{carWashId}/service/{serviceId}")]
+        public async Task<ActionResult<CarWashServiceShortModel>> DeleteCarWashServicePrice(int serviceId) => await Exec(async operation =>
+        {
+            VerifyUser(UserRole.Company);
+            var service = await companyProfileService.DeleteCarWashService(operation, serviceId);
+            return new CarWashServiceShortModel().ToModel(service);
         });
 
         #endregion

@@ -24,7 +24,7 @@
                         <CarWashGeneralInfo :car-wash="carWash"/>
                     </el-collapse-item>
                     <el-collapse-item title="Service Prices" name="servicePrices">
-                        <CarWashServicePrices :service-prices="[]"/>
+                        <CarWashServices :car-wash-id="carWash.id" :services="carWash.services"/>
                     </el-collapse-item>
                 </el-collapse>
                 <ConfirmationDialog :dialog-status="deleteDialogStatus"
@@ -46,9 +46,9 @@
     import LoadingContainer from "@/components/core/LoadingContainer";
     import ConfirmationDialog from "@/components/core/ConfirmationDialog";
     import CarWashGeneralInfo from "@/components/company-profile/CarWashGeneralInfo";
-    import CarWashServicePrices from "@/components/company-profile/CarWashServicePrices";
+    import CarWashServices from "@/components/company-profile/CarWashServices";
     import { mapGetters } from "vuex";
-    import { DELETE_CAR_WASH_REQUEST, GET_CAR_WASH_LIST_REQUEST } from "@/constants/actions";
+    import { DELETE_CAR_WASH_REQUEST, GET_CAR_WASH_LIST_REQUEST, RESET_CAR_WASH_REQUEST } from "@/constants/actions";
     import { renderErrorNotificationMessage } from "@/extensions/utils";
 
     export default {
@@ -57,7 +57,7 @@
             LoadingContainer,
             ConfirmationDialog,
             CarWashGeneralInfo,
-            CarWashServicePrices
+            CarWashServices
         },
         data() {
             return {
@@ -134,9 +134,11 @@
             }
         },
         mounted() {
+            this.$store.commit(RESET_CAR_WASH_REQUEST);
             this.loadCarWashList();
         },
         beforeRouteUpdate(to, from, next) {
+            this.$store.commit(RESET_CAR_WASH_REQUEST);
             this.loadCarWashList();
             next();
         }

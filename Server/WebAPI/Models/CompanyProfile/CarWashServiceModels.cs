@@ -5,25 +5,27 @@ using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.CompanyProfile;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 {
-    public class CarWashServicePriceModel : IEntityToModelConvertible<CarWashServicePriceEntity, CarWashServicePriceModel>, IModelToEntityConvertible<CarWashServicePriceEntity>,
-        IModelToEntityWithIdentifierConvertible<CarWashServicePriceEntity>
+    public class CarWashServiceModel : IEntityToModelConvertible<CarWashServiceEntity, CarWashServiceModel>, IModelToEntityConvertible<CarWashServiceEntity>,
+        IModelToEntityWithIdentifierConvertible<CarWashServiceEntity>
     {
         public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string ServiceName { get; set; } = "";
+        public string? ServiceName { get; set; }
 
         [StringLength(1024)]
         public string? Description { get; set; }
 
-        public decimal Price { get; set; }
+        [Required]
+        public decimal? Price { get; set; }
 
-        public TimeSpan Duration { get; set; }
+        [Required]
+        public string? Duration { get; set; }
 
-        public bool IsAvailable { get; set; }
+        public bool? IsAvailable { get; set; }
 
-        public CarWashServicePriceModel ToModel(CarWashServicePriceEntity? entity)
+        public CarWashServiceModel ToModel(CarWashServiceEntity? entity)
         {
             if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
 
@@ -31,21 +33,21 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
             ServiceName = entity.ServiceName;
             Description = entity.Description;
             Price = entity.Price;
-            Duration = entity.Duration;
+            Duration = entity.Duration.ToString(@"hh\:mm");
             IsAvailable = entity.IsAvailable;
             return this;
         }
 
-        public CarWashServicePriceEntity ToEntity() => new CarWashServicePriceEntity
+        public CarWashServiceEntity ToEntity() => new CarWashServiceEntity
         {
-            ServiceName = ServiceName,
+            ServiceName = ServiceName!,
             Description = Description,
-            Price = Price,
-            Duration = Duration,
-            IsAvailable = IsAvailable
+            Price = Price ?? new decimal(),
+            Duration = TimeSpan.TryParse(Duration!, out var duration) ? duration : throw new Exception(ExceptionMessage.TimeSpanIsInvalid),
+            IsAvailable = IsAvailable ?? true
         };
 
-        public CarWashServicePriceEntity ToEntity(int id)
+        public CarWashServiceEntity ToEntity(int id)
         {
             var entity = ToEntity();
             entity.Id = id;
@@ -53,12 +55,12 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
         }
     }
 
-    public class CarWashServicePriceShortModel : IEntityToModelConvertible<CarWashServicePriceShortEntity, CarWashServicePriceShortModel>
+    public class CarWashServiceShortModel : IEntityToModelConvertible<CarWashServiceShortEntity, CarWashServiceShortModel>
     {
         public int Id { get; set; }
         public string ServiceName { get; set; } = "";
 
-        public CarWashServicePriceShortModel ToModel(CarWashServicePriceShortEntity? entity)
+        public CarWashServiceShortModel ToModel(CarWashServiceShortEntity? entity)
         {
             if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
 

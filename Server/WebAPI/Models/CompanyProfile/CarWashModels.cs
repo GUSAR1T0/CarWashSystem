@@ -46,7 +46,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         public CarWashWorkingHoursModel? WorkingHours { get; set; }
 
-        public IEnumerable<CarWashServicePriceModel> ServicePrices { get; set; }
+        public IEnumerable<CarWashServiceModel> Services { get; set; } = new List<CarWashServiceModel>();
 
         public CarWashFullModel ToModel(CarWashFullEntity? entity)
         {
@@ -90,7 +90,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
                 Name = Name!,
                 Email = Email,
                 Phone = Phone,
-                Location = Location,
+                Location = Location!,
                 CoordinateX = CoordinateX ?? new decimal(),
                 CoordinateY = CoordinateY ?? new decimal(),
                 Description = Description,

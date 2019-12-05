@@ -15,14 +15,14 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
         private readonly IUserAuthenticationStore userAuthenticationStore;
         private readonly ICompanyProfileStore companyProfileStore;
         private readonly ICarWashStore carWashStore;
-        private readonly ICarWashServicePriceStore carWashServicePriceStore;
+        private readonly ICarWashServiceStore carWashServiceStore;
 
-        public CompanyProfileService(IUserAuthenticationStore userAuthenticationStore, ICompanyProfileStore companyProfileStore, ICarWashStore carWashStore, ICarWashServicePriceStore carWashServicePriceStore)
+        public CompanyProfileService(IUserAuthenticationStore userAuthenticationStore, ICompanyProfileStore companyProfileStore, ICarWashStore carWashStore, ICarWashServiceStore carWashServiceStore)
         {
             this.userAuthenticationStore = userAuthenticationStore;
             this.companyProfileStore = companyProfileStore;
             this.carWashStore = carWashStore;
-            this.carWashServicePriceStore = carWashServicePriceStore;
+            this.carWashServiceStore = carWashServiceStore;
         }
 
         #region Company Profile
@@ -114,35 +114,35 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
         #endregion
 
-        #region Car Wash Service Prices
+        #region Car Wash Services
 
-        public async Task<IEnumerable<CarWashServicePriceEntity>> GetServicePriceListByCompany(IOperation operation, int userId)
+        public async Task<IEnumerable<CarWashServiceEntity>> GetServiceListByCompany(IOperation operation, int userId)
         {
-            return await carWashServicePriceStore.GetListByCompany(operation, userId);
+            return await carWashServiceStore.GetListByCompany(operation, userId);
         }
 
-        public async Task<IEnumerable<CarWashServicePriceEntity>> GetServicePriceListByCarWash(IOperation operation, int carWashId)
+        public async Task<IEnumerable<CarWashServiceEntity>> GetCarWashServiceListByCarWash(IOperation operation, int carWashId)
         {
             if (!await carWashStore.IsExist(operation, carWashId)) throw new Exception(ExceptionMessage.CarWashIsNotExist);
-            return await carWashServicePriceStore.GetListByCarWash(operation, carWashId);
+            return await carWashServiceStore.GetListByCarWash(operation, carWashId);
         }
 
-        public async Task<CarWashServicePriceShortEntity> AddServicePrice(IOperation operation, int carWashId, CarWashServicePriceEntity entity)
+        public async Task<CarWashServiceShortEntity> AddCarWashService(IOperation operation, int carWashId, CarWashServiceEntity entity)
         {
-            if (!await carWashStore.IsExist(operation, entity.Id)) throw new Exception(ExceptionMessage.CarWashIsNotExist);
-            return await carWashServicePriceStore.Add(operation, carWashId, entity);
+            if (!await carWashStore.IsExist(operation, carWashId)) throw new Exception(ExceptionMessage.CarWashIsNotExist);
+            return await carWashServiceStore.Add(operation, carWashId, entity);
         }
 
-        public async Task<CarWashServicePriceShortEntity> UpdateServicePrice(IOperation operation, CarWashServicePriceEntity entity)
+        public async Task<CarWashServiceShortEntity> UpdateCarWashService(IOperation operation, CarWashServiceEntity entity)
         {
-            if (!await carWashServicePriceStore.IsExist(operation, entity.Id)) throw new Exception(ExceptionMessage.CarWashServicePriceIsNotExist);
-            return await carWashServicePriceStore.Update(operation, entity);
+            if (!await carWashServiceStore.IsExist(operation, entity.Id)) throw new Exception(ExceptionMessage.CarWashServicePriceIsNotExist);
+            return await carWashServiceStore.Update(operation, entity);
         }
 
-        public async Task<CarWashServicePriceShortEntity> DeleteServicePrice(IOperation operation, int id)
+        public async Task<CarWashServiceShortEntity> DeleteCarWashService(IOperation operation, int id)
         {
-            if (!await carWashServicePriceStore.IsExist(operation, id)) throw new Exception(ExceptionMessage.CarWashServicePriceIsNotExist);
-            return await carWashServicePriceStore.Delete(operation, id);
+            if (!await carWashServiceStore.IsExist(operation, id)) throw new Exception(ExceptionMessage.CarWashServicePriceIsNotExist);
+            return await carWashServiceStore.Delete(operation, id);
         }
 
         #endregion

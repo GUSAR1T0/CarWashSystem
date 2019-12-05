@@ -1,9 +1,12 @@
 import { ADD_CAR_WASH_ENDPOINT, GET_CAR_WASH_ENDPOINT, UPDATE_CAR_WASH_ENDPOINT } from "@/constants/endpoints";
 import {
-    GET_CAR_WASH_REQUEST,
-    UPDATE_CAR_WASH_REQUEST,
     ADD_CAR_WASH_REQUEST,
-    GET_HTTP_REQUEST, RESET_CAR_WASH_REQUEST, PUT_HTTP_REQUEST, POST_HTTP_REQUEST
+    GET_CAR_WASH_REQUEST,
+    GET_HTTP_REQUEST,
+    POST_HTTP_REQUEST,
+    PUT_HTTP_REQUEST,
+    RESET_CAR_WASH_REQUEST,
+    UPDATE_CAR_WASH_REQUEST
 } from "@/constants/actions";
 import format from "string-format";
 
@@ -195,30 +198,36 @@ export default {
         [GET_CAR_WASH_REQUEST]: ({commit, dispatch}, id) => {
             return new Promise((resolve, reject) => {
                 dispatch(GET_HTTP_REQUEST, {
-                    endpoint: format(GET_CAR_WASH_ENDPOINT, {id: id})
+                    endpoint: format(GET_CAR_WASH_ENDPOINT, {carWashId: id})
                 }).then(response => {
                     commit(GET_CAR_WASH_REQUEST, response.data);
                     resolve();
                 }).catch(error => reject(error));
             });
         },
-        [ADD_CAR_WASH_REQUEST]: ({dispatch}, model) => {
+        [ADD_CAR_WASH_REQUEST]: ({dispatch, commit}, model) => {
             return new Promise((resolve, reject) => {
                 let request = prepareModelRequest(model);
                 request.id = undefined;
                 dispatch(POST_HTTP_REQUEST, {
                     endpoint: ADD_CAR_WASH_ENDPOINT,
                     data: request
-                }).then(response => resolve(response.data)).catch(error => reject(error));
+                }).then(response => {
+                    commit(RESET_CAR_WASH_REQUEST);
+                    resolve(response.data);
+                }).catch(error => reject(error));
             });
         },
-        [UPDATE_CAR_WASH_REQUEST]: ({dispatch}, model) => {
+        [UPDATE_CAR_WASH_REQUEST]: ({dispatch, commit}, model) => {
             return new Promise((resolve, reject) => {
                 let request = prepareModelRequest(model);
                 dispatch(PUT_HTTP_REQUEST, {
-                    endpoint: format(UPDATE_CAR_WASH_ENDPOINT, {id: model.id}),
+                    endpoint: format(UPDATE_CAR_WASH_ENDPOINT, {carWashId: model.id}),
                     data: request
-                }).then(response => resolve(response.data)).catch(error => reject(error));
+                }).then(response => {
+                    commit(RESET_CAR_WASH_REQUEST);
+                    resolve(response.data);
+                }).catch(error => reject(error));
             });
         }
     }

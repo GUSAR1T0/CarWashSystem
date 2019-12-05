@@ -40,7 +40,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             services.AddScoped<IUserAuthenticationStore, UserAuthenticationStore>();
             services.AddScoped<ICompanyProfileStore, CompanyProfileStore>();
             services.AddScoped<ICarWashStore, CarWashStore>();
-            services.AddScoped<ICarWashServicePriceStore, CarWashServicePriceStore>();
+            services.AddScoped<ICarWashServiceStore, CarWashServiceStore>();
 
             // Services
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();

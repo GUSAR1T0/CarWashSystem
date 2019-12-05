@@ -7,6 +7,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Core.Common
         public const string DatabaseConnectionIsMissed = "Database connection string is not set";
         public const string ModelIsInvalid = "Input data is invalid";
         public const string EmptyResponse = "Entity for response is empty";
+        public const string TimeSpanIsInvalid = "Time is invalid";
 
         #region Authentication
 

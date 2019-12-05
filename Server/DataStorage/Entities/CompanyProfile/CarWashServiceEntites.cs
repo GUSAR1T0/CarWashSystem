@@ -2,7 +2,7 @@ using System;
 
 namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.CompanyProfile
 {
-    public class CarWashServicePriceEntity
+    public class CarWashServiceEntity
     {
         public int Id { get; set; }
         public int CarWashId { get; set; }
@@ -13,7 +13,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.CompanyProfil
         public bool IsAvailable { get; set; }
     }
 
-    public class CarWashServicePriceShortEntity
+    public class CarWashServiceShortEntity
     {
         public int Id { get; set; }
         public string ServiceName { get; set; } = "";

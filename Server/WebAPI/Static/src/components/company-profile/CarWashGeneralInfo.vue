@@ -24,7 +24,7 @@
                                     {{ scope.row.email }}
                                 </el-button>
                             </a>
-                            <div v-else>—</div>
+                            <div v-else class="table-cell">—</div>
                         </template>
                     </el-table-column>
                     <el-table-column width="auto">
@@ -37,7 +37,7 @@
                                     {{ scope.row.phone }}
                                 </el-button>
                             </a>
-                            <div v-else>—</div>
+                            <div v-else class="table-cell">—</div>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -58,72 +58,72 @@
         <CarWashInfoRow name="Working Hours" style="padding: 20px 0">
             <template slot="value">
                 <el-table :data="[carWash]">
-                    <el-table-column width="auto" header-align="center">
+                    <el-table-column width="auto" header-align="center" align="center">
                         <template slot="header">
                             <div class="table-header">Mo</div>
                         </template>
-                        <template slot-scope="scope" style="white-space: pre-line;">
-                            <div style="white-space: pre-line; text-align: center">
+                        <template slot-scope="scope">
+                            <div class="table-cell">
                                 {{ getFormattedHours(scope.row.workingHours.monday) }}
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column width="auto" header-align="center">
+                    <el-table-column width="auto" header-align="center" align="center">
                         <template slot="header">
                             <div class="table-header">Tu</div>
                         </template>
                         <template slot-scope="scope">
-                            <div style="white-space: pre-line; text-align: center">
+                            <div class="table-cell">
                                 {{ getFormattedHours(scope.row.workingHours.tuesday) }}
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column width="auto" header-align="center">
+                    <el-table-column width="auto" header-align="center" align="center">
                         <template slot="header">
                             <div class="table-header">We</div>
                         </template>
                         <template slot-scope="scope">
-                            <div style="white-space: pre-line; text-align: center">
+                            <div class="table-cell">
                                 {{ getFormattedHours(scope.row.workingHours.wednesday) }}
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column width="auto" header-align="center">
+                    <el-table-column width="auto" header-align="center" align="center">
                         <template slot="header">
                             <div class="table-header">Th</div>
                         </template>
                         <template slot-scope="scope">
-                            <div style="white-space: pre-line; text-align: center">
+                            <div class="table-cell">
                                 {{ getFormattedHours(scope.row.workingHours.thursday) }}
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column width="auto" header-align="center">
+                    <el-table-column width="auto" header-align="center" align="center">
                         <template slot="header">
                             <div class="table-header">Fr</div>
                         </template>
                         <template slot-scope="scope">
-                            <div style="white-space: pre-line; text-align: center">
+                            <div class="table-cell">
                                 {{ getFormattedHours(scope.row.workingHours.friday) }}
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column width="auto" header-align="center">
+                    <el-table-column width="auto" header-align="center" align="center">
                         <template slot="header">
                             <div class="table-header">Sa</div>
                         </template>
                         <template slot-scope="scope">
-                            <div style="white-space: pre-line; text-align: center">
+                            <div class="table-cell">
                                 {{ getFormattedHours(scope.row.workingHours.saturday) }}
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column width="auto" header-align="center">
+                    <el-table-column width="auto" header-align="center" align="center">
                         <template slot="header">
                             <div class="table-header">Su</div>
                         </template>
                         <template slot-scope="scope">
-                            <div style="white-space: pre-line; text-align: center">
+                            <div class="table-cell">
                                 {{ getFormattedHours(scope.row.workingHours.sunday) }}
                             </div>
                         </template>
