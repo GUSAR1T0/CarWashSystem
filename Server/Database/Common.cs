@@ -13,6 +13,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Database
             public const string Authentication = "authentication";
             public const string Client = "client";
             public const string Company = "company";
+            public const string Appointment = "appointment";
         }
 
         public static class Table
@@ -26,6 +27,10 @@ namespace VXDesign.Store.CarWashSystem.Server.Database
             public const string CarWash = "CarWash";
             public const string CarWashWorkingHours = "CarWashWorkingHours";
             public const string CarWashService = "CarWashService";
+            public const string AppointmentStatusEnum = "AppointmentStatusEnum";
+            public const string Appointment = "Appointment";
+            public const string AppointmentCarWashService = "AppointmentCarWashService";
+            public const string AppointmentHistory = "AppointmentHistory";
         }
     }
 }
