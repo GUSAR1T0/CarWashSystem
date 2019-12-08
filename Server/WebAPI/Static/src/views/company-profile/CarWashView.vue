@@ -20,6 +20,9 @@
                     <el-tab-pane label="Services">
                         <CarWashServices :car-wash-id="carWash.id" :services="carWash.services"/>
                     </el-tab-pane>
+                    <el-tab-pane label="Schedule">
+<!--                        <CarWashSchedule/>-->
+                    </el-tab-pane>
                 </el-tabs>
                 <ConfirmationDialog :dialog-status="deleteDialogStatus"
                                     :confirmation-text="getConfirmationTextOnDeleteCarWash"
@@ -38,6 +41,7 @@
     import ConfirmationDialog from "@/components/core/ConfirmationDialog";
     import CarWashGeneralInfo from "@/components/company-profile/CarWashGeneralInfo";
     import CarWashServices from "@/components/company-profile/CarWashServices";
+    // import CarWashSchedule from "@/components/company-profile/CarWashSchedule";
     import { DELETE_CAR_WASH_REQUEST, GET_HTTP_REQUEST, RESET_CAR_WASH_REQUEST } from "@/constants/actions";
     import { renderErrorNotificationMessage } from "@/extensions/utils";
     import { GET_CAR_WASH_ENDPOINT } from "@/constants/endpoints";
@@ -49,7 +53,8 @@
             LoadingContainer,
             ConfirmationDialog,
             CarWashGeneralInfo,
-            CarWashServices
+            CarWashServices,
+            // CarWashSchedule
         },
         data() {
             return {
