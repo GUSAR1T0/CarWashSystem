@@ -30,7 +30,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
         public async Task UpdateClientFullProfile(IOperation operation, ClientProfileEntity entity)
         {
-            if (await userAuthenticationStore.IsUserExist(operation, entity.Email, entity.Id)) throw new Exception(ExceptionMessage.EmailHasAlreadyExist);
+            if (!await userAuthenticationStore.IsUserExist(operation, entity.Email, entity.Id)) throw new Exception(ExceptionMessage.EmailHasAlreadyExist);
             await clientProfileStore.UpdateClientProfile(operation, entity);
         }
 
