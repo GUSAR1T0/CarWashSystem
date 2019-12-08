@@ -26,6 +26,9 @@ namespace VXDesign.Store.CarWashSystem.Server.Database
             public const string CarWash = "CarWash";
             public const string CarWashWorkingHours = "CarWashWorkingHours";
             public const string CarWashService = "CarWashService";
+            public const string BrandEnum = "BrandEnum";
+            public const string ModelEnum = "ModelEnum";
+            public const string Car = "Car";
         }
     }
 }
