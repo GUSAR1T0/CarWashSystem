@@ -1,8 +1,8 @@
 <template>
     <LoadingContainer :loading-state="loadingIsActive">
         <template slot="content">
-            <b class="title">Edit Company Profile</b>
-            <el-form class="form" :model="model" :rules="rules" ref="form" label-width="200px"
+            <b class="edit-page-title">Edit Company Profile</b>
+            <el-form class="edit-page-form" :model="model" :rules="rules" ref="form" label-width="200px"
                      @submit.native.prevent="submitForm('form')">
                 <el-row class="edit-field-element" type="flex" justify="center" align="middle">
                     <el-col :xs="24" :sm="20" :md="16" :lg="16" :xl="16">
@@ -50,6 +50,16 @@
     </LoadingContainer>
 </template>
 
+<style>
+    .el-form-item__label {
+        font-size: 20px !important;
+        font-weight: bold;
+    }
+</style>
+
+<style scoped src="@/styles/companyProfile.css">
+</style>
+
 <script>
     import LoadingContainer from "@/components/core/LoadingContainer";
     import { mapGetters } from "vuex";
@@ -92,11 +102,11 @@
         },
         methods: {
             loadCompanyProfile() {
+                this.loadingIsActive = true;
                 this.$store.dispatch(GET_COMPANY_PROFILE_REQUEST).then(() => {
+                    this.loadingIsActive = false;
                     this.model = this.getCompanyProfileForm;
-                    this.loadingIsActive = false;
                 }).catch(error => {
-                    this.loadingIsActive = false;
                     this.$notify.error({
                         title: "Failed to load company profile",
                         duration: 10000,

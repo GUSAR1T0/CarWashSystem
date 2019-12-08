@@ -4,10 +4,27 @@
 }
 
 .first-line {
-    margin-bottom: 35px;
+    margin-bottom: 10px;
 }
 
 .contacts-button {
     width: 100%;
     text-align: center;
+}
+
+.table-header {
+    text-transform: uppercase;
+}
+
+.edit-page-title {
+    font-size: 28px;
+}
+
+.edit-page-form {
+    padding-top: 35px;
+}
+
+.table-cell {
+    white-space: pre-line;
+    font-size: 20px;
 }

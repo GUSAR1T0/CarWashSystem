@@ -241,6 +241,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
                     ExternalId = User.Claims.Get(ClaimTypes.NameIdentifier),
                     FirstName = User.Claims.Get(ClaimTypes.GivenName) ?? User.Claims.Get(ClaimTypes.Name) ?? "",
                     LastName = User.Claims.Get(ClaimTypes.Surname) ?? "",
+                    Email = User.Claims.Get(ClaimTypes.Email),
                     Schema = schema
                 });
             });

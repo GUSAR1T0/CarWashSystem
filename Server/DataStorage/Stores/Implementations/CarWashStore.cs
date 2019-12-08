@@ -8,57 +8,19 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 {
     public class CarWashStore : ICarWashStore
     {
-        public Task<IEnumerable<CarWashShortEntity>> GetAllShortByCompanyId(IOperation operation, int companyId)
+        public Task<IEnumerable<CarWashShortEntity>> GetAllByCompanyId(IOperation operation, int userId)
         {
             return operation.QueryAsync<CarWashShortEntity>(new
             {
-                CompanyId = companyId
-            }, @"
-                SELECT
-                    [Id],
-                    [Name]
-                FROM [company].[CarWash]
-                WHERE [CompanyId] = @CompanyId
-            ");
-        }
-
-        public Task<IEnumerable<CarWashFullEntity>> GetAllFullByCompanyId(IOperation operation, int companyId)
-        {
-            return operation.QueryAsync<CarWashFullEntity>(new
-            {
-                CompanyId = companyId
+                UserId = userId
             }, @"
                 SELECT
                     ccw.[Id],
                     ccw.[Name],
-                    ccw.[Email],
-                    ccw.[Phone],
-                    ccw.[Location],
-                    ccw.[CoordinateX],
-                    ccw.[CoordinateY],
-                    ccw.[Description],
-                    ccw.[HasCafe],
-                    ccw.[HasRestZone],
-                    ccw.[HasParking],
-                    ccw.[HasWC],
-                    ccw.[HasCardPayment],
-                    ccwwh.[MondayStartTime],
-                    ccwwh.[MondayStopTime],
-                    ccwwh.[TuesdayStartTime],
-                    ccwwh.[TuesdayStopTime],
-                    ccwwh.[WednesdayStartTime],
-                    ccwwh.[WednesdayStopTime],
-                    ccwwh.[ThursdayStartTime],
-                    ccwwh.[ThursdayStopTime],
-                    ccwwh.[FridayStartTime],
-                    ccwwh.[FridayStopTime],
-                    ccwwh.[SaturdayStartTime],
-                    ccwwh.[SaturdayStopTime],
-                    ccwwh.[SundayStartTime],
-                    ccwwh.[SundayStopTime]
+                    ccw.[Location]
                 FROM [company].[CarWash] ccw
-                INNER JOIN [company].[CarWashWorkingHours] ccwwh ON ccw.[Id] = ccwwh.[CarWashId]
-                WHERE ccw.[CompanyId] = @CompanyId
+                INNER JOIN [company].[Company] cc ON ccw.[CompanyId] = cc.[Id]
+                WHERE cc.[UserId] = @UserId;
             ");
         }
 
@@ -70,7 +32,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             }, @"
                 SELECT TOP 1 1
                 FROM [company].[CarWash]
-                WHERE [Id] = @Id
+                WHERE [Id] = @Id;
             ");
         }
 
@@ -110,15 +72,15 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     ccwwh.[SundayStopTime]
                 FROM [company].[CarWash] ccw
                 INNER JOIN [company].[CarWashWorkingHours] ccwwh ON ccw.[Id] = ccwwh.[CarWashId]
-                WHERE ccw.[Id] = @Id
+                WHERE ccw.[Id] = @Id;
             ");
         }
 
-        public Task<CarWashShortEntity> Add(IOperation operation, int companyId, CarWashFullEntity entity)
+        public Task<CarWashShortEntity> Add(IOperation operation, int userId, CarWashFullEntity entity)
         {
             return operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(new
             {
-                CompanyId = companyId,
+                UserId = userId,
                 entity.Name,
                 entity.Email,
                 entity.Phone,
@@ -146,7 +108,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 entity.SundayStartTime,
                 entity.SundayStopTime
             }, @"
-                DECLARE @NewCarWash TABLE ([Id] INT, [Name] NVARCHAR (50));
+                DECLARE @NewCarWash TABLE ([Id] INT, [Name] NVARCHAR (50), [Location] NVARCHAR (512));
 
                 INSERT INTO [company].[CarWash] (
                     [CompanyId],
@@ -163,9 +125,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     [HasWC],
                     [HasCardPayment]
                 )
-                OUTPUT INSERTED.[Id], INSERTED.[Name] INTO @NewCarWash
-                VALUES (
-                    @CompanyId,
+                OUTPUT INSERTED.[Id], INSERTED.[Name], INSERTED.[Location] INTO @NewCarWash
+                SELECT
+                    [Id],
                     @Name,
                     @Email,
                     @Phone,
@@ -178,7 +140,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     @HasParking,
                     @HasWC,
                     @HasCardPayment
-                );
+                FROM [company].[Company]
+                WHERE [UserId] = @UserId;
 
                 INSERT INTO [company].[CarWashWorkingHours] (
                     [CarWashId],
@@ -217,7 +180,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 
                 SELECT
                     [Id],
-                    [Name]
+                    [Name],
+                    [Location]
                 FROM @NewCarWash;
             ");
         }
@@ -225,7 +189,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
         public Task<CarWashShortEntity> Update(IOperation operation, CarWashFullEntity entity)
         {
             return operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(entity, @"
-                DECLARE @UpdatedCarWash TABLE ([Id] INT, [Name] NVARCHAR (50));
+                DECLARE @UpdatedCarWash TABLE ([Id] INT, [Name] NVARCHAR (50), [Location] NVARCHAR (512));
 
                 UPDATE [company].[CarWash]
                 SET
@@ -241,7 +205,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     [HasParking] = @HasParking,
                     [HasWC] = @HasWC,
                     [HasCardPayment] = @HasCardPayment
-                OUTPUT INSERTED.[Id], INSERTED.[Name] INTO @UpdatedCarWash
+                OUTPUT INSERTED.[Id], INSERTED.[Name] INSERTED.[Location] INTO @UpdatedCarWash
                 WHERE [Id] = @Id;
 
                 UPDATE [company].[CarWashWorkingHours]
@@ -264,7 +228,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 
                 SELECT
                     [Id],
-                    [Name]
+                    [Name],
+                    [Location]
                 FROM @UpdatedCarWash;
             ");
         }
@@ -275,18 +240,19 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             {
                 Id = id
             }, @"
-                DECLARE @DeletedCarWash TABLE ([Id] INT, [Name] NVARCHAR (50));
+                DECLARE @DeletedCarWash TABLE ([Id] INT, [Name] NVARCHAR (50), [Location] NVARCHAR (512));
 
                 DELETE [company].[CarWash]
-                OUTPUT DELETED.[Id], DELETED.[Name] INTO @DeletedCarWash
+                OUTPUT DELETED.[Id], DELETED.[Name], DELETED.[Location] INTO @DeletedCarWash
                 FROM [company].[CarWash]
                 WHERE [Id] = @Id;
 
-                -- Working Hours data should be automatically removed after cascade action
+                -- Working Hours and Service Prices data should be automatically removed after cascade action
 
                 SELECT
                     [Id],
-                    [Name]
+                    [Name],
+                    [Location]
                 FROM @DeletedCarWash;
             ");
         }

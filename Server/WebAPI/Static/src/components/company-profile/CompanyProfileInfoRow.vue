@@ -1,10 +1,12 @@
 <template>
     <div>
         <el-row type="flex" justify="center" align="middle" class="info-row">
-            <el-col :span="10" style="text-align: left;">
+            <el-col style="text-align: left;">
                 <b class="info-row-name">{{ name }}</b>
             </el-col>
-            <el-col :span="14" style="text-align: left;">
+        </el-row>
+        <el-row type="flex" justify="center" align="middle">
+            <el-col style="text-align: left;">
                 <div v-if="value" class="info-row-value">
                     {{ value }}
                 </div>
@@ -21,7 +23,7 @@
 
 <style>
     .info-row {
-        padding: 20px 0;
+        padding-bottom: 20px;
     }
 
     .info-row-name {

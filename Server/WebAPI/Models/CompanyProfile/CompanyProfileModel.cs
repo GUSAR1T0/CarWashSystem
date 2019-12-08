@@ -1,4 +1,6 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.CompanyProfile;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
@@ -18,9 +20,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         public CompanyProfileModel ToModel(CompanyProfileEntity? entity)
         {
-            Name = entity?.Name;
-            Email = entity?.Email;
-            Phone = entity?.Phone;
+            if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
+
+            Name = entity.Name;
+            Email = entity.Email;
+            Phone = entity.Phone;
             return this;
         }
 

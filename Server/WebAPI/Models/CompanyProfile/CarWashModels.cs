@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.CompanyProfile;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
@@ -11,7 +13,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         [Required]
         [StringLength(50)]
-        public string Name { get; set; } = "";
+        public string? Name { get; set; }
 
         [EmailAddress]
         public string? Email { get; set; }
@@ -21,49 +23,48 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
 
         [Required]
         [StringLength(512)]
-        public string Location { get; set; } = "";
+        public string? Location { get; set; }
 
         [Required]
-        public decimal CoordinateX { get; set; }
+        public decimal? CoordinateX { get; set; }
 
         [Required]
-        public decimal CoordinateY { get; set; }
+        public decimal? CoordinateY { get; set; }
 
         [StringLength(1024)]
         public string? Description { get; set; }
 
-        [Required]
-        public bool HasCafe { get; set; }
+        public bool? HasCafe { get; set; }
 
-        [Required]
-        public bool HasRestZone { get; set; }
+        public bool? HasRestZone { get; set; }
 
-        [Required]
-        public bool HasParking { get; set; }
+        public bool? HasParking { get; set; }
 
-        [Required]
-        public bool HasWC { get; set; }
+        public bool? HasWC { get; set; }
 
-        [Required]
-        public bool HasCardPayment { get; set; }
+        public bool? HasCardPayment { get; set; }
 
         public CarWashWorkingHoursModel? WorkingHours { get; set; }
 
+        public IEnumerable<CarWashServiceModel> Services { get; set; } = new List<CarWashServiceModel>();
+
         public CarWashFullModel ToModel(CarWashFullEntity? entity)
         {
-            Id = entity?.Id ?? 0;
-            Name = entity?.Name ?? "";
-            Email = entity?.Email;
-            Phone = entity?.Phone;
-            Location = entity?.Location ?? "";
-            CoordinateX = entity?.CoordinateX ?? new decimal();
-            CoordinateY = entity?.CoordinateY ?? new decimal();
-            Description = entity?.Description;
-            HasCafe = entity?.HasCafe ?? false;
-            HasRestZone = entity?.HasRestZone ?? false;
-            HasParking = entity?.HasParking ?? false;
-            HasWC = entity?.HasWC ?? false;
-            HasCardPayment = entity?.HasCardPayment ?? false;
+            if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
+
+            Id = entity.Id;
+            Name = entity.Name;
+            Email = entity.Email;
+            Phone = entity.Phone;
+            Location = entity.Location;
+            CoordinateX = entity.CoordinateX;
+            CoordinateY = entity.CoordinateY;
+            Description = entity.Description;
+            HasCafe = entity.HasCafe;
+            HasRestZone = entity.HasRestZone;
+            HasParking = entity.HasParking;
+            HasWC = entity.HasWC;
+            HasCardPayment = entity.HasCardPayment;
             WorkingHours = new CarWashWorkingHoursModel().ToModel(entity);
             return this;
         }
@@ -86,18 +87,18 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
             var sunday = WorkingHours?.Sunday?.TryToGet(out sundayHours);
             return new CarWashFullEntity
             {
-                Name = Name,
+                Name = Name!,
                 Email = Email,
                 Phone = Phone,
-                Location = Location,
-                CoordinateX = CoordinateX,
-                CoordinateY = CoordinateY,
+                Location = Location!,
+                CoordinateX = CoordinateX ?? new decimal(),
+                CoordinateY = CoordinateY ?? new decimal(),
                 Description = Description,
-                HasCafe = HasCafe,
-                HasRestZone = HasRestZone,
-                HasParking = HasParking,
-                HasWC = HasWC,
-                HasCardPayment = HasCardPayment,
+                HasCafe = HasCafe ?? false,
+                HasRestZone = HasRestZone ?? false,
+                HasParking = HasParking ?? false,
+                HasWC = HasWC ?? false,
+                HasCardPayment = HasCardPayment ?? false,
                 MondayStartTime = monday == true ? mondayHours?.startTime : null,
                 MondayStopTime = monday == true  ? mondayHours?.stopTime : null,
                 TuesdayStartTime = tuesday == true  ? tuesdayHours?.startTime : null,
@@ -127,11 +128,15 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
+        public string Location { get; set; } = "";
 
         public CarWashShortModel ToModel(CarWashShortEntity? entity)
         {
-            Id = entity?.Id ?? 0;
-            Name = entity?.Name ?? "";
+            if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
+
+            Id = entity.Id;
+            Name = entity.Name;
+            Location = entity.Location;
             return this;
         }
     }

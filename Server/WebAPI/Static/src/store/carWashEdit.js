@@ -1,11 +1,51 @@
 import { ADD_CAR_WASH_ENDPOINT, GET_CAR_WASH_ENDPOINT, UPDATE_CAR_WASH_ENDPOINT } from "@/constants/endpoints";
 import {
-    GET_CAR_WASH_REQUEST,
-    UPDATE_CAR_WASH_REQUEST,
     ADD_CAR_WASH_REQUEST,
-    GET_HTTP_REQUEST, RESET_CAR_WASH_REQUEST, PUT_HTTP_REQUEST, POST_HTTP_REQUEST
+    GET_CAR_WASH_REQUEST,
+    GET_HTTP_REQUEST,
+    POST_HTTP_REQUEST,
+    PUT_HTTP_REQUEST,
+    RESET_CAR_WASH_REQUEST,
+    UPDATE_CAR_WASH_REQUEST
 } from "@/constants/actions";
 import format from "string-format";
+
+function prepareWorkingHoursData(day) {
+    return day.isChecked ? {
+        startTime: day.startTime,
+        stopTime: day.stopTime
+    } : {
+        startTime: null,
+        stopTime: null
+    };
+}
+
+function prepareModelRequest(model) {
+    return {
+        id: model.id,
+        name: model.name,
+        email: model.email,
+        phone: model.phone,
+        location: model.location,
+        coordinateX: parseFloat(model.coordinateX),
+        coordinateY: parseFloat(model.coordinateY),
+        description: model.description,
+        hasCafe: model.hasCafe,
+        hasRestZone: model.hasRestZone,
+        hasParking: model.hasParking,
+        hasWC: model.hasWC,
+        hasCardPayment: model.hasCardPayment,
+        workingHours: {
+            monday: prepareWorkingHoursData(model.workingHours.monday),
+            tuesday: prepareWorkingHoursData(model.workingHours.tuesday),
+            wednesday: prepareWorkingHoursData(model.workingHours.wednesday),
+            thursday: prepareWorkingHoursData(model.workingHours.thursday),
+            friday: prepareWorkingHoursData(model.workingHours.friday),
+            saturday: prepareWorkingHoursData(model.workingHours.saturday),
+            sunday: prepareWorkingHoursData(model.workingHours.sunday)
+        }
+    };
+}
 
 export default {
     state: {
@@ -158,32 +198,36 @@ export default {
         [GET_CAR_WASH_REQUEST]: ({commit, dispatch}, id) => {
             return new Promise((resolve, reject) => {
                 dispatch(GET_HTTP_REQUEST, {
-                    endpoint: format(GET_CAR_WASH_ENDPOINT, {id: id})
+                    endpoint: format(`${GET_CAR_WASH_ENDPOINT}?s=false`, {carWashId: id})
                 }).then(response => {
                     commit(GET_CAR_WASH_REQUEST, response.data);
                     resolve();
                 }).catch(error => reject(error));
             });
         },
-        [ADD_CAR_WASH_REQUEST]: ({dispatch}, model) => {
+        [ADD_CAR_WASH_REQUEST]: ({dispatch, commit}, model) => {
             return new Promise((resolve, reject) => {
-                model.id = undefined;
-                model.coordinateX = parseFloat(model.coordinateX);
-                model.coordinateY = parseFloat(model.coordinateY);
+                let request = prepareModelRequest(model);
+                request.id = undefined;
                 dispatch(POST_HTTP_REQUEST, {
                     endpoint: ADD_CAR_WASH_ENDPOINT,
-                    data: model
-                }).then(response => resolve(response.data)).catch(error => reject(error));
+                    data: request
+                }).then(response => {
+                    commit(RESET_CAR_WASH_REQUEST);
+                    resolve(response.data);
+                }).catch(error => reject(error));
             });
         },
-        [UPDATE_CAR_WASH_REQUEST]: ({dispatch}, model) => {
+        [UPDATE_CAR_WASH_REQUEST]: ({dispatch, commit}, model) => {
             return new Promise((resolve, reject) => {
-                model.coordinateX = parseFloat(model.coordinateX);
-                model.coordinateY = parseFloat(model.coordinateY);
+                let request = prepareModelRequest(model);
                 dispatch(PUT_HTTP_REQUEST, {
-                    endpoint: format(UPDATE_CAR_WASH_ENDPOINT, {id: model.id}),
-                    data: model
-                }).then(response => resolve(response.data)).catch(error => reject(error));
+                    endpoint: format(UPDATE_CAR_WASH_ENDPOINT, {carWashId: model.id}),
+                    data: request
+                }).then(response => {
+                    commit(RESET_CAR_WASH_REQUEST);
+                    resolve(response.data);
+                }).catch(error => reject(error));
             });
         }
     }
