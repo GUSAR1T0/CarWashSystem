@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		94C37104C40A39FF2FF2D16C /* ErrorResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37C934C255042B4817FA8 /* ErrorResult.swift */; };
+		94C371D1D8DA63BBC34B3636 /* TitledContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379B7E4CDF087A341D4FA /* TitledContainer.swift */; };
 		94C37360EE071F06A71DCFD3 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */; };
 		94C3738160416EF4C1C42D9C /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374423A6F02DEC89E2DC1 /* SignInView.swift */; };
+		94C3748BAA58917619BDFF3F /* HeaderTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374780C194D1BE8D8ADFD /* HeaderTitle.swift */; };
+		94C3753FA8AB110AE4CD9820 /* AuthenticationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */; };
 		94C3761D17B1C3B4BE626BAC /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */; };
 		94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */; };
 		94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37BD336E52AA80AA1909E /* SignUpView.swift */; };
@@ -20,12 +23,14 @@
 		94C379FDEFEF54FA167A5181 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37678D452CBEB21CA6262 /* EmptyResponse.swift */; };
 		94C37A35B8BD01687C1D9244 /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */; };
 		94C37A3C1D042EE77E5F1031 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37FB3BA835ACC70732D2E /* MainView.swift */; };
+		94C37BD78FFD946A915E5232 /* ClientCarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37ACB79ED6F575CDDCBF6 /* ClientCarsView.swift */; };
 		94C37C855EFAE64BE1CB6A61 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3776DB7C98327A0D9550E /* AccountController.swift */; };
+		94C37CE42CD95142515976DA /* ClientProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37F96DC8D8716E832474E /* ClientProfileView.swift */; };
 		94C37DA5B21E73B8F1CE529E /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37332524E6A41A59DF47E /* Requests.swift */; };
 		94C37E40AE36AD6B44AF7228 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C377C55A1D3C61B1942770 /* ErrorResponse.swift */; };
 		94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */; };
+		94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3734F941CAA37768EF182 /* CarWashesView.swift */; };
 		A0400BD5239855EE00418D15 /* ClientProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */; };
-		A0400BD7239C6A0800418D15 /* TitledContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0400BD6239C6A0800418D15 /* TitledContainer.swift */; };
 		EEB56DA8236E1DE80062503F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA7236E1DE80062503F /* AppDelegate.swift */; };
 		EEB56DAA236E1DE80062503F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA9236E1DE80062503F /* SceneDelegate.swift */; };
 		EEB56DAD236E1DE80062503F /* CarWashService.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DAB236E1DE80062503F /* CarWashService.xcdatamodeld */; };
@@ -37,9 +42,12 @@
 /* Begin PBXFileReference section */
 		94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalSignInService.swift; sourceTree = "<group>"; };
 		94C37332524E6A41A59DF47E /* Requests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
+		94C3734F941CAA37768EF182 /* CarWashesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashesView.swift; sourceTree = "<group>"; };
 		94C374423A6F02DEC89E2DC1 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		94C374780C194D1BE8D8ADFD /* HeaderTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTitle.swift; sourceTree = "<group>"; };
 		94C374F0631BA324401190AB /* HttpClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientError.swift; sourceTree = "<group>"; };
 		94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStorage.swift; sourceTree = "<group>"; };
 		94C37678D452CBEB21CA6262 /* EmptyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
 		94C3776DB7C98327A0D9550E /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
@@ -47,13 +55,15 @@
 		94C378FD8F0AEB53AA81F3C1 /* ApplicationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationEnums.swift; sourceTree = "<group>"; };
 		94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoAuthenticationView.swift; sourceTree = "<group>"; };
 		94C37999D9BE8145F7D5048C /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		94C379B7E4CDF087A341D4FA /* TitledContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledContainer.swift; sourceTree = "<group>"; };
+		94C37ACB79ED6F575CDDCBF6 /* ClientCarsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientCarsView.swift; sourceTree = "<group>"; };
 		94C37BD336E52AA80AA1909E /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		94C37C934C255042B4817FA8 /* ErrorResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResult.swift; sourceTree = "<group>"; };
 		94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
 		94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
+		94C37F96DC8D8716E832474E /* ClientProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileView.swift; sourceTree = "<group>"; };
 		94C37FB3BA835ACC70732D2E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProfileEnums.swift; sourceTree = "<group>"; };
-		A0400BD6239C6A0800418D15 /* TitledContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContainer.swift; sourceTree = "<group>"; };
 		EEB56DA4236E1DE80062503F /* CarWashService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarWashService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEB56DA7236E1DE80062503F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEB56DA9236E1DE80062503F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +91,7 @@
 				94C374AE466F7AFAAC5550EB /* Enums */,
 				94C377E11236EC7D64604849 /* Services */,
 				94C3796A2522290F05348C72 /* Entities */,
+				94C37BF6BC30CBAC70E217E9 /* DataStorages */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -103,9 +114,20 @@
 				94C37999D9BE8145F7D5048C /* ContentView.swift */,
 				94C37F0D16E4848C1BF9436D /* Authentication */,
 				94C37FB3BA835ACC70732D2E /* MainView.swift */,
-				A0400BD6239C6A0800418D15 /* TitledContainer.swift */,
+				94C3762263926ACD45685539 /* Tabs */,
+				94C378EFEFD900DEE800709F /* Common */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		94C3762263926ACD45685539 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				94C37F96DC8D8716E832474E /* ClientProfileView.swift */,
+				94C37ACB79ED6F575CDDCBF6 /* ClientCarsView.swift */,
+				94C3734F941CAA37768EF182 /* CarWashesView.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 		94C377E11236EC7D64604849 /* Services */ = {
@@ -123,6 +145,15 @@
 				94C3776DB7C98327A0D9550E /* AccountController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		94C378EFEFD900DEE800709F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				94C379B7E4CDF087A341D4FA /* TitledContainer.swift */,
+				94C374780C194D1BE8D8ADFD /* HeaderTitle.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		94C3796A2522290F05348C72 /* Entities */ = {
@@ -143,6 +174,14 @@
 				94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */,
 			);
 			path = HttpClient;
+			sourceTree = "<group>";
+		};
+		94C37BF6BC30CBAC70E217E9 /* DataStorages */ = {
+			isa = PBXGroup;
+			children = (
+				94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */,
+			);
+			path = DataStorages;
 			sourceTree = "<group>";
 		};
 		94C37F0D16E4848C1BF9436D /* Authentication */ = {
@@ -273,7 +312,6 @@
 				EEB56DAA236E1DE80062503F /* SceneDelegate.swift in Sources */,
 				94C379351C26625661AF64B5 /* ContentView.swift in Sources */,
 				94C3738160416EF4C1C42D9C /* SignInView.swift in Sources */,
-				A0400BD7239C6A0800418D15 /* TitledContainer.swift in Sources */,
 				94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */,
 				94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */,
 				94C376ED2A0B10A58282D055 /* AuthenticationEnums.swift in Sources */,
@@ -289,6 +327,12 @@
 				94C3761D17B1C3B4BE626BAC /* ServerConfiguration.swift in Sources */,
 				94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */,
 				94C37C855EFAE64BE1CB6A61 /* AccountController.swift in Sources */,
+				94C371D1D8DA63BBC34B3636 /* TitledContainer.swift in Sources */,
+				94C37CE42CD95142515976DA /* ClientProfileView.swift in Sources */,
+				94C3748BAA58917619BDFF3F /* HeaderTitle.swift in Sources */,
+				94C37BD78FFD946A915E5232 /* ClientCarsView.swift in Sources */,
+				94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */,
+				94C3753FA8AB110AE4CD9820 /* AuthenticationStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SignInView: View {
-    @EnvironmentObject var storage: Storage
+    @EnvironmentObject var authenticationStorage: AuthenticationStorage
     @State private var emailAddress = ""
     @State private var password = ""
     @State private var selection: Int? = nil
@@ -33,8 +33,8 @@ struct SignInView: View {
                         // TODO: Validate form
                         let model = ClientSignInModel(email: self.emailAddress, password: self.password)
                         let clientProfile = self.accountController.signIn(model)
-                        self.storage.isAuthenticated = clientProfile != nil
-                        self.storage.clientProfile = clientProfile
+                        self.authenticationStorage.isAuthenticated = clientProfile != nil
+                        self.authenticationStorage.clientAuthenticationProfile = clientProfile
                     }) {
                         Text(AuthenticationViewText.SignInButtonText)
                                 .bold()

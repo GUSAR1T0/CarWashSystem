@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @EnvironmentObject var storage: Storage
+    @EnvironmentObject var authenticationStorage: AuthenticationStorage
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var emailAddress = ""
@@ -47,8 +47,8 @@ struct SignUpView: View {
                     }
                     let model = ClientSignUpModel(email: self.emailAddress, password: self.password, firstName: self.firstName, lastName: self.lastName)
                     let clientProfile = self.accountController.signUp(model)
-                    self.storage.isAuthenticated = clientProfile != nil
-                    self.storage.clientProfile = clientProfile
+                    self.authenticationStorage.isAuthenticated = clientProfile != nil
+                    self.authenticationStorage.clientAuthenticationProfile = clientProfile
                 }) {
                     Text(AuthenticationViewText.SignUpButtonText)
                             .bold()
@@ -66,8 +66,8 @@ struct SignUpView: View {
                     Button(action: {
                         self.accountController.externalSignInThroughGoogle(UIApplication.shared.keyWindow, handler: { token in
                             let clientProfile = self.accountController.externalSignIn(token)
-                            self.storage.isAuthenticated = clientProfile != nil
-                            self.storage.clientProfile = clientProfile
+                            self.authenticationStorage.isAuthenticated = clientProfile != nil
+                            self.authenticationStorage.clientAuthenticationProfile = clientProfile
                         })
                     }) {
                         Text("Google")
@@ -82,8 +82,8 @@ struct SignUpView: View {
                     Button(action: {
                         self.accountController.externalSignInThroughVk(UIApplication.shared.keyWindow, handler: { token in
                             let clientProfile = self.accountController.externalSignIn(token)
-                            self.storage.isAuthenticated = clientProfile != nil
-                            self.storage.clientProfile = clientProfile
+                            self.authenticationStorage.isAuthenticated = clientProfile != nil
+                            self.authenticationStorage.clientAuthenticationProfile = clientProfile
                         })
                     }) {
                         Text("VK")

@@ -1,5 +1,5 @@
 //
-//  LabelTextField.swift
+//  TitledContainer.swift
 //  CarWashService
 //
 //  Created by Anna Boykova on 08.12.2019.
@@ -8,11 +8,10 @@
 
 import SwiftUI
 
-struct TitledContainer<Content>: View where Content : View {
+struct TitledContainer<Content>: View where Content: View {
     var label: String
-//    var placeHolder: String
     var viewer: () -> Content
-    
+
     @inlinable public init(_ label: String, @ViewBuilder viewer: @escaping () -> Content) {
         self.label = label
         self.viewer = viewer
@@ -22,12 +21,12 @@ struct TitledContainer<Content>: View where Content : View {
         VStack {
             HStack {
                 Text(label)
-                    .font(.body).bold().foregroundColor(ApplicationColor.Primary.toRGB())
+                        .font(.body)
+                        .bold()
+                        .foregroundColor(ApplicationColor.Primary.toRGB())
                 Spacer()
             }.padding(.horizontal)
             viewer()
-//            TextField(placeHolder, text: textHolder)
-//                .textFieldStyle(RoundedBorderTextFieldStyle()).padding(.horizontal)
         }
     }
 }

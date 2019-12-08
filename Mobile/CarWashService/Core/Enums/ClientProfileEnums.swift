@@ -9,11 +9,11 @@
 import Foundation
 
 struct ClientProfileFieldTitle {
-    static let Email = "Email Address:"
-    static let FirstName = "First Name:"
-    static let LastName = "Last Name:"
-    static let Phone = "Phone:"
-    static let Birthday = "Birthday:"
+    static let Email = "Email Address"
+    static let FirstName = "First Name"
+    static let LastName = "Last Name"
+    static let Phone = "Phone"
+    static let Birthday = "Birthday"
 }
 
 struct ClientProfileFieldName {
@@ -22,5 +22,3 @@ struct ClientProfileFieldName {
     static let LastName = "Enter your Last Name"
     static let Phone = "Enter your Phone"
 }
-
-
