@@ -24,6 +24,8 @@
 		94C37DA5B21E73B8F1CE529E /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37332524E6A41A59DF47E /* Requests.swift */; };
 		94C37E40AE36AD6B44AF7228 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C377C55A1D3C61B1942770 /* ErrorResponse.swift */; };
 		94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */; };
+		A0400BD5239855EE00418D15 /* ClientProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */; };
+		A0400BD7239C6A0800418D15 /* TitledContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0400BD6239C6A0800418D15 /* TitledContainer.swift */; };
 		EEB56DA8236E1DE80062503F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA7236E1DE80062503F /* AppDelegate.swift */; };
 		EEB56DAA236E1DE80062503F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DA9236E1DE80062503F /* SceneDelegate.swift */; };
 		EEB56DAD236E1DE80062503F /* CarWashService.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EEB56DAB236E1DE80062503F /* CarWashService.xcdatamodeld */; };
@@ -50,6 +52,8 @@
 		94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
 		94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
 		94C37FB3BA835ACC70732D2E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProfileEnums.swift; sourceTree = "<group>"; };
+		A0400BD6239C6A0800418D15 /* TitledContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContainer.swift; sourceTree = "<group>"; };
 		EEB56DA4236E1DE80062503F /* CarWashService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarWashService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEB56DA7236E1DE80062503F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEB56DA9236E1DE80062503F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +92,7 @@
 				94C378FD8F0AEB53AA81F3C1 /* ApplicationEnums.swift */,
 				94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */,
 				94C37332524E6A41A59DF47E /* Requests.swift */,
+				A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -98,6 +103,7 @@
 				94C37999D9BE8145F7D5048C /* ContentView.swift */,
 				94C37F0D16E4848C1BF9436D /* Authentication */,
 				94C37FB3BA835ACC70732D2E /* MainView.swift */,
+				A0400BD6239C6A0800418D15 /* TitledContainer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -263,9 +269,11 @@
 			files = (
 				EEB56DA8236E1DE80062503F /* AppDelegate.swift in Sources */,
 				EEB56DAD236E1DE80062503F /* CarWashService.xcdatamodeld in Sources */,
+				A0400BD5239855EE00418D15 /* ClientProfileEnums.swift in Sources */,
 				EEB56DAA236E1DE80062503F /* SceneDelegate.swift in Sources */,
 				94C379351C26625661AF64B5 /* ContentView.swift in Sources */,
 				94C3738160416EF4C1C42D9C /* SignInView.swift in Sources */,
+				A0400BD7239C6A0800418D15 /* TitledContainer.swift in Sources */,
 				94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */,
 				94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */,
 				94C376ED2A0B10A58282D055 /* AuthenticationEnums.swift in Sources */,

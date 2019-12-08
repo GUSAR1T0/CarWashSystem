@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-public class ClientProfileModel : Codable {
+public class ClientAuthenticationProfileModel : Codable {
     var id: Int?
     var firstName: String?
     var lastName: String?

@@ -2,12 +2,12 @@ import SwiftUI
 
 class Storage: ObservableObject {
     @Published var isAuthenticated = false
-    @Published var clientProfile: ClientProfileModel? = nil
+    @Published var clientProfile: ClientAuthenticationProfileModel? = nil
 
     init() {
         let service = HttpClientService()
         let semaphore = DispatchSemaphore(value: 0)
-        try! service.get(endpoint: Requests.GetClientData, success: { (response: ClientProfileModel) in
+        try! service.get(endpoint: Requests.GetClientData, success: { (response: ClientAuthenticationProfileModel) in
             self.isAuthenticated = true
             self.clientProfile = response
             semaphore.signal()
