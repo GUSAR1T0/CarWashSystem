@@ -32,7 +32,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             await operation.ExecuteAsync(entity, @"
                 UPDATE cc
                 SET
-                    [Name] = @Name,
+                    [FirstName] = @FirstName,
+                    [LastName] = @LastName,
                     [Phone] = @Phone,
                     [Birthday] = @Birthday
                 FROM [client].[Client] cc

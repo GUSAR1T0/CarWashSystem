@@ -39,6 +39,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.ClientProfile
 
         public ClientProfileEntity ToEntity(int id) => new ClientProfileEntity
         {
+            Id = id,
             FirstName = FirstName,
             LastName = LastName,
             Email = Email,

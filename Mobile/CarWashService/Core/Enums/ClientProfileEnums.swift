@@ -21,4 +21,5 @@ struct ClientProfileFieldName {
     static let FirstName = "Enter your First Name"
     static let LastName = "Enter your Last Name"
     static let Phone = "Enter your Phone"
+    static let Birthday = "Enter your Birthday"
 }

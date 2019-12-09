@@ -6,94 +6,112 @@
 import SwiftUI
 
 struct ClientProfileView: View {
-    @EnvironmentObject private var authenticationStorage: AuthenticationStorage
-
-    @State private var firstName = ""
-    @State private var lastName = "test"
-    @State private var emailAddress = ""
-    @State private var phone = ""
-    @State private var birthday = Date()
-
-    @State private var logoutAction = false
-
     private let containerPaddingValue: CGFloat = 10
+    private let navigationBarPaddingValue: CGFloat = 15
+
+    @EnvironmentObject private var authenticationStorage: AuthenticationStorage
+    @State private var logoutAction = false
+    @State private var isLoaded = false
+
+    private var clientProfileController = ClientProfileController()
+    @ObservedObject private var clientProfile = ClientProfileEntity()
 
     var body: some View {
-        ScrollView {
-            VStack {
-                HeaderTitle(title: "General Info")
-                        .padding(.top, 30)
-                        .padding(.bottom, 30)
-                TitledContainer(ClientProfileFieldTitle.FirstName) {
-                    TextField(ClientProfileFieldName.FirstName, text: self.$firstName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.horizontal)
+        if !isLoaded {
+            clientProfileController.getClientProfile(clientProfile, isLoaded: $isLoaded)
+        }
+        return NavigationView {
+            ScrollView {
+                if isLoaded {
+                    VStack {
+                        TitledContainer(ClientProfileFieldTitle.FirstName) {
+                            TextField(ClientProfileFieldName.FirstName, text: self.$clientProfile.firstName)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding(.horizontal)
+                        }
+                                .padding(.bottom, containerPaddingValue)
+                        TitledContainer(ClientProfileFieldTitle.LastName) {
+                            TextField(ClientProfileFieldName.LastName, text: self.$clientProfile.lastName)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding(.horizontal)
+                        }
+                                .padding(.top, containerPaddingValue)
+                                .padding(.bottom, containerPaddingValue)
+                        TitledContainer(ClientProfileFieldTitle.Birthday) {
+                            DateTextPickerView(ClientProfileFieldName.Birthday, selection: self.$clientProfile.birthday)
+                                    .setRoundedBorderTextFieldStyle()
+                                    .padding(.horizontal)
+                        }
+                                .padding(.top, containerPaddingValue)
+                                .padding(.bottom, containerPaddingValue)
+                        TitledContainer(ClientProfileFieldTitle.Email) {
+                            TextField(ClientProfileFieldName.Email, text: self.$clientProfile.email)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .autocapitalization(.none)
+                                    .padding(.horizontal)
+                        }
+                                .padding(.top, containerPaddingValue)
+                                .padding(.bottom, containerPaddingValue)
+                        TitledContainer(ClientProfileFieldTitle.Phone) {
+                            TextField(ClientProfileFieldName.Phone, text: self.$clientProfile.phone)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding(.horizontal)
+                        }
+                                .padding(.top, containerPaddingValue)
+                        HStack {
+                            Button(action: {
+                                self.logoutAction.toggle()
+                            }) {
+                                Text("Log out")
+                                        .bold()
+                                        .padding()
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .background(ApplicationColor.Danger.toRGB())
+                                        .cornerRadius(5)
+                                        .foregroundColor(.white)
+                                        .padding(10)
+                            }.actionSheet(isPresented: $logoutAction) {
+                                ActionSheet(title: Text("Are you sure that you want to log out?"), buttons: [
+                                    .default(Text("Submit")) {
+                                        let service = HttpClientService()
+                                        try! service.delete(endpoint: Requests.SignOut)
+                                        self.authenticationStorage.isAuthenticated = false
+                                        self.authenticationStorage.clientAuthenticationProfile = nil
+                                    },
+                                    .cancel()
+                                ])
+                            }
+                            Button(action: {
+                                // TODO: Validate form
+                                self.clientProfileController.updateClientProfile(self.clientProfile)
+                            }) {
+                                Text("Save")
+                                        .bold()
+                                        .padding()
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .background(ApplicationColor.Primary.toRGB())
+                                        .cornerRadius(5)
+                                        .foregroundColor(.white)
+                                        .padding(10)
+                            }
+                        }.padding()
+                    }.padding(.top, navigationBarPaddingValue)
+                } else {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Text("Loading...")
+                                    .padding()
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                            Spacer()
+                        }.padding()
+                        Spacer()
+                    }.padding(.top, navigationBarPaddingValue)
                 }
-                        .padding(.bottom, containerPaddingValue)
-                TitledContainer(ClientProfileFieldTitle.LastName) {
-                    TextField(ClientProfileFieldName.LastName, text: self.$lastName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.horizontal)
-                }
-                        .padding(.top, containerPaddingValue)
-                        .padding(.bottom, containerPaddingValue)
-                TitledContainer(ClientProfileFieldTitle.Birthday) {
-                    DatePicker(ClientProfileFieldTitle.Birthday, selection: self.$birthday, displayedComponents: .date)
-                            .labelsHidden()
-                }
-                        .padding(.top, containerPaddingValue)
-                        .padding(.bottom, containerPaddingValue)
-                TitledContainer(ClientProfileFieldTitle.Email) {
-                    TextField(ClientProfileFieldName.Email, text: self.$emailAddress)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .autocapitalization(.none)
-                            .padding(.horizontal)
-                }
-                        .padding(.top, containerPaddingValue)
-                        .padding(.bottom, containerPaddingValue)
-                TitledContainer(ClientProfileFieldTitle.Phone) {
-                    TextField(ClientProfileFieldName.Phone, text: self.$phone)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.horizontal)
-                }
-                        .padding(.top, containerPaddingValue)
-                HStack {
-                    Button(action: {
-                        self.logoutAction.toggle()
-                    }) {
-                        Text("Log out")
-                                .bold()
-                                .padding()
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                                .background(ApplicationColor.Danger.toRGB())
-                                .cornerRadius(5)
-                                .foregroundColor(.white)
-                                .padding(10)
-                    }.actionSheet(isPresented: $logoutAction) {
-                        ActionSheet(title: Text("Are you sure that you want to log out?"), buttons: [
-                            .default(Text("Submit")) {
-                                let service = HttpClientService()
-                                try! service.delete(endpoint: Requests.SignOut)
-                                self.authenticationStorage.isAuthenticated = false
-                                self.authenticationStorage.clientAuthenticationProfile = nil
-                            },
-                            .cancel()
-                        ])
-                    }
-                    Button(action: {
-                        // TODO: Save
-                    }) {
-                        Text("Save")
-                                .bold()
-                                .padding()
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                                .background(ApplicationColor.Primary.toRGB())
-                                .cornerRadius(5)
-                                .foregroundColor(.white)
-                                .padding(10)
-                    }
-                }.padding()
             }
+                    .animation(.none)
+                    .navigationBarTitle(Text("General Info"))
         }
     }
 }

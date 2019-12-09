@@ -7,12 +7,14 @@ import SwiftUI
 
 struct CarWashesView: View {
     var body: some View {
-        ScrollView {
-            VStack {
-                Spacer()
-                Text("Car washes")
-                Spacer()
+        NavigationView {
+            ScrollView {
+                VStack {
+                    EmptyView()
+                }.padding(.top, 15)
             }
+                    .animation(.none)
+                    .navigationBarTitle(Text("Car Washes"))
         }
     }
 }

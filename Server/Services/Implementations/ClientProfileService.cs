@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.Core.Operation;
@@ -30,7 +28,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
         public async Task UpdateClientFullProfile(IOperation operation, ClientProfileEntity entity)
         {
-            if (!await userAuthenticationStore.IsUserExist(operation, entity.Email, entity.Id)) throw new Exception(ExceptionMessage.EmailHasAlreadyExist);
+            if (await userAuthenticationStore.IsUserExist(operation, entity.Email, entity.Id)) throw new Exception(ExceptionMessage.EmailHasAlreadyExist);
             await clientProfileStore.UpdateClientProfile(operation, entity);
         }
 

@@ -31,8 +31,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             }, $@"
                 SELECT TOP 1 1
                 FROM [authentication].[User] au
-                INNER JOIN [authentication].[InternalUser] aiu ON au.[InternalUserId] = aiu.[Id]
-                WHERE aiu.[Email] = @Email{(id.HasValue ? " AND au.[Id] <> @Id" : "")};
+                LEFT JOIN [authentication].[InternalUser] aiu ON au.[InternalUserId] = aiu.[Id]
+                LEFT JOIN [authentication].[ExternalUser] aeu ON au.[ExternalUserId] = aeu.[Id]
+                WHERE (aiu.[Email] = @Email OR aeu.[Email] = @Email){(id.HasValue ? " AND au.[Id] <> @Id" : "")};
             ");
         }
 

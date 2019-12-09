@@ -7,15 +7,14 @@ import SwiftUI
 
 struct ClientCarsView: View {
     var body: some View {
-        ScrollView {
-            VStack {
-                HeaderTitle(title: "Cars")
-                        .padding(.top, 10)
-                        .padding(.bottom, 30)
-                Spacer()
-                Text("Cars...")
-                Spacer()
+        NavigationView {
+            ScrollView {
+                VStack {
+                    EmptyView()
+                }.padding(.top, 15)
             }
+                    .animation(.none)
+                    .navigationBarTitle(Text("Cars"))
         }
     }
 }

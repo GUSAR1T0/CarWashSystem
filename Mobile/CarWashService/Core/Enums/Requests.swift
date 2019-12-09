@@ -6,6 +6,7 @@
 import Foundation
 
 class Requests {
+    // Authentication
     public static let SignIn = "/api/account/client/sign-in"
     public static let SignUp = "/api/account/client/sign-up"
     public static let SignOut = "/api/account/sign-out"
@@ -14,4 +15,7 @@ class Requests {
     public static let VerifyExternalSignIn = "/api/account/client/sign-in/external/verify"
     public static let CompleteExternalSignIn = "/api/account/client/sign-in/external/complete"
     public static let RedirectExternalSignIn = "cws://sign-in"
+
+    // Client Profile
+    public static let GetClientProfileData = "/api/client/profile"
 }
