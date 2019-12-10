@@ -7,14 +7,14 @@ import SwiftUI
 
 struct ClientProfileView: View {
     private let containerPaddingValue: CGFloat = 10
-    private let navigationBarPaddingValue: CGFloat = 15
 
     @EnvironmentObject private var authenticationStorage: AuthenticationStorage
+    @ObservedObject private var clientProfile = ClientProfileEntity()
     @State private var logoutAction = false
     @State private var isLoaded = false
 
-    private var clientProfileController = ClientProfileController()
-    @ObservedObject private var clientProfile = ClientProfileEntity()
+    private let accountController = AccountController()
+    private let clientProfileController = ClientProfileController()
 
     var body: some View {
         if !isLoaded {
@@ -73,8 +73,7 @@ struct ClientProfileView: View {
                             }.actionSheet(isPresented: $logoutAction) {
                                 ActionSheet(title: Text("Are you sure that you want to log out?"), buttons: [
                                     .default(Text("Submit")) {
-                                        let service = HttpClientService()
-                                        try! service.delete(endpoint: Requests.SignOut)
+                                        self.accountController.signOut()
                                         self.authenticationStorage.isAuthenticated = false
                                         self.authenticationStorage.clientAuthenticationProfile = nil
                                     },
@@ -97,17 +96,7 @@ struct ClientProfileView: View {
                         }.padding()
                     }.padding(.top, navigationBarPaddingValue)
                 } else {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            Text("Loading...")
-                                    .padding()
-                                    .frame(minWidth: 0, maxWidth: .infinity)
-                            Spacer()
-                        }.padding()
-                        Spacer()
-                    }.padding(.top, navigationBarPaddingValue)
+                    LoadingView()
                 }
             }
                     .animation(.none)

@@ -13,7 +13,8 @@ struct SignInView: View {
     @State private var emailAddress = ""
     @State private var password = ""
     @State private var selection: Int? = nil
-    let accountController = AccountController()
+
+    private let accountController = AccountController()
 
     var body: some View {
         NavigationView {

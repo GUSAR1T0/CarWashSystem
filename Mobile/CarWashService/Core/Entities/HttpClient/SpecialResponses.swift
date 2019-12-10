@@ -5,5 +5,9 @@
 
 import Foundation
 
+class IgnoreResponse: Codable {
+}
+
 class EmptyResponse: Codable {
+    init() {}
 }

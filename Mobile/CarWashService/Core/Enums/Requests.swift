@@ -17,5 +17,8 @@ class Requests {
     public static let RedirectExternalSignIn = "cws://sign-in"
 
     // Client Profile
-    public static let GetClientProfileData = "/api/client/profile"
+    public static let GetClientProfile = "/api/client/profile"
+    public static let UpdateClientProfile = "/api/client/profile"
+    public static let GetClientCars = "/api/client/profile/car/list"
+    public static let DeleteClientCar = "/api/client/profile/car/%d"
 }

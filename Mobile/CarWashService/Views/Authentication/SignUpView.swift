@@ -15,7 +15,8 @@ struct SignUpView: View {
     @State private var emailAddress = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-    let accountController = AccountController()
+
+    private let accountController = AccountController()
 
     var body: some View {
         VStack {

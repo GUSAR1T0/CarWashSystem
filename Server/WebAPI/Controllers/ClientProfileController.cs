@@ -64,11 +64,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// <summary>
         /// Obtains client cars
         /// </summary>
-        /// <returns>List of company car washes shortly</returns>
+        /// <returns>List of client cars</returns>
         [ProducesResponseType(typeof(IEnumerable<CarModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("car-wash/list")]
+        [HttpGet("car/list")]
         public async Task<ActionResult<IEnumerable<CarModel>>> GetCarWashList() => await Exec(async operation =>
         {
             var id = VerifyUser(UserRole.Client);

@@ -24,7 +24,7 @@ class ClientProfileEntity: ObservableObject, Entity {
     }
 
     func toModel() -> ClientProfileModel {
-        let model = ClientProfileModel()
+        var model = ClientProfileModel()
         model.firstName = firstName
         model.lastName = lastName
         model.email = email == "" ? nil : email

@@ -80,4 +80,8 @@ class AccountController {
     func externalSignInThroughVk(_ window: UIWindow?, handler: @escaping (String) -> Void) {
         externalSignIn(window, schema: 2, handler: handler)
     }
+
+    func signOut() {
+        try! service.delete(endpoint: Requests.SignOut)
+    }
 }

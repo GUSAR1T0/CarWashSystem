@@ -10,7 +10,7 @@ class ClientProfileController {
     let service = HttpClientService()
 
     func getClientProfile(_ entity: ClientProfileEntity, isLoaded: Binding<Bool>) {
-        try! service.get(endpoint: Requests.GetClientProfileData, success: { (response: ClientProfileModel) in
+        try! service.get(endpoint: Requests.GetClientProfile, success: { (response: ClientProfileModel) in
             entity.toEntity(response)
             isLoaded.wrappedValue = true
         }, error: { (error: ErrorResult) in
@@ -20,10 +20,26 @@ class ClientProfileController {
 
     func updateClientProfile(_ entity: ClientProfileEntity) {
         let request = entity.toModel()
-        try! service.put(endpoint: Requests.GetClientProfileData, request: request, success: { (response: EmptyResponse) in
+        try! service.put(endpoint: Requests.UpdateClientProfile, request: request, success: { (_: EmptyResponse) in
             print("SUCCESS CLIENT UPDATE")
         }, error: { (error: ErrorResult) in
             print(error.response ?? error.httpClientError ?? "Unhandled exception")
         })
+    }
+
+    func getAllCars(_ list: Binding<[ClientCarModel]>, isLoaded: Binding<Bool>) {
+        try! service.get(endpoint: Requests.GetClientCars, success: { (response: [ClientCarModel]) in
+            list.wrappedValue.removeAll()
+            for model in response {
+                list.wrappedValue.append(model)
+            }
+            isLoaded.wrappedValue = true
+        }, error: { (error: ErrorResult) in
+            print(error.response ?? error.httpClientError ?? "Unhandled exception")
+        })
+    }
+
+    func deleteCar(_ carId: Int, callback: @escaping () -> Void) {
+        try! service.delete(endpoint: String(format: Requests.DeleteClientCar, carId), success: { (_: EmptyResponse) in callback() })
     }
 }

@@ -15,6 +15,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.ClientProfile
         public string? Model { get; set; }
 
         [Required]
+        [StringLength(9)]
         public string? GovernmentPlate { get; set; }
 
         public CarModel ToModel(CarEntity? entity)
