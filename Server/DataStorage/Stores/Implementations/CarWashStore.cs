@@ -8,9 +8,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 {
     public class CarWashStore : ICarWashStore
     {
-        public Task<IEnumerable<CarWashShortEntity>> GetAllByCompanyId(IOperation operation, int userId)
+        public async Task<IEnumerable<CarWashShortEntity>> GetAllByUserId(IOperation operation, int userId)
         {
-            return operation.QueryAsync<CarWashShortEntity>(new
+            return await operation.QueryAsync<CarWashShortEntity>(new
             {
                 UserId = userId
             }, @"
@@ -24,9 +24,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public Task<bool> IsExist(IOperation operation, int id)
+        public async Task<bool> IsExist(IOperation operation, int id)
         {
-            return operation.QuerySingleOrDefaultAsync<bool>(new
+            return await operation.QuerySingleOrDefaultAsync<bool>(new
             {
                 Id = id
             }, @"
@@ -36,9 +36,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public Task<CarWashFullEntity> GetById(IOperation operation, int id)
+        public async Task<CarWashFullEntity> GetById(IOperation operation, int id)
         {
-            return operation.QuerySingleOrDefaultAsync<CarWashFullEntity>(new
+            return await operation.QuerySingleOrDefaultAsync<CarWashFullEntity>(new
             {
                 Id = id
             }, @"
@@ -76,9 +76,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public Task<CarWashShortEntity> Add(IOperation operation, int userId, CarWashFullEntity entity)
+        public async Task<CarWashShortEntity> Add(IOperation operation, int userId, CarWashFullEntity entity)
         {
-            return operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(new
+            return await operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(new
             {
                 UserId = userId,
                 entity.Name,
@@ -186,9 +186,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public Task<CarWashShortEntity> Update(IOperation operation, CarWashFullEntity entity)
+        public async Task<CarWashShortEntity> Update(IOperation operation, CarWashFullEntity entity)
         {
-            return operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(entity, @"
+            return await operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(entity, @"
                 DECLARE @UpdatedCarWash TABLE ([Id] INT, [Name] NVARCHAR (50), [Location] NVARCHAR (512));
 
                 UPDATE [company].[CarWash]
@@ -234,9 +234,9 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             ");
         }
 
-        public Task<CarWashShortEntity> Delete(IOperation operation, int id)
+        public async Task<CarWashShortEntity> Delete(IOperation operation, int id)
         {
-            return operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(new
+            return await operation.QuerySingleOrDefaultAsync<CarWashShortEntity>(new
             {
                 Id = id
             }, @"
