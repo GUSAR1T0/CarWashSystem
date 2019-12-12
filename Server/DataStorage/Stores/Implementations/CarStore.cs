@@ -21,8 +21,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     cca.[GovernmentPlate]
                 FROM [client].[Car] cca
                 INNER JOIN [client].[Client] cc ON cca.[ClientId] = cc.[Id]
-                INNER JOIN [client].[ModelEnum] cme ON cca.[ModelId] = cme.[Id]
-                INNER JOIN [client].[BrandEnum] cbe ON cme.[BrandId] = cbe.[Id]
+                INNER JOIN [client].[CarBrandModelEnum] cme ON cca.[ModelId] = cme.[Id]
+                INNER JOIN [client].[CarBrandEnum] cbe ON cme.[BrandId] = cbe.[Id]
                 WHERE cc.[UserId] = @UserId;
             ");
         }
@@ -52,8 +52,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     cca.[GovernmentPlate]
                 FROM [client].[Car] cca
                 INNER JOIN [client].[Client] cc ON cca.[ClientId] = cc.[Id]
-                INNER JOIN [client].[ModelEnum] cme ON cca.[ModelId] = cme.[Id]
-                INNER JOIN [client].[BrandEnum] cbe ON cme.[BrandId] = cbe.[Id]
+                INNER JOIN [client].[CarBrandModelEnum] cme ON cca.[ModelId] = cme.[Id]
+                INNER JOIN [client].[CarBrandEnum] cbe ON cme.[BrandId] = cbe.[Id]
                 WHERE cca.[Id] = @Id;
             ");
         }

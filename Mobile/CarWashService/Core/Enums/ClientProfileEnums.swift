@@ -24,11 +24,6 @@ struct ClientProfileFieldName {
     static let Birthday = "Enter your Birthday"
 }
 
-struct ClientCarViewType {
-    static let AddView = "Add new car"
-    static let EditView = "Update car info"
-}
-
 struct ClientProfileViewText {
     static let QuestionAboutLogOut = "Are you sure that you want to log out?"
     static let QuestionAboutCarDeletion = "Are you sure that you want to delete car?"
@@ -40,4 +35,19 @@ struct ClientProfileViewText {
     static let DeleteCarSubmitButtonText = "Submit"
     static let EditCarButtonText = "Edit"
     static let NoCarText = "No cars"
+}
+
+struct ClientCarViewType {
+    static let AddView = "Add new car"
+    static let EditView = "Update car info"
+}
+
+struct ClientCarFieldTitle {
+    static let Model = "Model"
+    static let GovernmentPlate = "Government Plate"
+}
+
+struct ClientCarFieldName {
+    static let Model = "Enter your Model"
+    static let GovernmentPlate = "Enter your Government Plate"
 }

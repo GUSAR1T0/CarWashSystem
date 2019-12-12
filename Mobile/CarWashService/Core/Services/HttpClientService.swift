@@ -44,6 +44,12 @@ struct HttpClientService {
                     success(EmptyResponse() as! Response)
                 } else if Response.self != IgnoreResponse.self, let data = data, let response = response as? HTTPURLResponse {
                     if response.statusCode < 400 {
+                        #if DEBUG
+                        if let jsonString = String(data: data, encoding: .utf8) {
+                            print("<\(response.url?.description ?? "no URL")>: \(jsonString)")
+                        }
+                        #endif
+
                         guard let parsedResponse: Response = HttpClientService.parseResponse(data: data) else {
                             throw HttpClientError(message: "Couldn't parse successful response")
                         }

@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @EnvironmentObject var authenticationStorage: AuthenticationStorage
+    @EnvironmentObject private var authenticationStorage: AuthenticationStorage
+    @EnvironmentObject private var lookupStorage: LookupStorage
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var emailAddress = ""
@@ -48,6 +49,11 @@ struct SignUpView: View {
                     }
                     let model = ClientSignUpModel(email: self.emailAddress, password: self.password, firstName: self.firstName, lastName: self.lastName)
                     let clientProfile = self.accountController.signUp(model)
+
+                    if clientProfile != nil {
+                        self.lookupStorage.load()
+                    }
+
                     self.authenticationStorage.isAuthenticated = clientProfile != nil
                     self.authenticationStorage.clientAuthenticationProfile = clientProfile
                 }) {
@@ -67,6 +73,11 @@ struct SignUpView: View {
                     Button(action: {
                         self.accountController.externalSignInThroughGoogle(UIApplication.shared.keyWindow, handler: { token in
                             let clientProfile = self.accountController.externalSignIn(token)
+
+//                            if clientProfile != nil {
+//                                self.lookupStorage.load()
+//                            }
+
                             self.authenticationStorage.isAuthenticated = clientProfile != nil
                             self.authenticationStorage.clientAuthenticationProfile = clientProfile
                         })
@@ -83,6 +94,11 @@ struct SignUpView: View {
                     Button(action: {
                         self.accountController.externalSignInThroughVk(UIApplication.shared.keyWindow, handler: { token in
                             let clientProfile = self.accountController.externalSignIn(token)
+
+                            if clientProfile != nil {
+                                self.lookupStorage.load()
+                            }
+
                             self.authenticationStorage.isAuthenticated = clientProfile != nil
                             self.authenticationStorage.clientAuthenticationProfile = clientProfile
                         })

@@ -7,17 +7,16 @@ import SwiftUI
 import UIKit
 import Combine
 
-final class DateTextPickerView: UIViewRepresentable {
-    typealias UIViewType = UITextField
+final class DateTextPickerView: CustomTextPickerView {
+    private(set) var textField: UITextField
+    private(set) var placeholder: String
+    private(set) var selection: Binding<String>
 
-    private var dateField = UITextField()
     private var datePicker = UIDatePicker()
-
-    private var placeholder: String
-    private var selection: Binding<String>
     private var format = CustomDateFormatter.datePickerFormat
 
     init(_ placeholder: String, selection: Binding<String>, format: String? = nil) {
+        self.textField = UITextField()
         self.placeholder = placeholder
         self.selection = selection
         if let format = format {
@@ -25,28 +24,23 @@ final class DateTextPickerView: UIViewRepresentable {
         }
     }
 
-    func makeUIView(context: Context) -> UIViewType {
-        dateField.placeholder = placeholder
-        dateField.inputView = datePicker
-        dateField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .allEvents)
+    func makeUIView(context: Context) -> UITextField {
+        textField.placeholder = placeholder
+        textField.inputView = datePicker
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .allEvents)
+
         datePicker.datePickerMode = .date
-
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        let flexibleSpaceButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(complete))
-        toolbar.setItems([flexibleSpaceButtonItem, doneButtonItem], animated: true)
-        dateField.inputAccessoryView = toolbar
-
         datePicker.addTarget(self, action: #selector(setDate), for: .valueChanged)
 
-        return dateField
+        setToolbar(selector: #selector(complete))
+
+        return textField
     }
 
-    func updateUIView(_ uiView: UIViewType, context: Context) {
+    func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        dateField.text = selection.wrappedValue
+        textField.text = selection.wrappedValue
         datePicker.date = CustomDateFormatter.formatTo(format, selection.wrappedValue)
     }
 
@@ -55,18 +49,11 @@ final class DateTextPickerView: UIViewRepresentable {
     }
 
     @objc private func complete() {
-        dateField.endEditing(true)
+        textField.endEditing(true)
         setDate()
     }
 
     @objc private func setDate() {
-        dateField.text = CustomDateFormatter.formatFrom(format, datePicker.date)
-    }
-}
-
-extension DateTextPickerView {
-    func setRoundedBorderTextFieldStyle() -> DateTextPickerView {
-        dateField.borderStyle = .roundedRect
-        return self
+        textField.text = CustomDateFormatter.formatFrom(format, datePicker.date)
     }
 }

@@ -5,5 +5,5 @@ CREATE TABLE [client].[Car] (
     [GovernmentPlate]   NVARCHAR (9)   NOT NULL,
     CONSTRAINT [PK_Car_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Car_Client] FOREIGN KEY ([ClientId]) REFERENCES [client].[Client] ([Id]) ON DELETE CASCADE,
-    CONSTRAINT [FK_Car_Model] FOREIGN KEY ([ModelId]) REFERENCES [client].[ModelEnum] ([Id]) ON DELETE CASCADE
+    CONSTRAINT [FK_Car_Model] FOREIGN KEY ([ModelId]) REFERENCES [client].[CarBrandModelEnum] ([Id]) ON DELETE CASCADE
 );

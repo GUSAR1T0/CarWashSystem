@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct SignInView: View {
-    @EnvironmentObject var authenticationStorage: AuthenticationStorage
+    @EnvironmentObject private var authenticationStorage: AuthenticationStorage
+    @EnvironmentObject private var lookupStorage: LookupStorage
     @State private var emailAddress = ""
     @State private var password = ""
     @State private var selection: Int? = nil
@@ -34,6 +35,11 @@ struct SignInView: View {
                         // TODO: Validate form
                         let model = ClientSignInModel(email: self.emailAddress, password: self.password)
                         let clientProfile = self.accountController.signIn(model)
+
+                        if clientProfile != nil {
+                            self.lookupStorage.load()
+                        }
+
                         self.authenticationStorage.isAuthenticated = clientProfile != nil
                         self.authenticationStorage.clientAuthenticationProfile = clientProfile
                     }) {

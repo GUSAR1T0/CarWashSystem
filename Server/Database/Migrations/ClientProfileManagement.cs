@@ -10,14 +10,14 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
             Execute.EmbeddedScript("ClientProfileManagement.AlterClientTableAddColumns.sql");
 
             var clientSchema = Schema.Schema(Common.Schema.Client);
-            if (!clientSchema.Table(Common.Table.BrandEnum).Exists())
+            if (!clientSchema.Table(Common.Table.CarBrandEnum).Exists())
             {
-                Execute.EmbeddedScript("CreateBrandEnumTable.sql");
+                Execute.EmbeddedScript("CreateCarBrandEnumTable.sql");
             }
 
-            if (!clientSchema.Table(Common.Table.ModelEnum).Exists())
+            if (!clientSchema.Table(Common.Table.CarBrandModelEnum).Exists())
             {
-                Execute.EmbeddedScript("CreateModelEnumTable.sql");
+                Execute.EmbeddedScript("CreateCarBrandModelEnumTable.sql");
             }
 
             if (!clientSchema.Table(Common.Table.Car).Exists())
@@ -36,14 +36,14 @@ namespace VXDesign.Store.CarWashSystem.Server.Database.Migrations
                 Execute.EmbeddedScript("DropCarTable.sql");
             }
 
-            if (clientSchema.Table(Common.Table.ModelEnum).Exists())
+            if (clientSchema.Table(Common.Table.CarBrandModelEnum).Exists())
             {
-                Execute.EmbeddedScript("DropModelEnumTable.sql");
+                Execute.EmbeddedScript("DropCarBrandModelEnumTable.sql");
             }
 
-            if (clientSchema.Table(Common.Table.BrandEnum).Exists())
+            if (clientSchema.Table(Common.Table.CarBrandEnum).Exists())
             {
-                Execute.EmbeddedScript("DropBrandEnumTable.sql");
+                Execute.EmbeddedScript("DropCarBrandEnumTable.sql");
             }
         }
     }

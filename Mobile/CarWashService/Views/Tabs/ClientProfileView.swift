@@ -9,6 +9,7 @@ struct ClientProfileView: View {
     private let containerPaddingValue: CGFloat = 10
 
     @EnvironmentObject private var authenticationStorage: AuthenticationStorage
+    @EnvironmentObject private var lookupStorage: LookupStorage
     @ObservedObject private var clientProfile = ClientProfileEntity()
     @State private var logoutAction = false
     @State private var isLoaded = false
@@ -74,6 +75,9 @@ struct ClientProfileView: View {
                                 ActionSheet(title: Text(ClientProfileViewText.QuestionAboutLogOut), buttons: [
                                     .default(Text(ClientProfileViewText.LogOutSubmitButtonText)) {
                                         self.accountController.signOut()
+
+                                        self.lookupStorage.reset()
+
                                         self.authenticationStorage.isAuthenticated = false
                                         self.authenticationStorage.clientAuthenticationProfile = nil
                                     },

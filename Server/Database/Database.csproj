@@ -23,12 +23,12 @@
       <EmbeddedResource Include="Scripts\CarWashManagement\DropCarWashWorkingHoursTable.sql" />
       <EmbeddedResource Include="Scripts\ClientProfileManagement\AlterClientTableAddColumns.sql" />
       <EmbeddedResource Include="Scripts\ClientProfileManagement\AlterClientTableDropColumns.sql" />
-      <EmbeddedResource Include="Scripts\ClientProfileManagement\CreateBrandEnumTable.sql" />
+      <EmbeddedResource Include="Scripts\ClientProfileManagement\CreateCarBrandEnumTable.sql" />
       <EmbeddedResource Include="Scripts\ClientProfileManagement\CreateCarTable.sql" />
-      <EmbeddedResource Include="Scripts\ClientProfileManagement\CreateModelEnumTable.sql" />
-      <EmbeddedResource Include="Scripts\ClientProfileManagement\DropBrandEnumTable.sql" />
+      <EmbeddedResource Include="Scripts\ClientProfileManagement\CreateCarBrandModelEnumTable.sql" />
+      <EmbeddedResource Include="Scripts\ClientProfileManagement\DropCarBrandEnumTable.sql" />
       <EmbeddedResource Include="Scripts\ClientProfileManagement\DropCarTable.sql" />
-      <EmbeddedResource Include="Scripts\ClientProfileManagement\DropModelEnumTable.sql" />
+      <EmbeddedResource Include="Scripts\ClientProfileManagement\DropCarBrandModelEnumTable.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateAuthenticationSchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateClientSchema.sql" />
       <EmbeddedResource Include="Scripts\UserAuthenticationFeature\CreateClientTable.sql" />
