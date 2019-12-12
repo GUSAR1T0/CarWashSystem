@@ -16,7 +16,7 @@ struct CarEditView: View {
                 }.padding(.top, 15)
             }
                     .animation(.none)
-                    .navigationBarTitle(Text("Car Info: \(typeOfAction)"))
+                    .navigationBarTitle(Text(typeOfAction))
         }
     }
 }

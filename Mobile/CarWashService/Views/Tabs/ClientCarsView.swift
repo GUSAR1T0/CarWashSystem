@@ -27,7 +27,7 @@ struct ClientCarsView: View {
                             Button(action: {
                                 self.isAddCarModalActive.toggle()
                             }) {
-                                Text("Add New Car")
+                                Text(ClientProfileViewText.AddNewCarButtonText)
                                         .bold()
                                         .padding()
                                         .frame(minWidth: 0, maxWidth: .infinity)
@@ -36,7 +36,7 @@ struct ClientCarsView: View {
                                         .foregroundColor(.white)
                                         .padding(10)
                             }.sheet(isPresented: $isAddCarModalActive) {
-                                CarEditView(typeOfAction: "Add")
+                                CarEditView(typeOfAction: ClientCarViewType.AddView)
                             }
                         }.padding()
                         if !self.clientCarList.isEmpty {
@@ -55,7 +55,7 @@ struct ClientCarsView: View {
                                                     self.deleteItem = car
                                                     self.isDeleteActionActive = true
                                                 }) {
-                                                    Text("Delete")
+                                                    Text(ClientProfileViewText.DeleteCarButtonText)
                                                             .bold()
                                                             .padding()
                                                             .frame(minWidth: 0, maxWidth: .infinity)
@@ -64,8 +64,8 @@ struct ClientCarsView: View {
                                                             .foregroundColor(.white)
                                                             .padding(10)
                                                 }.actionSheet(item: self.$deleteItem) { item in
-                                                    ActionSheet(title: Text("Are you sure that you want to delete car?"), buttons: [
-                                                        .default(Text("Submit")) {
+                                                    ActionSheet(title: Text(ClientProfileViewText.QuestionAboutCarDeletion), buttons: [
+                                                        .default(Text(ClientProfileViewText.DeleteCarSubmitButtonText)) {
                                                             self.isLoaded = false
                                                             self.clientProfileController.deleteCar(item.id) {
                                                                 self.clientProfileController.getAllCars(self.$clientCarList, isLoaded: self.$isLoaded)
@@ -78,7 +78,7 @@ struct ClientCarsView: View {
                                                 Button(action: {
                                                     self.isEditCarModalActive.toggle()
                                                 }) {
-                                                    Text("Edit")
+                                                    Text(ClientProfileViewText.EditCarButtonText)
                                                             .bold()
                                                             .padding()
                                                             .frame(minWidth: 0, maxWidth: .infinity)
@@ -87,7 +87,7 @@ struct ClientCarsView: View {
                                                             .foregroundColor(.white)
                                                             .padding(10)
                                                 }.sheet(isPresented: self.$isEditCarModalActive) {
-                                                    CarEditView(typeOfAction: "Edit")
+                                                    CarEditView(typeOfAction: ClientCarViewType.EditView)
                                                 }
                                             }.padding(.top, 25)
                                         }
@@ -99,7 +99,7 @@ struct ClientCarsView: View {
                                 Spacer()
                                 HStack {
                                     Spacer()
-                                    Text("No cars")
+                                    Text(ClientProfileViewText.NoCarText)
                                             .bold()
                                             .padding()
                                             .frame(minWidth: 0, maxWidth: .infinity)

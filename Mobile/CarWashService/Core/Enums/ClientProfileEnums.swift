@@ -23,3 +23,21 @@ struct ClientProfileFieldName {
     static let Phone = "Enter your Phone"
     static let Birthday = "Enter your Birthday"
 }
+
+struct ClientCarViewType {
+    static let AddView = "Add new car"
+    static let EditView = "Update car info"
+}
+
+struct ClientProfileViewText {
+    static let QuestionAboutLogOut = "Are you sure that you want to log out?"
+    static let QuestionAboutCarDeletion = "Are you sure that you want to delete car?"
+    static let LogOutButtonText = "Log out"
+    static let LogOutSubmitButtonText = "Submit"
+    static let SaveButtonText = "Save"
+    static let AddNewCarButtonText = "Add new car"
+    static let DeleteCarButtonText = "Delete"
+    static let DeleteCarSubmitButtonText = "Submit"
+    static let EditCarButtonText = "Edit"
+    static let NoCarText = "No cars"
+}
