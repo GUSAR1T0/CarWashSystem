@@ -6,24 +6,28 @@
 import Foundation
 
 class LookupStorage: ObservableObject {
-    @Published var carBrandModelsModels = [CarBrandModelsModel]()
+    @Published var clientLookupModel: ClientLookupModel? = nil
 
     func load() {
         let service = HttpClientService()
+        let semaphore = DispatchSemaphore(value: 0)
+        var clientLookupModel: ClientLookupModel? = nil
         try! service.get(endpoint: Requests.GetLookup, success: { (response: ClientLookupModel) in
-            for model in response.carBrandModelsModels {
-                self.carBrandModelsModels.append(model)
-            }
+            clientLookupModel = response
+            semaphore.signal()
         }, error: { error in
             if let error = error.response {
                 print("ERROR: \(error.message)")
             } else if let error = error.httpClientError {
                 print("ERROR: \(error)")
             }
+            semaphore.signal()
         })
+        semaphore.wait()
+        self.clientLookupModel = clientLookupModel
     }
 
     func reset() {
-        self.carBrandModelsModels.removeAll()
+        self.clientLookupModel = nil
     }
 }

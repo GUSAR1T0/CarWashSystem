@@ -48,6 +48,6 @@ struct ClientCarFieldTitle {
 }
 
 struct ClientCarFieldName {
-    static let Model = "Enter your Model"
+    static let Model = "Choose a car model"
     static let GovernmentPlate = "Enter your Government Plate"
 }

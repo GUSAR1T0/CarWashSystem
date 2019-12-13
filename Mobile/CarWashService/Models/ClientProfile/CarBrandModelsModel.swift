@@ -9,4 +9,11 @@ struct CarBrandModelsModel: Codable, Model, Identifiable {
     var id: Int
     var name: String
     var models: [CarBrandModelModel]
+
+    func getModelName(id: Int) -> String? {
+        if models.contains(where: { model in model.id == id }) {
+            return "\(name) \(models.first(where: { model in model.id == id })?.name ?? "—")"
+        }
+        return nil
+    }
 }

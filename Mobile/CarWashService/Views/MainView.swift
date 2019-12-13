@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject private var authenticationStorage: AuthenticationStorage
-
     var body: some View {
         TabView {
             ClientProfileView()
@@ -34,6 +32,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().environmentObject(AuthenticationStorage())
+        MainView()
     }
 }

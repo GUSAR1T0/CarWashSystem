@@ -12,8 +12,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.ClientProfile
         [Required]
         public int ModelId { get; set; }
 
-        public string? Model { get; set; }
-
         [Required]
         [StringLength(9)]
         public string? GovernmentPlate { get; set; }
@@ -24,7 +22,6 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.ClientProfile
 
             Id = entity.Id;
             ModelId = entity.ModelId;
-            Model = entity.Model;
             GovernmentPlate = entity.GovernmentPlate;
             return this;
         }

@@ -4,7 +4,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.ClientProfile
     {
         public int Id { get; set; }
         public int ModelId { get; set; }
-        public string Model { get; set; } = "";
         public string GovernmentPlate { get; set; } = "";
     }
 }

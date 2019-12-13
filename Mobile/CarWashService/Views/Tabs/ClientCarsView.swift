@@ -6,6 +6,7 @@
 import SwiftUI
 
 struct ClientCarsView: View {
+    @EnvironmentObject private var lookupStorage: LookupStorage
     @State private var isAddCarModalActive = false
     @State private var isEditCarModalActive = false
     @State private var deleteItem: ClientCarModel? = nil
@@ -24,19 +25,19 @@ struct ClientCarsView: View {
                 if isLoaded {
                     VStack {
                         HStack {
-                            Button(action: {
-                                self.isAddCarModalActive.toggle()
-                            }) {
-                                Text(ClientProfileViewText.AddNewCarButtonText)
-                                        .bold()
-                                        .padding()
-                                        .frame(minWidth: 0, maxWidth: .infinity)
-                                        .background(ApplicationColor.Primary.toRGB())
-                                        .cornerRadius(5)
-                                        .foregroundColor(.white)
-                                        .padding(10)
-                            }.sheet(isPresented: $isAddCarModalActive) {
-                                CarEditView(typeOfAction: ClientCarViewType.AddView)
+                            NavigationLink(destination: CarEditView().environmentObject(self.lookupStorage), isActive: $isAddCarModalActive) {
+                                Button(action: {
+                                    self.isAddCarModalActive.toggle()
+                                }) {
+                                    Text(ClientProfileViewText.AddNewCarButtonText)
+                                            .bold()
+                                            .padding()
+                                            .frame(minWidth: 0, maxWidth: .infinity)
+                                            .background(ApplicationColor.Primary.toRGB())
+                                            .cornerRadius(5)
+                                            .foregroundColor(.white)
+                                            .padding(10)
+                                }
                             }
                         }.padding()
                         if !self.clientCarList.isEmpty {
@@ -44,7 +45,7 @@ struct ClientCarsView: View {
                                 CardView {
                                     HStack {
                                         VStack {
-                                            Text(car.model)
+                                            Text(self.lookupStorage.clientLookupModel?.getModelName(id: car.modelId) ?? "Unknown car")
                                                     .font(.system(size: 28, weight: .bold))
                                                     .frame(minWidth: 0, maxWidth: .infinity)
                                             Text(car.governmentPlate)
@@ -75,19 +76,19 @@ struct ClientCarsView: View {
                                                         .cancel()
                                                     ])
                                                 }
-                                                Button(action: {
-                                                    self.isEditCarModalActive.toggle()
-                                                }) {
-                                                    Text(ClientProfileViewText.EditCarButtonText)
-                                                            .bold()
-                                                            .padding()
-                                                            .frame(minWidth: 0, maxWidth: .infinity)
-                                                            .background(ApplicationColor.Primary.toRGB())
-                                                            .cornerRadius(5)
-                                                            .foregroundColor(.white)
-                                                            .padding(10)
-                                                }.sheet(isPresented: self.$isEditCarModalActive) {
-                                                    CarEditView(typeOfAction: ClientCarViewType.EditView)
+                                                NavigationLink(destination: CarEditView(model: car).environmentObject(self.lookupStorage), isActive: self.$isEditCarModalActive) {
+                                                    Button(action: {
+                                                        self.isEditCarModalActive.toggle()
+                                                    }) {
+                                                        Text(ClientProfileViewText.EditCarButtonText)
+                                                                .bold()
+                                                                .padding()
+                                                                .frame(minWidth: 0, maxWidth: .infinity)
+                                                                .background(ApplicationColor.Primary.toRGB())
+                                                                .cornerRadius(5)
+                                                                .foregroundColor(.white)
+                                                                .padding(10)
+                                                    }
                                                 }
                                             }.padding(.top, 25)
                                         }

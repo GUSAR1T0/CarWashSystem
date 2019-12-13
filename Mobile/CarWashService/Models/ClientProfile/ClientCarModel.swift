@@ -8,6 +8,5 @@ import Foundation
 struct ClientCarModel: Codable, Model, Identifiable {
     var id: Int
     var modelId: Int
-    var model: String
     var governmentPlate: String
 }
