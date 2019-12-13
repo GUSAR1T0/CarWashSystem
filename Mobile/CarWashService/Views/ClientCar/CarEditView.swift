@@ -6,25 +6,28 @@
 import SwiftUI
 
 struct CarEditView: View {
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @EnvironmentObject private var lookupStorage: LookupStorage
-    @State var isActive = false
+    @State private var isCarModelChooseModalActive = false
 
-    @State var modelId: Int?
-    @State var selection1: String
-    @State var selection2: String
-    @State var selection3: String
-    @State var selection4: String
-    @State var selection5: String
-    @State var selection6: String
-    @State var selection7: String
-    @State var selection8: String
-    @State var selection9: String
+    @State private var modelId: Int?
+    @State private var selection1: String
+    @State private var selection2: String
+    @State private var selection3: String
+    @State private var selection4: String
+    @State private var selection5: String
+    @State private var selection6: String
+    @State private var selection7: String
+    @State private var selection8: String
+    @State private var selection9: String
 
-    var carId: Int? = nil
+    private var carId: Int? = nil
+    private var isCarListLoaded: Binding<Bool>
 
-    init(model: ClientCarModel? = nil) {
+    private let clientProfileController = ClientProfileController()
+
+    init(model: ClientCarModel? = nil, isCarListLoaded: Binding<Bool>) {
         self.carId = model?.id
+        self.isCarListLoaded = isCarListLoaded
         _modelId = State(initialValue: model?.modelId)
         _selection1 = State(initialValue: CarEditView.getSymbol(model?.governmentPlate, index: 0, defaultValue: "А"))
         _selection2 = State(initialValue: CarEditView.getSymbol(model?.governmentPlate, index: 1, defaultValue: "0"))
@@ -61,7 +64,9 @@ struct CarEditView: View {
             ScrollView {
                 VStack {
                     TitledContainer(ClientCarFieldTitle.Model) {
-                        NavigationLink(destination: CarBrandModelSelector(modelId: self.$modelId), isActive: self.$isActive) {
+                        Button(action: {
+                            self.isCarModelChooseModalActive.toggle()
+                        }) {
                             HStack {
                                 Text(self.lookupStorage.clientLookupModel?.getModelName(id: self.modelId) ?? ClientCarFieldName.Model)
                                         .foregroundColor(.black)
@@ -73,6 +78,10 @@ struct CarEditView: View {
                                     .padding(.horizontal)
                                     .padding(.top, 5)
                                     .padding(.bottom, 5)
+                        }.sheet(isPresented: self.$isCarModelChooseModalActive) {
+                            NavigationView {
+                                CarBrandModelSelector(modelId: self.$modelId, isCarModelChooseModalActive: self.$isCarModelChooseModalActive).environmentObject(self.lookupStorage)
+                            }.accentColor(ApplicationColor.Primary.toRGB())
                         }
                     }
                             .padding(.bottom, 10)
@@ -91,19 +100,20 @@ struct CarEditView: View {
                     }
                             .padding(.top, 10)
                     HStack {
-//                        Button(action: {
-//                            self.presentationMode.wrappedValue.dismiss()
-//                        }) {
-//                            Text("Cancel")
-//                                    .bold()
-//                                    .padding()
-//                                    .frame(minWidth: 0, maxWidth: .infinity)
-//                                    .background(ApplicationColor.Primary.toRGB())
-//                                    .cornerRadius(5)
-//                                    .foregroundColor(.white)
-//                                    .padding(10)
-//                        }
                         Button(action: {
+                            guard let modelId = self.modelId else {
+                                return
+                            }
+                            let model = ClientCarModel(id: self.carId ?? 0, modelId: modelId, governmentPlate: self.getGovernmentPlate())
+                            if self.carId != nil {
+                                self.clientProfileController.updateCar(model) {
+                                    self.isCarListLoaded.wrappedValue.toggle()
+                                }
+                            } else {
+                                self.clientProfileController.addCar(model) {
+                                    self.isCarListLoaded.wrappedValue.toggle()
+                                }
+                            }
                         }) {
                             Text("Save")
                                     .bold()

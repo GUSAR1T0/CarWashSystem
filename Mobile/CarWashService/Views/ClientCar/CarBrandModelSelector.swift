@@ -7,11 +7,12 @@ import SwiftUI
 
 struct CarBrandModelSelector: View {
     @EnvironmentObject private var lookupStorage: LookupStorage
-    @State var isActive = false
+    private var isCarModelChooseModalActive: Binding<Bool>
     private var modelId: Binding<Int?>
 
-    init(modelId: Binding<Int?>) {
+    init(modelId: Binding<Int?>, isCarModelChooseModalActive: Binding<Bool>) {
         self.modelId = modelId
+        self.isCarModelChooseModalActive = isCarModelChooseModalActive
     }
 
     var body: some View {
@@ -19,7 +20,12 @@ struct CarBrandModelSelector: View {
             return AnyView(
                     VStack {
                         List(clientLookupModel.carBrandModelsModels) { carBrandModels in
-                            NavigationLink(destination: CarModelSelector(brandId: carBrandModels.id, brandName: carBrandModels.name, modelId: self.modelId)) {
+                            NavigationLink(destination: CarModelSelector(
+                                    brandId: carBrandModels.id,
+                                    brandName: carBrandModels.name,
+                                    modelId: self.modelId,
+                                    isCarModelChooseModalActive: self.isCarModelChooseModalActive)
+                            ) {
                                 Text(carBrandModels.name)
                             }
                                     .padding()
@@ -27,7 +33,7 @@ struct CarBrandModelSelector: View {
                                     .navigationBarTitle("Choose a car brand")
                         }
                     }
-                                .frame(minWidth: 0, maxWidth: .infinity)
+                            .frame(minWidth: 0, maxWidth: .infinity)
             )
         } else {
             return AnyView(EmptyView())

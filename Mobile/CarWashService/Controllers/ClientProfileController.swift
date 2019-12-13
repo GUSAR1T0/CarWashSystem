@@ -39,6 +39,18 @@ class ClientProfileController {
         })
     }
 
+    func addCar(_ model: ClientCarModel, callback: @escaping () -> Void) {
+        try! service.post(endpoint: Requests.AddClientCar, request: model, success: { (_: EmptyResponse) in callback() }, error: { (error: ErrorResult) in
+            print(error.response ?? error.httpClientError ?? "Unhandled exception")
+        })
+    }
+
+    func updateCar(_ model: ClientCarModel, callback: @escaping () -> Void) {
+        try! service.put(endpoint: String(format: Requests.UpdateClientCar, model.id), request: model, success: { (_: EmptyResponse) in callback() }, error: { (error: ErrorResult) in
+            print(error.response ?? error.httpClientError ?? "Unhandled exception")
+        })
+    }
+
     func deleteCar(_ carId: Int, callback: @escaping () -> Void) {
         try! service.delete(endpoint: String(format: Requests.DeleteClientCar, carId), success: { (_: EmptyResponse) in callback() })
     }

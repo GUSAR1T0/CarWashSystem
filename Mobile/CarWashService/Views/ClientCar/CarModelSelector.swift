@@ -7,16 +7,17 @@ import SwiftUI
 
 struct CarModelSelector: View {
     @EnvironmentObject private var lookupStorage: LookupStorage
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     private var brandId: Int
     private var brandName: String
     private var modelId: Binding<Int?>
+    private var isCarModelChooseModalActive: Binding<Bool>
 
-    init(brandId: Int, brandName: String, modelId: Binding<Int?>) {
+    init(brandId: Int, brandName: String, modelId: Binding<Int?>, isCarModelChooseModalActive: Binding<Bool>) {
         self.brandId = brandId
         self.brandName = brandName
         self.modelId = modelId
+        self.isCarModelChooseModalActive = isCarModelChooseModalActive
     }
 
     var body: some View {
@@ -28,8 +29,7 @@ struct CarModelSelector: View {
                         }?.models ?? []) { carModel in
                             Button(action: {
                                 self.modelId.wrappedValue = carModel.id
-                                self.presentationMode.wrappedValue.dismiss()
-                                self.presentationMode.wrappedValue.dismiss()
+                                self.isCarModelChooseModalActive.wrappedValue.toggle()
                             }) {
                                 Text("\(self.brandName) \(carModel.name)")
                                         .padding()

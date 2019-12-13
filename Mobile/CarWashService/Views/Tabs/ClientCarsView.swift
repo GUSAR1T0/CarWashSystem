@@ -7,17 +7,16 @@ import SwiftUI
 
 struct ClientCarsView: View {
     @EnvironmentObject private var lookupStorage: LookupStorage
-    @State private var isAddCarModalActive = false
-    @State private var isEditCarModalActive = false
-    @State private var deleteItem: ClientCarModel? = nil
-    @State private var isDeleteActionActive = false
+    @State private var isAddCarViewActive = false
+    @State private var isEditCarViewActive: Int? = nil
+    @State private var isDeleteCarActionActive: ClientCarModel? = nil
     @State private var isLoaded = false
     @State private var clientCarList = [ClientCarModel]()
 
     private let clientProfileController = ClientProfileController()
 
     var body: some View {
-        if !isLoaded && !isDeleteActionActive {
+        if !isLoaded && (!isAddCarViewActive || isEditCarViewActive == nil || isDeleteCarActionActive == nil) {
             clientProfileController.getAllCars($clientCarList, isLoaded: $isLoaded)
         }
         return NavigationView {
@@ -25,9 +24,9 @@ struct ClientCarsView: View {
                 if isLoaded {
                     VStack {
                         HStack {
-                            NavigationLink(destination: CarEditView().environmentObject(self.lookupStorage), isActive: $isAddCarModalActive) {
+                            NavigationLink(destination: CarEditView(isCarListLoaded: self.$isLoaded).environmentObject(self.lookupStorage), isActive: $isAddCarViewActive) {
                                 Button(action: {
-                                    self.isAddCarModalActive.toggle()
+                                    self.isAddCarViewActive.toggle()
                                 }) {
                                     Text(ClientProfileViewText.AddNewCarButtonText)
                                             .bold()
@@ -53,10 +52,9 @@ struct ClientCarsView: View {
                                                     .padding(.top, 10)
                                             HStack {
                                                 Button(action: {
-                                                    self.deleteItem = car
-                                                    self.isDeleteActionActive = true
+                                                    self.isDeleteCarActionActive = car
                                                 }) {
-                                                    Text(ClientProfileViewText.DeleteCarButtonText)
+                                                    Text(ActionText.DeleteButtonText)
                                                             .bold()
                                                             .padding()
                                                             .frame(minWidth: 0, maxWidth: .infinity)
@@ -64,23 +62,24 @@ struct ClientCarsView: View {
                                                             .cornerRadius(5)
                                                             .foregroundColor(.white)
                                                             .padding(10)
-                                                }.actionSheet(item: self.$deleteItem) { item in
+                                                }.actionSheet(item: self.$isDeleteCarActionActive) { item in
                                                     ActionSheet(title: Text(ClientProfileViewText.QuestionAboutCarDeletion), buttons: [
-                                                        .default(Text(ClientProfileViewText.DeleteCarSubmitButtonText)) {
-                                                            self.isLoaded = false
+                                                        .default(Text(ActionText.SubmitButtonText)) {
                                                             self.clientProfileController.deleteCar(item.id) {
-                                                                self.clientProfileController.getAllCars(self.$clientCarList, isLoaded: self.$isLoaded)
-                                                                self.isDeleteActionActive = false
+                                                                self.isLoaded.toggle()
                                                             }
                                                         },
                                                         .cancel()
                                                     ])
                                                 }
-                                                NavigationLink(destination: CarEditView(model: car).environmentObject(self.lookupStorage), isActive: self.$isEditCarModalActive) {
+                                                NavigationLink(destination: CarEditView(
+                                                        model: car,
+                                                        isCarListLoaded: self.$isLoaded
+                                                ).environmentObject(self.lookupStorage), tag: car.id, selection: self.$isEditCarViewActive) {
                                                     Button(action: {
-                                                        self.isEditCarModalActive.toggle()
+                                                        self.isEditCarViewActive = car.id
                                                     }) {
-                                                        Text(ClientProfileViewText.EditCarButtonText)
+                                                        Text(ActionText.EditButtonText)
                                                                 .bold()
                                                                 .padding()
                                                                 .frame(minWidth: 0, maxWidth: .infinity)

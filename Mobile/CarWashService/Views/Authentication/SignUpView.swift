@@ -74,9 +74,9 @@ struct SignUpView: View {
                         self.accountController.externalSignInThroughGoogle(UIApplication.shared.keyWindow, handler: { token in
                             let clientProfile = self.accountController.externalSignIn(token)
 
-//                            if clientProfile != nil {
-//                                self.lookupStorage.load()
-//                            }
+                            if clientProfile != nil {
+                                self.lookupStorage.load()
+                            }
 
                             self.authenticationStorage.isAuthenticated = clientProfile != nil
                             self.authenticationStorage.clientAuthenticationProfile = clientProfile

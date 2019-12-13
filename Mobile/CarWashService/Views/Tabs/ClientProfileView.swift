@@ -63,7 +63,7 @@ struct ClientProfileView: View {
                             Button(action: {
                                 self.logoutAction.toggle()
                             }) {
-                                Text(ClientProfileViewText.LogOutButtonText)
+                                Text(ActionText.LogOutButtonText)
                                         .bold()
                                         .padding()
                                         .frame(minWidth: 0, maxWidth: .infinity)
@@ -73,7 +73,7 @@ struct ClientProfileView: View {
                                         .padding(10)
                             }.actionSheet(isPresented: $logoutAction) {
                                 ActionSheet(title: Text(ClientProfileViewText.QuestionAboutLogOut), buttons: [
-                                    .default(Text(ClientProfileViewText.LogOutSubmitButtonText)) {
+                                    .default(Text(ActionText.SubmitButtonText)) {
                                         self.accountController.signOut()
 
                                         self.lookupStorage.reset()
@@ -88,7 +88,7 @@ struct ClientProfileView: View {
                                 // TODO: Validate form
                                 self.clientProfileController.updateClientProfile(self.clientProfile)
                             }) {
-                                Text(ClientProfileViewText.SaveButtonText)
+                                Text(ActionText.SaveButtonText)
                                         .bold()
                                         .padding()
                                         .frame(minWidth: 0, maxWidth: .infinity)
