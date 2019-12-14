@@ -1,24 +1,6 @@
 import UIKit
 import CoreData
 
-public class ClientProfileModel : Codable {
-    var id: Int?
-    var firstName: String?
-    var lastName: String?
-}
-
-public struct ClientSignInModel : Codable {
-    var email: String?
-    var password: String?
-}
-
-public struct ClientSignUpModel : Codable {
-    var email: String?
-    var password: String?
-    var firstName: String?
-    var lastName: String?
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

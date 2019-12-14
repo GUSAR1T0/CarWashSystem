@@ -16,7 +16,7 @@ struct LogoAuthenticationView: View {
             Image(systemName: "sun.max.fill").foregroundColor(ApplicationColor.Primary.toRGB())
             Image(systemName: "car.fill").foregroundColor(ApplicationColor.Primary.toRGB())
             Text(ApplicationText.LogoTitle)
-                    .font(.largeTitle).bold().foregroundColor(ApplicationColor.Primary.toRGB())
+                .font(.largeTitle).bold().foregroundColor(ApplicationColor.Primary.toRGB())
             Text(subTitle)
                     .font(.subheadline)
         }

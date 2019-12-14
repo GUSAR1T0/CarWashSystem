@@ -1,38 +1,32 @@
 //
-//  SignUpView.swift
+//  MainView.swift
 //  CarWashService
 //
-//  Created by Anna Boykova on 18/11/2019.
+//  Created by Anna Boykova on 23/11/2019.
 //  Copyright © 2019 VXDESIGN.STORE. All rights reserved.
 //
 
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject private var storage: Storage
-    var fullName: String {
-        get {
-            (storage.clientProfile?.firstName ?? "") + " " + (storage.clientProfile?.lastName ?? "")
-        }
-    }
-
     var body: some View {
-        VStack {
-            Button(action: {
-                let service = HttpClientService()
-                try! service.delete(endpoint: Requests.SignOut)
-                self.storage.isAuthenticated = false
-                self.storage.clientProfile = nil
-            }) {
-                Text("Log out from account \"\(self.fullName)\"")
-                        .bold()
-                        .padding()
-                        .background(ApplicationColor.Primary.toRGB())
-                        .cornerRadius(5)
-                        .foregroundColor(.white)
-                        .padding(10)
-            }
-        }
+        TabView {
+            ClientProfileView()
+                    .tabItem {
+                        Image(systemName: "person.fill")
+                        Text("Profile")
+                    }.tag(0)
+            ClientCarsView()
+                    .tabItem {
+                        Image(systemName: "car.fill")
+                        Text("Cars")
+                    }.tag(1)
+            CarWashesView()
+                    .tabItem {
+                        Image(systemName: "wand.and.rays")
+                        Text("Car Washes")
+                    }.tag(2)
+        }.accentColor(ApplicationColor.Primary.toRGB())
     }
 }
 

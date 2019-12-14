@@ -10,10 +10,10 @@ class AccountController {
     let service = HttpClientService()
     let externalSignInService = ExternalSignInService()
 
-    func signIn(_ model: ClientSignInModel) -> ClientProfileModel? {
-        var clientProfile: ClientProfileModel? = nil
+    func signIn(_ model: ClientSignInModel) -> ClientAuthenticationProfileModel? {
+        var clientProfile: ClientAuthenticationProfileModel? = nil
         let semaphore = DispatchSemaphore(value: 0)
-        try! service.post(endpoint: Requests.SignIn, request: model, success: { (response: ClientProfileModel) in
+        try! service.post(endpoint: Requests.SignIn, request: model, success: { (response: ClientAuthenticationProfileModel) in
             clientProfile = response
             semaphore.signal()
         }, error: { (error: ErrorResult) in
@@ -28,10 +28,10 @@ class AccountController {
         return clientProfile
     }
 
-    func signUp(_ model: ClientSignUpModel) -> ClientProfileModel? {
-        var clientProfile: ClientProfileModel? = nil
+    func signUp(_ model: ClientSignUpModel) -> ClientAuthenticationProfileModel? {
+        var clientProfile: ClientAuthenticationProfileModel? = nil
         let semaphore = DispatchSemaphore(value: 0)
-        try! service.post(endpoint: Requests.SignUp, request: model, success: { (response: ClientProfileModel) in
+        try! service.post(endpoint: Requests.SignUp, request: model, success: { (response: ClientAuthenticationProfileModel) in
             clientProfile = response
             semaphore.signal()
         }, error: { error in
@@ -46,10 +46,10 @@ class AccountController {
         return clientProfile
     }
 
-    func externalSignIn(_ token: String) -> ClientProfileModel? {
-        var clientProfile: ClientProfileModel? = nil
+    func externalSignIn(_ token: String) -> ClientAuthenticationProfileModel? {
+        var clientProfile: ClientAuthenticationProfileModel? = nil
         let semaphore = DispatchSemaphore(value: 0)
-        try! self.service.get(endpoint: "\(Requests.CompleteExternalSignIn)?token=\(token)", success: { (response: ClientProfileModel) in
+        try! self.service.get(endpoint: "\(Requests.CompleteExternalSignIn)?token=\(token)", success: { (response: ClientAuthenticationProfileModel) in
             clientProfile = response
             semaphore.signal()
         }, error: { error in
@@ -79,5 +79,9 @@ class AccountController {
 
     func externalSignInThroughVk(_ window: UIWindow?, handler: @escaping (String) -> Void) {
         externalSignIn(window, schema: 2, handler: handler)
+    }
+
+    func signOut() {
+        try! service.delete(endpoint: Requests.SignOut)
     }
 }
