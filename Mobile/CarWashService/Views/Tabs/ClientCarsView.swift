@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ClientCarsView: View {
     @EnvironmentObject private var lookupStorage: LookupStorage
@@ -15,46 +16,85 @@ struct ClientCarsView: View {
 
     private let clientProfileController = ClientProfileController()
 
-    var body: some View {
-        if !isLoaded && (!isAddCarViewActive || isEditCarViewActive == nil || isDeleteCarActionActive == nil) {
-            clientProfileController.getAllCars($clientCarList, isLoaded: $isLoaded)
+    private func fillModels(_ models: [ClientCarModel]) {
+        self.clientCarList.removeAll()
+        for model in models {
+            self.clientCarList.append(model)
         }
-        return NavigationView {
-            ScrollView {
-                if isLoaded {
-                    VStack {
-                        HStack {
-                            NavigationLink(destination: CarEditView(isCarListLoaded: self.$isLoaded).environmentObject(self.lookupStorage), isActive: $isAddCarViewActive) {
-                                Button(action: {
-                                    self.isAddCarViewActive.toggle()
-                                }) {
-                                    Text(ClientProfileViewText.AddNewCarButtonText)
-                                            .bold()
-                                            .padding()
-                                            .frame(minWidth: 0, maxWidth: .infinity)
-                                            .background(ApplicationColor.Primary.toRGB())
-                                            .cornerRadius(5)
-                                            .foregroundColor(.white)
-                                            .padding(10)
-                                }
+    }
+
+    var body: some View {
+        NavigationView {
+            RefreshableScrollView(action: { completeRefresh in
+                self.clientProfileController.getAllCars(isLoaded: self.$isLoaded, completeRefresh: completeRefresh) { models in self.fillModels(models) }
+            }) {
+                VStack {
+                    HStack {
+                        NavigationLink(destination: CarEditView(
+                                isCarListLoaded: self.$isLoaded,
+                                isAddCarViewActive: self.$isAddCarViewActive
+                        ).environmentObject(self.lookupStorage), isActive: self.$isAddCarViewActive) {
+                            Button(action: {
+                                self.isAddCarViewActive.toggle()
+                            }) {
+                                Text(ClientProfileViewText.AddNewCarButtonText)
+                                        .bold()
+                                        .padding()
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .background(ApplicationColor.Primary.toRGB())
+                                        .cornerRadius(5)
+                                        .foregroundColor(.white)
+                                        .padding(10)
                             }
-                        }.padding()
-                        if !self.clientCarList.isEmpty {
-                            ForEach(self.clientCarList) { car in
-                                CardView {
-                                    HStack {
-                                        VStack {
-                                            Text(self.lookupStorage.clientLookupModel?.getModelName(id: car.modelId) ?? "Unknown car")
-                                                    .font(.system(size: 28, weight: .bold))
-                                                    .frame(minWidth: 0, maxWidth: .infinity)
-                                            Text(car.governmentPlate)
-                                                    .frame(minWidth: 0, maxWidth: .infinity)
-                                                    .padding(.top, 10)
-                                            HStack {
+                        }
+                    }.padding()
+                    if !self.clientCarList.isEmpty {
+                        ForEach(self.clientCarList) { car in
+                            CardView {
+                                HStack {
+                                    VStack {
+                                        Text(self.lookupStorage.clientLookupModel?.getModelName(id: car.modelId) ?? "Unknown car")
+                                                .font(.system(size: 28, weight: .bold))
+                                                .frame(minWidth: 0, maxWidth: .infinity)
+                                        Text(car.governmentPlate)
+                                                .frame(minWidth: 0, maxWidth: .infinity)
+                                                .padding(.top, 10)
+                                        HStack {
+                                            Button(action: {
+                                                self.isDeleteCarActionActive = car
+                                                self.clientProfileController.getAllCars(isLoaded: self.$isLoaded) { models in
+                                                    self.fillModels(models)
+                                                }
+                                            }) {
+                                                Text(ActionText.DeleteButtonText)
+                                                        .bold()
+                                                        .padding()
+                                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                                        .background(ApplicationColor.Primary.toRGB())
+                                                        .cornerRadius(5)
+                                                        .foregroundColor(.white)
+                                                        .padding(10)
+                                            }.actionSheet(item: self.$isDeleteCarActionActive) { item in
+                                                ActionSheet(title: Text(ClientProfileViewText.QuestionAboutCarDeletion), buttons: [
+                                                    .default(Text(ActionText.SubmitButtonText)) {
+                                                        self.clientProfileController.deleteCar(item.id) {
+                                                            self.clientProfileController.getAllCars(isLoaded: self.$isLoaded) { models in
+                                                                self.fillModels(models)
+                                                            }
+                                                        }
+                                                    },
+                                                    .cancel()
+                                                ])
+                                            }
+                                            NavigationLink(destination: CarEditView(
+                                                    isCarListLoaded: self.$isLoaded,
+                                                    isEditCarViewActive: self.$isEditCarViewActive,
+                                                    model: car
+                                            ).environmentObject(self.lookupStorage), tag: car.id, selection: self.$isEditCarViewActive) {
                                                 Button(action: {
-                                                    self.isDeleteCarActionActive = car
+                                                    self.isEditCarViewActive = car.id
                                                 }) {
-                                                    Text(ActionText.DeleteButtonText)
+                                                    Text(ActionText.EditButtonText)
                                                             .bold()
                                                             .padding()
                                                             .frame(minWidth: 0, maxWidth: .infinity)
@@ -62,57 +102,34 @@ struct ClientCarsView: View {
                                                             .cornerRadius(5)
                                                             .foregroundColor(.white)
                                                             .padding(10)
-                                                }.actionSheet(item: self.$isDeleteCarActionActive) { item in
-                                                    ActionSheet(title: Text(ClientProfileViewText.QuestionAboutCarDeletion), buttons: [
-                                                        .default(Text(ActionText.SubmitButtonText)) {
-                                                            self.clientProfileController.deleteCar(item.id) {
-                                                                self.isLoaded.toggle()
-                                                            }
-                                                        },
-                                                        .cancel()
-                                                    ])
                                                 }
-                                                NavigationLink(destination: CarEditView(
-                                                        model: car,
-                                                        isCarListLoaded: self.$isLoaded
-                                                ).environmentObject(self.lookupStorage), tag: car.id, selection: self.$isEditCarViewActive) {
-                                                    Button(action: {
-                                                        self.isEditCarViewActive = car.id
-                                                    }) {
-                                                        Text(ActionText.EditButtonText)
-                                                                .bold()
-                                                                .padding()
-                                                                .frame(minWidth: 0, maxWidth: .infinity)
-                                                                .background(ApplicationColor.Primary.toRGB())
-                                                                .cornerRadius(5)
-                                                                .foregroundColor(.white)
-                                                                .padding(10)
-                                                    }
-                                                }
-                                            }.padding(.top, 25)
-                                        }
-                                    }.padding()
-                                }
-                            }
-                        } else {
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Spacer()
-                                    Text(ClientProfileViewText.NoCarText)
-                                            .bold()
-                                            .padding()
-                                            .frame(minWidth: 0, maxWidth: .infinity)
-                                    Spacer()
+                                            }
+                                        }.padding(.top, 25)
+                                    }
                                 }.padding()
-                                Spacer()
                             }
                         }
-                    }.padding(.top, navigationBarPaddingValue).padding(.bottom, 35)
-                } else {
-                    LoadingView()
-                }
+                    } else {
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Text(ClientProfileViewText.NoCarText)
+                                        .bold()
+                                        .padding()
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                Spacer()
+                            }.padding()
+                            Spacer()
+                        }
+                    }
+                }.padding(.top, self.navigationBarPaddingValue).padding(.bottom, 35)
             }
+                    .onAppear {
+                        self.clientProfileController.getAllCars(isLoaded: self.$isLoaded) { models in
+                            self.fillModels(models)
+                        }
+                    }
                     .animation(.none)
                     .navigationBarTitle(Text("Cars"))
         }

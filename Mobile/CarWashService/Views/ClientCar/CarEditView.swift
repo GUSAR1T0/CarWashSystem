@@ -22,6 +22,8 @@ struct CarEditView: View {
 
     private var carId: Int? = nil
     private var isCarListLoaded: Binding<Bool>
+    private var isAddCarViewActive: Binding<Bool>?
+    private var isEditCarViewActive: Binding<Int?>?
 
     private let clientProfileController = ClientProfileController()
 
@@ -38,6 +40,18 @@ struct CarEditView: View {
         _selection7 = State(initialValue: CarEditView.getSymbol(model?.governmentPlate, index: 6, defaultValue: ""))
         _selection8 = State(initialValue: CarEditView.getSymbol(model?.governmentPlate, index: 7, defaultValue: "0"))
         _selection9 = State(initialValue: CarEditView.getSymbol(model?.governmentPlate, index: 8, defaultValue: "1"))
+    }
+
+    init(isCarListLoaded: Binding<Bool>, isAddCarViewActive: Binding<Bool>, model: ClientCarModel? = nil) {
+        self.init(model: model, isCarListLoaded: isCarListLoaded)
+        self.isAddCarViewActive = isAddCarViewActive
+        self.isEditCarViewActive = nil
+    }
+
+    init(isCarListLoaded: Binding<Bool>, isEditCarViewActive: Binding<Int?>, model: ClientCarModel? = nil) {
+        self.init(model: model, isCarListLoaded: isCarListLoaded)
+        self.isAddCarViewActive = nil
+        self.isEditCarViewActive = isEditCarViewActive
     }
 
     private static func getSymbol(_ governmentPlate: String?, index: Int, defaultValue: String) -> String {
@@ -108,10 +122,12 @@ struct CarEditView: View {
                             if self.carId != nil {
                                 self.clientProfileController.updateCar(model) {
                                     self.isCarListLoaded.wrappedValue.toggle()
+                                    self.isEditCarViewActive?.wrappedValue = nil
                                 }
                             } else {
                                 self.clientProfileController.addCar(model) {
                                     self.isCarListLoaded.wrappedValue.toggle()
+                                    self.isAddCarViewActive?.wrappedValue = false
                                 }
                             }
                         }) {

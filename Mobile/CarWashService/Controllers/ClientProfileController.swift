@@ -9,31 +9,31 @@ import SwiftUI
 class ClientProfileController {
     let service = HttpClientService()
 
-    func getClientProfile(_ entity: ClientProfileEntity, isLoaded: Binding<Bool>) {
+    func getClientProfile(isLoaded: Binding<Bool>, completeRefresh: @escaping () -> Void = {}, success: @escaping (ClientProfileModel) -> Void) {
+        isLoaded.wrappedValue = false
         try! service.get(endpoint: Requests.GetClientProfile, success: { (response: ClientProfileModel) in
-            entity.toEntity(response)
             isLoaded.wrappedValue = true
+            success(response)
+            completeRefresh()
         }, error: { (error: ErrorResult) in
             print(error.response ?? error.httpClientError ?? "Unhandled exception")
         })
     }
 
-    func updateClientProfile(_ entity: ClientProfileEntity) {
-        let request = entity.toModel()
-        try! service.put(endpoint: Requests.UpdateClientProfile, request: request, success: { (_: EmptyResponse) in
+    func updateClientProfile(_ model: ClientProfileModel) {
+        try! service.put(endpoint: Requests.UpdateClientProfile, request: model, success: { (_: EmptyResponse) in
             print("SUCCESS CLIENT UPDATE")
         }, error: { (error: ErrorResult) in
             print(error.response ?? error.httpClientError ?? "Unhandled exception")
         })
     }
 
-    func getAllCars(_ list: Binding<[ClientCarModel]>, isLoaded: Binding<Bool>) {
+    func getAllCars(isLoaded: Binding<Bool>, completeRefresh: @escaping () -> Void = {}, success: @escaping ([ClientCarModel]) -> Void) {
+        isLoaded.wrappedValue = false
         try! service.get(endpoint: Requests.GetClientCars, success: { (response: [ClientCarModel]) in
-            list.wrappedValue.removeAll()
-            for model in response {
-                list.wrappedValue.append(model)
-            }
             isLoaded.wrappedValue = true
+            success(response)
+            completeRefresh()
         }, error: { (error: ErrorResult) in
             print(error.response ?? error.httpClientError ?? "Unhandled exception")
         })
