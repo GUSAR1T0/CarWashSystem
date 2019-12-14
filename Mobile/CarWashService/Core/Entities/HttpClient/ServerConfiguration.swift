@@ -8,7 +8,7 @@ import Foundation
 struct ServerConfiguration {
     public static var host: String {
         get {
-            "http://192.168.1.68:5000"
+            "http://192.168.1.67:5000"
         }
     }
 }

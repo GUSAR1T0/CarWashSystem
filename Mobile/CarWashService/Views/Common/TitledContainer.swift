@@ -10,10 +10,12 @@ import SwiftUI
 
 struct TitledContainer<Content>: View where Content: View {
     var label: String
+    var font: Font
     var viewer: () -> Content
 
-    @inlinable public init(_ label: String, @ViewBuilder viewer: @escaping () -> Content) {
+    @inlinable public init(_ label: String, font: Font = .body, @ViewBuilder viewer: @escaping () -> Content) {
         self.label = label
+        self.font = font
         self.viewer = viewer
     }
 
@@ -21,7 +23,7 @@ struct TitledContainer<Content>: View where Content: View {
         VStack {
             HStack {
                 Text(label)
-                        .font(.body)
+                        .font(font)
                         .bold()
                         .foregroundColor(ApplicationColor.Primary.toRGB())
                 Spacer()

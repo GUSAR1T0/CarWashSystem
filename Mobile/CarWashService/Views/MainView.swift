@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct MainView: View {
+    @State private var selection = 2
+
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             ClientProfileView()
                     .tabItem {
                         Image(systemName: "person.fill")
