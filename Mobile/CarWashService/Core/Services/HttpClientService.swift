@@ -9,7 +9,7 @@ struct HttpClientService {
     public typealias ResponseCallback<Response: Codable> = (Response) -> Void
     private static let DefaultResponseCallback: (Any) -> Void = { _ in
     }
-    private static let EmptyResponseCallback: (EmptyResponse) -> Void = { (response: EmptyResponse) in
+    private static let IgnoreResponseCallback: (IgnoreResponse) -> Void = { (response: IgnoreResponse) in
     }
     public typealias ErrorCallback = (ErrorResult) -> Void
     private static let DefaultErrorCallback: (Any) -> Void = { _ in
@@ -40,8 +40,16 @@ struct HttpClientService {
             do {
                 if exception != nil {
                     throw HttpClientError(message: "Couldn't send request / get response", error: exception)
-                } else if Response.self != EmptyResponse.self, let data = data, let response = response as? HTTPURLResponse {
+                } else if Response.self == EmptyResponse.self {
+                    success(EmptyResponse() as! Response)
+                } else if Response.self != IgnoreResponse.self, let data = data, let response = response as? HTTPURLResponse {
                     if response.statusCode < 400 {
+                        #if DEBUG
+                        if let jsonString = String(data: data, encoding: .utf8) {
+                            print("<\(response.url?.description ?? "no URL")>: \(jsonString)")
+                        }
+                        #endif
+
                         guard let parsedResponse: Response = HttpClientService.parseResponse(data: data) else {
                             throw HttpClientError(message: "Couldn't parse successful response")
                         }
@@ -82,7 +90,7 @@ struct HttpClientService {
     }
 
     func get(endpoint: String, error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback) throws {
-        try! get(endpoint: endpoint, success: HttpClientService.EmptyResponseCallback, error: error)
+        try! get(endpoint: endpoint, success: HttpClientService.IgnoreResponseCallback, error: error)
     }
 
     func post<Request: Codable, Response: Codable>(
@@ -97,7 +105,7 @@ struct HttpClientService {
     }
 
     func post<Request: Codable>(endpoint: String, request: Request, error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback) throws {
-        try! post(endpoint: endpoint, request: request, success: HttpClientService.EmptyResponseCallback, error: error)
+        try! post(endpoint: endpoint, request: request, success: HttpClientService.IgnoreResponseCallback, error: error)
     }
 
     func put<Request: Codable, Response: Codable>(
@@ -112,7 +120,7 @@ struct HttpClientService {
     }
 
     func put<Request: Codable>(endpoint: String, request: Request, error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback) throws {
-        try! put(endpoint: endpoint, request: request, success: HttpClientService.EmptyResponseCallback, error: error)
+        try! put(endpoint: endpoint, request: request, success: HttpClientService.IgnoreResponseCallback, error: error)
     }
 
     func delete<Response: Codable>(
@@ -125,6 +133,6 @@ struct HttpClientService {
     }
 
     func delete(endpoint: String, error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback) throws {
-        try! delete(endpoint: endpoint, success: HttpClientService.EmptyResponseCallback, error: error)
+        try! delete(endpoint: endpoint, success: HttpClientService.IgnoreResponseCallback, error: error)
     }
 }

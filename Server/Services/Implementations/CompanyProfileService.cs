@@ -44,7 +44,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
         public async Task<IEnumerable<CarWashShortEntity>> GetCarWashListByCompany(IOperation operation, int userId)
         {
-            return await carWashStore.GetAllByCompanyId(operation, userId);
+            return await carWashStore.GetAllByUserId(operation, userId);
         }
 
         public async Task<CarWashFullEntity> GetCarWashById(IOperation operation, int id)
