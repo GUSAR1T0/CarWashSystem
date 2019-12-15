@@ -1,6 +1,6 @@
 CREATE TABLE [appointment].[AppointmentStatusEnum] (
     [Id]     TINYINT         NOT NULL,
-    [Name]   NVARCHAR (16)   NOT NULL,
+    [Name]   NVARCHAR (32)   NOT NULL,
     CONSTRAINT [PK_AppointmentStatusEnum_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [UQ_AppointmentStatusEnum_Name] UNIQUE ([Name])
 );
