@@ -15,13 +15,11 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ view: MKMapView, context: Context) {
-        let coordinate = CLLocationCoordinate2D(
-            latitude: 56.317343, longitude: 44.009265)
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let coordinate = CLLocationCoordinate2D(latitude: 56.317343, longitude: 44.009265)
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         view.setRegion(region, animated: true)
-        let mark = CarWashServiceMark(title: "Car Wash n1",
-        coordinate: coordinate)
+        let mark = CarWashServiceMark(title: "Car Wash n1", coordinate: coordinate)
         view.addAnnotation(mark)
     }
 }

@@ -8,16 +8,17 @@
 
 import Foundation
 
-struct WorkingHoursModel: Identifiable {
-    var id: String = UUID().uuidString
-    
-    let day: String
-    let startTime: String
-    let endTime: String
-    
-    init(day: String, startTime: String, endTime: String) {
-        self.day = day
-        self.startTime = startTime
-        self.endTime = endTime
-    }
+struct WorkingDayModel {
+    let startTime: String?
+    let stopTime: String?
+}
+
+struct WorkingHoursModel {
+    let monday: WorkingDayModel
+    let tuesday: WorkingDayModel
+    let wednesday: WorkingDayModel
+    let thursday: WorkingDayModel
+    let friday: WorkingDayModel
+    let saturday: WorkingDayModel
+    let sunday: WorkingDayModel
 }

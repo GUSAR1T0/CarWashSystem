@@ -13,7 +13,7 @@ struct ServiceRow: View {
     
     var body: some View {
         HStack {
-            Text(self.service.name)
+            Text(self.service.serviceName)
                 .font(.body)
                 .padding()
             Spacer()

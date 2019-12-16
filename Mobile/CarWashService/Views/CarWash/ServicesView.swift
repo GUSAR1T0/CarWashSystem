@@ -9,14 +9,12 @@
 import SwiftUI
 
 struct ServicesView: View {
-    var services: [(ServiceModel)]
-    
+    var services: [ServiceModel]
+
     var body: some View {
-        NavigationView {
-            List(services) { service in
-                NavigationLink(destination: ServiceItemView(service: service)) {
-                    ServiceRow(service: service)
-                }
+        ScrollView {
+            ForEach(services) { service in
+                ServiceItemView(service: service)
             }
         }
     }

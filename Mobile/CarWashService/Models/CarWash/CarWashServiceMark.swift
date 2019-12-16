@@ -9,14 +9,14 @@
 import MapKit
 
 class CarWashServiceMark: NSObject, MKAnnotation {
-  let title: String?
-  // TODO:subtitle
-  let coordinate: CLLocationCoordinate2D
-  
-  init(title: String, coordinate: CLLocationCoordinate2D) {
-    self.title = title
-    self.coordinate = coordinate
-    
-    super.init()
-  }
+    let title: String?
+    // TODO:subtitle
+    let coordinate: CLLocationCoordinate2D
+
+    init(title: String, coordinate: CLLocationCoordinate2D) {
+        self.title = title
+        self.coordinate = coordinate
+
+        super.init()
+    }
 }

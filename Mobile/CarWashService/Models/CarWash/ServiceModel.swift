@@ -9,17 +9,9 @@
 import Foundation
 
 struct ServiceModel: Identifiable {
-    var id: String = UUID().uuidString
-    
-    let name: String
-    let description: String
-    let price: Int
+    var id: Int
+    let serviceName: String
+    var description: String? = nil
+    let price: Float
     let duration: String
-    
-    init(name: String, description: String, price: Int, duration: String) {
-        self.name = name
-        self.description = description
-        self.price = price
-        self.duration = duration
-    }
 }

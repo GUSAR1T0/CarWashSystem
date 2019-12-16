@@ -15,29 +15,29 @@ struct CarWashesButtonTitle {
     static let Order = "Make a order"
 }
 
-struct CarWashFieldNames {
+struct CarWashFieldName {
     static let Description = "Description"
     static let WorkingHours = "Working Hours"
     static let Facilities = "Facilities"
 }
 
-struct StatusTitels
+struct StatusTitle
 {
     static let Open = "Open"
     static let Close = "Close"
 }
 
-struct StatusColors {
+struct StatusColor {
     static let Open = ApplicationColor.Success.toRGB()
     static let Close = ApplicationColor.Danger.toRGB()
 }
 
-struct StatusImages {
+struct StatusImage {
     static let Open = "checkmark.circle.fill"
     static let Close = "xmark.circle.fill"
 }
 
-struct Facilities {
+struct Facility {
     static let Cafe = "Cafe"
     static let RestZone = "Rest zone"
     static let Parking = "Parking"
@@ -45,8 +45,7 @@ struct Facilities {
     static let CardPayment = "Card payment"
 }
 
-struct ServiceTitles {
-    static let Name = "Service name"
+struct ServiceTitle {
     static let Description = "Description"
     static let Price = "Price"
     static let Duration = "Duration"

@@ -9,27 +9,19 @@
 import Foundation
 
 struct CarWashModel: Identifiable {
-    var id: String = UUID().uuidString
-    
+    var id: Int
     let name: String
     let location: String
     let description: String
-    let isOpen: Bool
-    let workingHours: [(WorkingHoursModel)]
-    let facilities: [(FacilityModel)]
-    let services: [(ServiceModel)]
-    let contacts: [(ContactModel)]
-    
-    init(name: String, location: String, description: String, isOpen: Bool,
-        workingHours: [(WorkingHoursModel)], facilities: [(FacilityModel)],
-        services: [(ServiceModel)], contacts: [(ContactModel)]) {
-        self.name = name
-        self.location = location
-        self.description = description
-        self.isOpen = isOpen
-        self.workingHours = workingHours
-        self.facilities = facilities
-        self.services = services
-        self.contacts = contacts
-    }
+    let email: String
+    let phone: String
+    let isOpen: Bool // Define by working hours
+    let workingHours: WorkingHoursModel
+    let hasCafe: Bool
+    let hasRestZone: Bool
+    let hasParking: Bool
+    let hasWC: Bool
+    let hasCardPayment: Bool
+
+    let services: [ServiceModel]
 }

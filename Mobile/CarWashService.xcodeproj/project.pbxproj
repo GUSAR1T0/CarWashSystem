@@ -15,8 +15,10 @@
 		94C371E0F5B357C9F5C094F1 /* CarEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379A23A2830D4168BD39E /* CarEditView.swift */; };
 		94C371E3F2968C81211C8FCC /* ClientProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3762079AEE011D0EB0BDA /* ClientProfileController.swift */; };
 		94C371F67FBF348D9C10E834 /* CarBrandModelsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C372A3B9E5DBC6900449E4 /* CarBrandModelsModel.swift */; };
+		94C37338CA7A0DF9514437C1 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E6BEA5930D502E1EF3B /* DividerView.swift */; };
 		94C37360EE071F06A71DCFD3 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */; };
 		94C3738160416EF4C1C42D9C /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374423A6F02DEC89E2DC1 /* SignInView.swift */; };
+		94C37384E24CEBE90E9E5D31 /* WorkingHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C375DC97A4DD51CCCC6CAC /* WorkingHoursView.swift */; };
 		94C3743BA018068E35B7B5AF /* CarBrandModelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379EDD1811FC23AC85D7E /* CarBrandModelModel.swift */; };
 		94C3743E45F01B9ABC79B4EB /* CarBrandModelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3712BCCEC31DCEB90B3EB /* CarBrandModelSelector.swift */; };
 		94C3745B4DB379870EA1D64F /* ClientProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3773635F19DD5AEF0BE14 /* ClientProfileModel.swift */; };
@@ -30,6 +32,7 @@
 		94C376E4E11815B259D780F8 /* DateTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37778A37B8778E9AF8D53 /* DateTextPickerView.swift */; };
 		94C376ED2A0B10A58282D055 /* AuthenticationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */; };
 		94C3773D628E317ABFB63D9C /* GovernmentPlateSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */; };
+		94C377991B2DBF484494AD3E /* FacilityTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3739A371A49A448ADA320 /* FacilityTagView.swift */; };
 		94C3785E051D869655405546 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37A7E7C2822B22695CF34 /* RefreshableScrollView.swift */; };
 		94C379351C26625661AF64B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37999D9BE8145F7D5048C /* ContentView.swift */; };
 		94C379755C17F9B7A2333F21 /* ClientCarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37830C0415EF0927529CC /* ClientCarModel.swift */; };
@@ -46,22 +49,20 @@
 		94C37C9AC7848EAE478044A8 /* CustomDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3744632DA26A21B5B6AB1 /* CustomDateFormatter.swift */; };
 		94C37CE42CD95142515976DA /* ClientProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37F96DC8D8716E832474E /* ClientProfileView.swift */; };
 		94C37D1A54365BC832F70F53 /* LookupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C377098A6CECC7ADB3964E /* LookupStorage.swift */; };
+		94C37D290647A8D906F5F864 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */; };
 		94C37DA5B21E73B8F1CE529E /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37332524E6A41A59DF47E /* Requests.swift */; };
+		94C37DF9E47C468398092ACB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37D180E7D76F2FC76314E /* SearchView.swift */; };
 		94C37E40AE36AD6B44AF7228 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C377C55A1D3C61B1942770 /* ErrorResponse.swift */; };
+		94C37E5607D5A1B37B70BE31 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3763220433636BF95482D /* StringUtils.swift */; };
 		94C37EC73BB26B9532A3BAEF /* ClientSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3742A9E352AB04502A2F6 /* ClientSignUpModel.swift */; };
 		94C37F1C6EC2BF1D38FC45D4 /* ClientSignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3730A3ADD77A19395EFF6 /* ClientSignInModel.swift */; };
 		94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */; };
 		94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3734F941CAA37768EF182 /* CarWashesView.swift */; };
-		94C37F5A95BBDECD0857831D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374D40DEE528F9E7A4CA8 /* LoadingView.swift */; };
 		94C37FD32896DAE627380595 /* ArrayTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3752CB213F2447E2D76BB /* ArrayTextPickerView.swift */; };
 		A0331FD123A6AB0F0041F618 /* WorkingHoursModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD023A6AB0F0041F618 /* WorkingHoursModel.swift */; };
-		A0331FD323A6B01F0041F618 /* WorkingHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD223A6B01F0041F618 /* WorkingHoursView.swift */; };
-		A0331FD523A6CF280041F618 /* FacilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD423A6CF280041F618 /* FacilityModel.swift */; };
 		A0331FD723A6D8280041F618 /* ServiceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD623A6D8280041F618 /* ServiceItemView.swift */; };
 		A0331FD923A6D8ED0041F618 /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD823A6D8ED0041F618 /* ServiceModel.swift */; };
 		A0331FDB23A6E1CD0041F618 /* ServiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FDA23A6E1CD0041F618 /* ServiceRow.swift */; };
-		A0331FDE23A6F2AD0041F618 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FDD23A6F2AD0041F618 /* ContactModel.swift */; };
-		A0331FE023A6F36A0041F618 /* ContactItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FDF23A6F36A0041F618 /* ContactItemView.swift */; };
 		A0331FE223A6F9BE0041F618 /* CarWashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FE123A6F9BE0041F618 /* CarWashModel.swift */; };
 		A0331FE423A6FD1F0041F618 /* CarWashRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FE323A6FD1F0041F618 /* CarWashRow.swift */; };
 		A0400BD5239855EE00418D15 /* ClientProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */; };
@@ -90,15 +91,17 @@
 		94C37332524E6A41A59DF47E /* Requests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
 		94C3734F941CAA37768EF182 /* CarWashesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashesView.swift; sourceTree = "<group>"; };
 		94C37364A11EE70F27CC061D /* ViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		94C3739A371A49A448ADA320 /* FacilityTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityTagView.swift; sourceTree = "<group>"; };
 		94C3742A9E352AB04502A2F6 /* ClientSignUpModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientSignUpModel.swift; sourceTree = "<group>"; };
 		94C374423A6F02DEC89E2DC1 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		94C3744632DA26A21B5B6AB1 /* CustomDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatter.swift; sourceTree = "<group>"; };
 		94C3746C6D58C0B0C6B1E050 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		94C374A207C067DCC5803A0A /* GovernmentPlateSymbolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GovernmentPlateSymbolView.swift; sourceTree = "<group>"; };
-		94C374D40DEE528F9E7A4CA8 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		94C374F0631BA324401190AB /* HttpClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientError.swift; sourceTree = "<group>"; };
 		94C3752CB213F2447E2D76BB /* ArrayTextPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayTextPickerView.swift; sourceTree = "<group>"; };
+		94C375DC97A4DD51CCCC6CAC /* WorkingHoursView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkingHoursView.swift; sourceTree = "<group>"; };
 		94C3762079AEE011D0EB0BDA /* ClientProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileController.swift; sourceTree = "<group>"; };
+		94C3763220433636BF95482D /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStorage.swift; sourceTree = "<group>"; };
 		94C37678D452CBEB21CA6262 /* SpecialResponses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialResponses.swift; sourceTree = "<group>"; };
@@ -125,18 +128,17 @@
 		94C37BF60900124203BE8CD3 /* CarModelSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarModelSelector.swift; sourceTree = "<group>"; };
 		94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GovernmentPlateSymbols.swift; sourceTree = "<group>"; };
 		94C37C934C255042B4817FA8 /* ErrorResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResult.swift; sourceTree = "<group>"; };
+		94C37D180E7D76F2FC76314E /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
 		94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
+		94C37E6BEA5930D502E1EF3B /* DividerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		94C37F96DC8D8716E832474E /* ClientProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileView.swift; sourceTree = "<group>"; };
 		94C37FB3BA835ACC70732D2E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		A0331FD023A6AB0F0041F618 /* WorkingHoursModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursModel.swift; sourceTree = "<group>"; };
-		A0331FD223A6B01F0041F618 /* WorkingHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursView.swift; sourceTree = "<group>"; };
-		A0331FD423A6CF280041F618 /* FacilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityModel.swift; sourceTree = "<group>"; };
 		A0331FD623A6D8280041F618 /* ServiceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceItemView.swift; sourceTree = "<group>"; };
 		A0331FD823A6D8ED0041F618 /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
 		A0331FDA23A6E1CD0041F618 /* ServiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRow.swift; sourceTree = "<group>"; };
-		A0331FDD23A6F2AD0041F618 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
-		A0331FDF23A6F36A0041F618 /* ContactItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactItemView.swift; sourceTree = "<group>"; };
 		A0331FE123A6F9BE0041F618 /* CarWashModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashModel.swift; sourceTree = "<group>"; };
 		A0331FE323A6FD1F0041F618 /* CarWashRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashRow.swift; sourceTree = "<group>"; };
 		A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProfileEnums.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				94C377E11236EC7D64604849 /* Services */,
 				94C3796A2522290F05348C72 /* Entities */,
 				94C37BF6BC30CBAC70E217E9 /* ObservableObjects */,
+				94C374DF088CB64B460E6A4D /* Utils */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -201,21 +204,29 @@
 				94C3744632DA26A21B5B6AB1 /* CustomDateFormatter.swift */,
 				94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */,
 				A0DC968823A56D57004826B1 /* CarWashesEnums.swift */,
+				94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		94C374DF088CB64B460E6A4D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				94C3763220433636BF95482D /* StringUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		94C374FBD1D87004805A9907 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A0DC968C23A68AF6004826B1 /* CarWashViews */,
+				A0DC968C23A68AF6004826B1 /* CarWash */,
 				94C37999D9BE8145F7D5048C /* ContentView.swift */,
 				94C37F0D16E4848C1BF9436D /* Authentication */,
 				94C37FB3BA835ACC70732D2E /* MainView.swift */,
 				94C3762263926ACD45685539 /* Tabs */,
 				94C378EFEFD900DEE800709F /* Common */,
 				94C37749327D79CB42D270CA /* ClientCar */,
-				A0331FD223A6B01F0041F618 /* WorkingHoursView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,13 +296,14 @@
 				94C379B7E4CDF087A341D4FA /* TitledContainer.swift */,
 				94C37778A37B8778E9AF8D53 /* DateTextPickerView.swift */,
 				94C3746C6D58C0B0C6B1E050 /* CardView.swift */,
-				94C374D40DEE528F9E7A4CA8 /* LoadingView.swift */,
 				94C37364A11EE70F27CC061D /* ViewExtension.swift */,
 				94C3777D52C023127B8C0D27 /* CustomTextPickerView.swift */,
 				94C3752CB213F2447E2D76BB /* ArrayTextPickerView.swift */,
 				94C37A7E7C2822B22695CF34 /* RefreshableScrollView.swift */,
 				A0DC968223A2EFCA004826B1 /* MapView.swift */,
 				A0DC968A23A6877A004826B1 /* TabPickerView.swift */,
+				94C37D180E7D76F2FC76314E /* SearchView.swift */,
+				94C37E6BEA5930D502E1EF3B /* DividerView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -350,17 +362,15 @@
 		A0331FDC23A6F2630041F618 /* CarWash */ = {
 			isa = PBXGroup;
 			children = (
-				A0331FD423A6CF280041F618 /* FacilityModel.swift */,
 				A0331FD023A6AB0F0041F618 /* WorkingHoursModel.swift */,
 				A0DC968423A567A3004826B1 /* CarWashServiceMark.swift */,
 				A0331FD823A6D8ED0041F618 /* ServiceModel.swift */,
-				A0331FDD23A6F2AD0041F618 /* ContactModel.swift */,
 				A0331FE123A6F9BE0041F618 /* CarWashModel.swift */,
 			);
 			path = CarWash;
 			sourceTree = "<group>";
 		};
-		A0DC968C23A68AF6004826B1 /* CarWashViews */ = {
+		A0DC968C23A68AF6004826B1 /* CarWash */ = {
 			isa = PBXGroup;
 			children = (
 				A0DC968623A56ABD004826B1 /* CarWashItemView.swift */,
@@ -369,10 +379,11 @@
 				A0DC969123A68BA6004826B1 /* ContactsView.swift */,
 				A0331FD623A6D8280041F618 /* ServiceItemView.swift */,
 				A0331FDA23A6E1CD0041F618 /* ServiceRow.swift */,
-				A0331FDF23A6F36A0041F618 /* ContactItemView.swift */,
 				A0331FE323A6FD1F0041F618 /* CarWashRow.swift */,
+				94C375DC97A4DD51CCCC6CAC /* WorkingHoursView.swift */,
+				94C3739A371A49A448ADA320 /* FacilityTagView.swift */,
 			);
-			path = CarWashViews;
+			path = CarWash;
 			sourceTree = "<group>";
 		};
 		EEB56D9B236E1DE80062503F = {
@@ -503,7 +514,6 @@
 				94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */,
 				94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */,
 				94C376ED2A0B10A58282D055 /* AuthenticationEnums.swift in Sources */,
-				A0331FE023A6F36A0041F618 /* ContactItemView.swift in Sources */,
 				94C379E3588B77C726EC2498 /* ApplicationEnums.swift in Sources */,
 				94C37A35B8BD01687C1D9244 /* HttpClientService.swift in Sources */,
 				94C37360EE071F06A71DCFD3 /* HttpMethod.swift in Sources */,
@@ -522,11 +532,9 @@
 				A0331FD723A6D8280041F618 /* ServiceItemView.swift in Sources */,
 				94C37BD78FFD946A915E5232 /* ClientCarsView.swift in Sources */,
 				94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */,
-				A0331FDE23A6F2AD0041F618 /* ContactModel.swift in Sources */,
 				94C3753FA8AB110AE4CD9820 /* AuthenticationStorage.swift in Sources */,
 				A0DC968B23A6877A004826B1 /* TabPickerView.swift in Sources */,
 				94C37EC73BB26B9532A3BAEF /* ClientSignUpModel.swift in Sources */,
-				A0331FD523A6CF280041F618 /* FacilityModel.swift in Sources */,
 				94C37F1C6EC2BF1D38FC45D4 /* ClientSignInModel.swift in Sources */,
 				94C3716159CB274970E0453A /* ClientAuthenticationProfileModel.swift in Sources */,
 				94C3745B4DB379870EA1D64F /* ClientProfileModel.swift in Sources */,
@@ -537,10 +545,8 @@
 				94C37C9AC7848EAE478044A8 /* CustomDateFormatter.swift in Sources */,
 				94C379755C17F9B7A2333F21 /* ClientCarModel.swift in Sources */,
 				94C37B699509CFB438BB5C3F /* CardView.swift in Sources */,
-				94C37F5A95BBDECD0857831D /* LoadingView.swift in Sources */,
 				A0331FD923A6D8ED0041F618 /* ServiceModel.swift in Sources */,
 				A0331FDB23A6E1CD0041F618 /* ServiceRow.swift in Sources */,
-				A0331FD323A6B01F0041F618 /* WorkingHoursView.swift in Sources */,
 				94C3709E9675601827555541 /* ViewExtension.swift in Sources */,
 				94C371E0F5B357C9F5C094F1 /* CarEditView.swift in Sources */,
 				94C37AA846A8A04C519F14BA /* CustomTextPickerView.swift in Sources */,
@@ -557,6 +563,12 @@
 				94C3763355DAA736DFF9A87A /* CarModelSelector.swift in Sources */,
 				94C3785E051D869655405546 /* RefreshableScrollView.swift in Sources */,
 				A0DC968E23A68B62004826B1 /* GeneralInfoView.swift in Sources */,
+				94C37DF9E47C468398092ACB /* SearchView.swift in Sources */,
+				94C37384E24CEBE90E9E5D31 /* WorkingHoursView.swift in Sources */,
+				94C37338CA7A0DF9514437C1 /* DividerView.swift in Sources */,
+				94C377991B2DBF484494AD3E /* FacilityTagView.swift in Sources */,
+				94C37E5607D5A1B37B70BE31 /* StringUtils.swift in Sources */,
+				94C37D290647A8D906F5F864 /* DayOfWeek.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
