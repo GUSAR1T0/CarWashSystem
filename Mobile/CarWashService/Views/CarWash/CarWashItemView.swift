@@ -28,9 +28,8 @@ struct CarWashItemView: View {
                                         .frame(height: 1.0, alignment: .bottom)
                             }
                     )
-                    .edgesIgnoringSafeArea(.top)
                     .shadow(radius: 10)
-                    .frame(height: 100)
+                    .frame(height: 200)
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     ScrollView {
@@ -79,19 +78,15 @@ struct CarWashItemView: View {
             ])
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
-            Button(action: {
-                //TODO: Add make order action
-            }) {
-                Text(CarWashesButtonTitle.Order)
-                        .bold()
-                        .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .background(ApplicationColor.Primary.toRGB())
-                        .cornerRadius(5)
-                        .foregroundColor(.white)
-                        .padding(10)
-            }
-                    .padding()
+                    .padding(.bottom, 30)
         }
+                .navigationBarTitle("Car Wash Info", displayMode: .inline)
+                .navigationBarItems(trailing: NavigationLink(destination: EmptyView().navigationBarTitle("", displayMode: .large)) {
+                    HStack {
+                        Text("Order")
+                        Image(systemName: "chevron.right")
+                                .font(.system(size: 22, weight: .semibold))
+                    }
+                })
     }
 }
