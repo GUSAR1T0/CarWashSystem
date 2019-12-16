@@ -149,6 +149,13 @@ struct ClientProfileView: View {
                     }
                     .animation(.none)
                     .navigationBarTitle(Text("General Info"))
+                    .navigationBarItems(trailing: NavigationLink(destination: ClientCarsView()) {
+                        HStack {
+                            Text("Cars")
+                            Image(systemName: "chevron.right")
+                                    .font(.system(size: 22, weight: .semibold))
+                        }
+                    })
         }
     }
 }

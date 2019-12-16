@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		94C3709E9675601827555541 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37364A11EE70F27CC061D /* ViewExtension.swift */; };
+		94C370B0C26334E7B782B750 /* ClientCarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E41E648319A8333DF4D /* ClientCarsView.swift */; };
 		94C37104C40A39FF2FF2D16C /* ErrorResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37C934C255042B4817FA8 /* ErrorResult.swift */; };
 		94C3714F6B8B97E219058125 /* ClientLookupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37018D6C4B2EAC29AF4E4 /* ClientLookupModel.swift */; };
 		94C3716159CB274970E0453A /* ClientAuthenticationProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379151F2A7D1F5B940125 /* ClientAuthenticationProfileModel.swift */; };
@@ -43,7 +44,6 @@
 		94C37A3C1D042EE77E5F1031 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37FB3BA835ACC70732D2E /* MainView.swift */; };
 		94C37AA846A8A04C519F14BA /* CustomTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3777D52C023127B8C0D27 /* CustomTextPickerView.swift */; };
 		94C37B699509CFB438BB5C3F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3746C6D58C0B0C6B1E050 /* CardView.swift */; };
-		94C37BD78FFD946A915E5232 /* ClientCarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37ACB79ED6F575CDDCBF6 /* ClientCarsView.swift */; };
 		94C37C6FBFC8062A734CB316 /* GovernmentPlateSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374A207C067DCC5803A0A /* GovernmentPlateSymbolView.swift */; };
 		94C37C855EFAE64BE1CB6A61 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3776DB7C98327A0D9550E /* AccountController.swift */; };
 		94C37C9AC7848EAE478044A8 /* CustomDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3744632DA26A21B5B6AB1 /* CustomDateFormatter.swift */; };
@@ -123,7 +123,6 @@
 		94C379B7E4CDF087A341D4FA /* TitledContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledContainer.swift; sourceTree = "<group>"; };
 		94C379EDD1811FC23AC85D7E /* CarBrandModelModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBrandModelModel.swift; sourceTree = "<group>"; };
 		94C37A7E7C2822B22695CF34 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
-		94C37ACB79ED6F575CDDCBF6 /* ClientCarsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientCarsView.swift; sourceTree = "<group>"; };
 		94C37BD336E52AA80AA1909E /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		94C37BF60900124203BE8CD3 /* CarModelSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarModelSelector.swift; sourceTree = "<group>"; };
 		94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GovernmentPlateSymbols.swift; sourceTree = "<group>"; };
@@ -132,6 +131,7 @@
 		94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
 		94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
+		94C37E41E648319A8333DF4D /* ClientCarsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientCarsView.swift; sourceTree = "<group>"; };
 		94C37E6BEA5930D502E1EF3B /* DividerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		94C37F96DC8D8716E832474E /* ClientProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileView.swift; sourceTree = "<group>"; };
 		94C37FB3BA835ACC70732D2E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -235,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				94C37F96DC8D8716E832474E /* ClientProfileView.swift */,
-				94C37ACB79ED6F575CDDCBF6 /* ClientCarsView.swift */,
 				94C3734F941CAA37768EF182 /* CarWashesView.swift */,
 			);
 			path = Tabs;
@@ -259,6 +258,7 @@
 				94C374A207C067DCC5803A0A /* GovernmentPlateSymbolView.swift */,
 				94C3712BCCEC31DCEB90B3EB /* CarBrandModelSelector.swift */,
 				94C37BF60900124203BE8CD3 /* CarModelSelector.swift */,
+				94C37E41E648319A8333DF4D /* ClientCarsView.swift */,
 			);
 			path = ClientCar;
 			sourceTree = "<group>";
@@ -530,7 +530,6 @@
 				94C371D1D8DA63BBC34B3636 /* TitledContainer.swift in Sources */,
 				94C37CE42CD95142515976DA /* ClientProfileView.swift in Sources */,
 				A0331FD723A6D8280041F618 /* ServiceItemView.swift in Sources */,
-				94C37BD78FFD946A915E5232 /* ClientCarsView.swift in Sources */,
 				94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */,
 				94C3753FA8AB110AE4CD9820 /* AuthenticationStorage.swift in Sources */,
 				A0DC968B23A6877A004826B1 /* TabPickerView.swift in Sources */,
@@ -569,6 +568,7 @@
 				94C377991B2DBF484494AD3E /* FacilityTagView.swift in Sources */,
 				94C37E5607D5A1B37B70BE31 /* StringUtils.swift in Sources */,
 				94C37D290647A8D906F5F864 /* DayOfWeek.swift in Sources */,
+				94C370B0C26334E7B782B750 /* ClientCarsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
