@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ContactsView: View {
-    let email: String?
-    let phone: String?
+    @Binding var email: String?
+    @Binding var phone: String?
 
     var body: some View {
         ScrollView {

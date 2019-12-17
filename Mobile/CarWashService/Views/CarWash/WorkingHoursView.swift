@@ -10,7 +10,7 @@ import SwiftUI
 
 struct WorkingHoursView: View {
     var dayOfWeek: DayOfWeek
-    var workingHours: WorkingDayModel
+    var workingHours: WorkingDayModel?
 
     var body: some View {
         GeometryReader { geometry in
@@ -23,10 +23,10 @@ struct WorkingHoursView: View {
                         .foregroundColor(ApplicationColor.MiddleGray.toRGB())
                         .padding(.bottom, 10)
                 VStack {
-                    if !StringUtils.isEmptyOrNil(self.workingHours.startTime) && !StringUtils.isEmptyOrNil(self.workingHours.stopTime) {
-                        Text(self.workingHours.startTime!)
+                    if !StringUtils.isEmptyOrNil(self.workingHours?.startTime) && !StringUtils.isEmptyOrNil(self.workingHours?.stopTime) {
+                        Text(self.workingHours!.startTime!)
                                 .frame(width: geometry.size.width, height: nil, alignment: .center)
-                        Text(self.workingHours.stopTime!)
+                        Text(self.workingHours!.stopTime!)
                                 .frame(width: geometry.size.width, height: nil, alignment: .center)
                     } else {
                         Spacer()

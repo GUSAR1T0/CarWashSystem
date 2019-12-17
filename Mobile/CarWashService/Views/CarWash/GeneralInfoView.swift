@@ -9,12 +9,18 @@
 import SwiftUI
 
 struct GeneralInfoView: View {
-    let carWash: CarWashModel
+    @Binding var description: String?
+    @Binding var workingHours: WorkingHoursModel?
+    @Binding var hasCafe: Bool
+    @Binding var hasRestZone: Bool
+    @Binding var hasParking: Bool
+    @Binding var hasWC: Bool
+    @Binding var hasCardPayment: Bool
 
     var body: some View {
         VStack {
             TitledContainer(CarWashFieldName.Description) {
-                Text(!StringUtils.isEmptyOrNil(self.carWash.description) ? self.carWash.description! : "—")
+                Text(!StringUtils.isEmptyOrNil(self.description) ? self.description! : "—")
                         .font(.subheadline)
                         .fixedSize(horizontal: false, vertical: true) // Workaround, SwiftUI can't calculate elements heights correctly
                         .padding(.top, 10)
@@ -25,13 +31,13 @@ struct GeneralInfoView: View {
             TitledContainer(CarWashFieldName.WorkingHours) {
                 VStack {
                     HStack {
-                        WorkingHoursView(dayOfWeek: .monday, workingHours: self.carWash.workingHours.monday)
-                        WorkingHoursView(dayOfWeek: .tuesday, workingHours: self.carWash.workingHours.tuesday)
-                        WorkingHoursView(dayOfWeek: .wednesday, workingHours: self.carWash.workingHours.wednesday)
-                        WorkingHoursView(dayOfWeek: .thursday, workingHours: self.carWash.workingHours.thursday)
-                        WorkingHoursView(dayOfWeek: .friday, workingHours: self.carWash.workingHours.friday)
-                        WorkingHoursView(dayOfWeek: .saturday, workingHours: self.carWash.workingHours.saturday)
-                        WorkingHoursView(dayOfWeek: .sunday, workingHours: self.carWash.workingHours.sunday)
+                        WorkingHoursView(dayOfWeek: .monday, workingHours: self.workingHours?.monday)
+                        WorkingHoursView(dayOfWeek: .tuesday, workingHours: self.workingHours?.tuesday)
+                        WorkingHoursView(dayOfWeek: .wednesday, workingHours: self.workingHours?.wednesday)
+                        WorkingHoursView(dayOfWeek: .thursday, workingHours: self.workingHours?.thursday)
+                        WorkingHoursView(dayOfWeek: .friday, workingHours: self.workingHours?.friday)
+                        WorkingHoursView(dayOfWeek: .saturday, workingHours: self.workingHours?.saturday)
+                        WorkingHoursView(dayOfWeek: .sunday, workingHours: self.workingHours?.sunday)
                     }
                             .frame(height: 75) // Workaround, SwiftUI can't calculate elements heights correctly
                             .padding(.horizontal)
@@ -40,14 +46,16 @@ struct GeneralInfoView: View {
             DividerView()
             TitledContainer(CarWashFieldName.Facilities) {
                 VStack {
-                    FacilityTagView(title: "Cafe", isAvailable: self.carWash.hasCafe)
-                    FacilityTagView(title: "Rest Zone", isAvailable: self.carWash.hasRestZone)
-                    FacilityTagView(title: "Parking", isAvailable: self.carWash.hasParking)
-                    FacilityTagView(title: "WC", isAvailable: self.carWash.hasWC)
-                    FacilityTagView(title: "Card Payment", isAvailable: self.carWash.hasCardPayment)
+                    FacilityTagView(title: "Cafe", isAvailable: self.hasCafe)
+                    FacilityTagView(title: "Rest Zone", isAvailable: self.hasRestZone)
+                    FacilityTagView(title: "Parking", isAvailable: self.hasParking)
+                    FacilityTagView(title: "WC", isAvailable: self.hasWC)
+                    FacilityTagView(title: "Card Payment", isAvailable: self.hasCardPayment)
                 }
                         .frame(height: 200) // Workaround, SwiftUI can't calculate elements heights correctly
             }
         }
+                .padding(.top, 10)
+                .padding(.bottom, 30)
     }
 }

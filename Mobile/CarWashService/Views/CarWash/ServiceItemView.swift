@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ServiceItemView: View {
-    let service: ServiceModel
+    let service: CarWashServiceModel
 
     var body: some View {
         VStack {
@@ -31,18 +31,24 @@ struct ServiceItemView: View {
             HStack {
                 Spacer()
                 HStack {
-                    Text(String(format: "%.2f", self.service.price))
                     Image(systemName: "rublesign.circle.fill")
                             .foregroundColor(ApplicationColor.Primary.toRGB())
+                    Text(String(format: "%.2f", self.service.price))
                 }
                         .frame(height: 30)
                 Spacer()
                 HStack {
-                    Text(self.service.duration)
                     Image(systemName: "timer")
                             .foregroundColor(ApplicationColor.Primary.toRGB())
+                    Text(self.service.duration)
                 }
                         .frame(height: 30)
+                Spacer()
+                HStack {
+                    Image(systemName: self.service.isAvailable ? ServiceStatusImage.Active : ServiceStatusImage.NotActive)
+                            .foregroundColor(self.service.isAvailable ? ServiceStatusColor.Active : ServiceStatusColor.NotActive)
+                    Text(self.service.isAvailable ? ServiceStatusTitle.Active : ServiceStatusTitle.NotActive)
+                }
                 Spacer()
             }
                     .padding()

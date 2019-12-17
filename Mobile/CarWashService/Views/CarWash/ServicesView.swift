@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ServicesView: View {
-    var services: [ServiceModel]
+    @Binding var services: [CarWashServiceModel]
 
     var body: some View {
         ScrollView {

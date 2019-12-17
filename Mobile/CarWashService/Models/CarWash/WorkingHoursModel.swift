@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct WorkingDayModel {
-    let startTime: String?
-    let stopTime: String?
+struct WorkingDayModel: Codable {
+    var startTime: String?
+    var stopTime: String?
 }
 
-struct WorkingHoursModel {
-    let monday: WorkingDayModel
-    let tuesday: WorkingDayModel
-    let wednesday: WorkingDayModel
-    let thursday: WorkingDayModel
-    let friday: WorkingDayModel
-    let saturday: WorkingDayModel
-    let sunday: WorkingDayModel
+struct WorkingHoursModel: Codable {
+    var monday: WorkingDayModel
+    var tuesday: WorkingDayModel
+    var wednesday: WorkingDayModel
+    var thursday: WorkingDayModel
+    var friday: WorkingDayModel
+    var saturday: WorkingDayModel
+    var sunday: WorkingDayModel
 }

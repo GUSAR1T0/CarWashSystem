@@ -8,10 +8,11 @@
 
 import Foundation
 
-struct ServiceModel: Identifiable {
+struct CarWashServiceModel: Identifiable, Codable {
     var id: Int
-    let serviceName: String
+    var serviceName: String
     var description: String? = nil
-    let price: Float
-    let duration: String
+    var price: Float
+    var duration: String
+    var isAvailable: Bool
 }

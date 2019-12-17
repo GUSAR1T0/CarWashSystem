@@ -23,8 +23,8 @@ struct CarWashFieldName {
 
 struct StatusTitle
 {
-    static let Open = "Open"
-    static let Close = "Close"
+    static let Open = "Opened"
+    static let Close = "Closed"
 }
 
 struct StatusColor {
@@ -49,4 +49,20 @@ struct ServiceTitle {
     static let Description = "Description"
     static let Price = "Price"
     static let Duration = "Duration"
+}
+
+struct ServiceStatusTitle
+{
+    static let Active = "Active"
+    static let NotActive = "Not active"
+}
+
+struct ServiceStatusColor {
+    static let Active = ApplicationColor.Success.toRGB()
+    static let NotActive = ApplicationColor.Danger.toRGB()
+}
+
+struct ServiceStatusImage {
+    static let Active = "checkmark.circle.fill"
+    static let NotActive = "xmark.circle.fill"
 }
