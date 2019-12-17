@@ -12,6 +12,7 @@ struct CarWashItemView: View {
     @State private var selection = 0
     @State var carWashId: Int
     @State private var isLoaded = false
+    @State private var modalPresented: Bool = false
     @State private var name = ""
     @State private var email: String?
     @State private var phone: String?
@@ -60,65 +61,76 @@ struct CarWashItemView: View {
                             }
                     )
                     .shadow(radius: 10)
-                    .frame(height: 200)
-            VStack(alignment: .leading) {
-                HStack(alignment: .top) {
-                    Text(self.name)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .font(.system(size: 28, weight: .bold))
-                            .fixedSize(horizontal: false, vertical: true) // Workaround, SwiftUI can't calculate elements heights correctly
-                            .padding(.bottom, 10)
-                    Spacer()
-                    HStack {
-                        Image(systemName: self.isOpen ? StatusImage.Open : StatusImage.Close)
-                                .foregroundColor(self.isOpen ? StatusColor.Open : StatusColor.Close)
-                        Text(self.isOpen ? StatusTitle.Open : StatusTitle.Close)
-                                .font(.system(size: 14, weight: .bold))
-                                .foregroundColor(ApplicationColor.Primary.toRGB())
-                    }
-                }
-                HStack {
-                    Spacer()
-                    Text(self.location)
-                            .font(.subheadline)
-                    Spacer()
-                }
-            }
-                    .padding()
-            TabPickerView(selection: self.$selection, views: [
-                (
-                        name: CarWashesButtonTitle.Info,
-                        view: AnyView(
-                                ScrollView {
-                                    GeneralInfoView(
-                                            description: self.$description,
-                                            workingHours: self.$workingHours,
-                                            hasCafe: self.$hasCafe,
-                                            hasRestZone: self.$hasRestZone,
-                                            hasParking: self.$hasParking,
-                                            hasWC: self.$hasWC,
-                                            hasCardPayment: self.$hasCardPayment
-                                    )
-                                }
-                        )
-                ),
-                (
-                        name: CarWashesButtonTitle.Contacts,
-                        view: AnyView(ContactsView(email: self.$email, phone: self.$phone))
-                ),
-                (
-                        name: CarWashesButtonTitle.Services,
-                        view: AnyView(ServicesView(services: self.$services))
+                    .frame(minHeight: 0, maxHeight: .infinity)
+            VStack {
+                DragElementView()
+                CarWashMainDescriptionView(
+                        name: self.$name,
+                        location: self.$location,
+                        isOpen: self.$isOpen
                 )
-            ])
-                    .onAppear {
-                        self.carWashToClientController.getCarWashInfo(isLoaded: self.$isLoaded, carWashId: self.carWashId) { model in
-                            self.fillFields(model)
-                        }
-                    }
-                    .padding(.leading, 10)
-                    .padding(.trailing, 10)
+                        .padding()
+                        .padding(.bottom, 10)
+            }
+                    .gesture(
+                            TapGesture()
+                                    .onEnded { _ in
+                                        self.modalPresented = true
+                                    }
+                    )
+                    .gesture(
+                            DragGesture()
+                                    .onChanged { value in
+                                        if value.translation.height <= -50 {
+                                            self.modalPresented = true
+                                        }
+                                    }
+                    )
         }
+                .sheet(isPresented: $modalPresented) {
+                    VStack {
+                        DragElementView()
+                        CarWashMainDescriptionView(
+                                name: self.$name,
+                                location: self.$location,
+                                isOpen: self.$isOpen
+                        )
+                                .padding()
+                        TabPickerView(selection: self.$selection, views: [
+                            (
+                                    name: CarWashesButtonTitle.Info,
+                                    view: AnyView(
+                                            ScrollView {
+                                                GeneralInfoView(
+                                                        description: self.$description,
+                                                        workingHours: self.$workingHours,
+                                                        hasCafe: self.$hasCafe,
+                                                        hasRestZone: self.$hasRestZone,
+                                                        hasParking: self.$hasParking,
+                                                        hasWC: self.$hasWC,
+                                                        hasCardPayment: self.$hasCardPayment
+                                                )
+                                            }
+                                    )
+                            ),
+                            (
+                                    name: CarWashesButtonTitle.Contacts,
+                                    view: AnyView(ContactsView(email: self.$email, phone: self.$phone))
+                            ),
+                            (
+                                    name: CarWashesButtonTitle.Services,
+                                    view: AnyView(ServicesView(services: self.$services))
+                            )
+                        ])
+                                .padding(.leading, 10)
+                                .padding(.trailing, 10)
+                    }
+                }
+                .onAppear {
+                    self.carWashToClientController.getCarWashInfo(isLoaded: self.$isLoaded, carWashId: self.carWashId) { model in
+                        self.fillFields(model)
+                    }
+                }
                 .navigationBarTitle("Car Wash Info", displayMode: .inline)
                 .navigationBarItems(trailing: NavigationLink(destination: EmptyView().navigationBarTitle("", displayMode: .large)) {
                     HStack {

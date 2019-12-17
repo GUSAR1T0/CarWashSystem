@@ -22,6 +22,7 @@ struct GeneralInfoView: View {
             TitledContainer(CarWashFieldName.Description) {
                 Text(!StringUtils.isEmptyOrNil(self.description) ? self.description! : "—")
                         .font(.subheadline)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true) // Workaround, SwiftUI can't calculate elements heights correctly
                         .padding(.top, 10)
                         .padding(.leading, 15)
@@ -39,7 +40,7 @@ struct GeneralInfoView: View {
                         WorkingHoursView(dayOfWeek: .saturday, workingHours: self.workingHours?.saturday)
                         WorkingHoursView(dayOfWeek: .sunday, workingHours: self.workingHours?.sunday)
                     }
-                            .frame(height: 75) // Workaround, SwiftUI can't calculate elements heights correctly
+                            .frame(height: 70) // Workaround, SwiftUI can't calculate elements heights correctly
                             .padding(.horizontal)
                 }
             }

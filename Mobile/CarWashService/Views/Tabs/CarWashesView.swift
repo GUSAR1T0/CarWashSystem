@@ -27,6 +27,11 @@ struct CarWashesView: View {
         ], for: .selected)
     }
 
+    struct ModelSelect: Identifiable {
+        var id = UUID()
+        var modelId: Int
+    }
+
     var body: some View {
         NavigationView {
             VStack {

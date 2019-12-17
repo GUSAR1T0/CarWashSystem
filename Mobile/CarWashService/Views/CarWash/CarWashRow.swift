@@ -20,13 +20,7 @@ struct CarWashRow: View {
                         .fixedSize(horizontal: false, vertical: true) // Workaround, SwiftUI can't calculate elements heights correctly
                         .padding(.bottom, 10)
                 Spacer()
-                HStack {
-                    Image(systemName: self.model.isOpen ? StatusImage.Open : StatusImage.Close)
-                            .foregroundColor(self.model.isOpen ? StatusColor.Open : StatusColor.Close)
-                    Text(self.model.isOpen ? StatusTitle.Open : StatusTitle.Close)
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(ApplicationColor.Primary.toRGB())
-                }
+                CarWashStatusView(isOpen: self.model.isOpen)
             }
             Text(self.model.location)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)

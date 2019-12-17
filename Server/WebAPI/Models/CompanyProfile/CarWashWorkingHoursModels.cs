@@ -64,7 +64,15 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
         public static bool IsCarWashOpen(CarWashFullEntity entity)
         {
             var now = DateTime.Now;
-            bool IsCarWashOpenToday(TimeSpan? startTime, TimeSpan? stopTime) => startTime <= now.TimeOfDay && stopTime > now.TimeOfDay;
+
+            bool IsCarWashOpenToday(TimeSpan? startTime, TimeSpan? stopTime)
+            {
+                TimeSpan? stopTimeValue;
+                if (stopTime.HasValue) stopTimeValue = stopTime.Value != TimeSpan.Zero ? stopTime.Value : new TimeSpan(23, 59, 59);
+                else stopTimeValue = null;
+                return startTime <= now.TimeOfDay && stopTimeValue >= now.TimeOfDay;
+            }
+
             return now.DayOfWeek switch
             {
                 DayOfWeek.Monday => IsCarWashOpenToday(entity.MondayStartTime, entity.MondayStopTime),
