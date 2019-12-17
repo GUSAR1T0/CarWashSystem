@@ -21,7 +21,9 @@ struct SignUpView: View {
 
     var body: some View {
         VStack {
-            LogoAuthenticationView(subTitle: AuthenticationViewText.SignUpTitleText).edgesIgnoringSafeArea(.top)
+            LogoAuthenticationView(subTitle: AuthenticationViewText.SignUpTitleText)
+                    .edgesIgnoringSafeArea(.top)
+                    .padding()
             TextField(AuthenticationFieldName.FirstName, text: $firstName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(5)

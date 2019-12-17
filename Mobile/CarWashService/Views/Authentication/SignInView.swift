@@ -21,6 +21,7 @@ struct SignInView: View {
         NavigationView {
             VStack {
                 LogoAuthenticationView(subTitle: AuthenticationViewText.SignInTitleText)
+                        .padding()
                 TextField(AuthenticationFieldName.Email, text: $emailAddress)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .autocapitalization(.none)
@@ -65,7 +66,9 @@ struct SignInView: View {
                                     .foregroundColor(ApplicationColor.Primary.toRGB())
                         }
                     }
-                }.padding()
+                }
+                        .padding()
+                        .padding(.bottom, 15)
             }.padding()
         }
     }

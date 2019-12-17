@@ -58,7 +58,6 @@
 		94C37F1C6EC2BF1D38FC45D4 /* ClientSignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3730A3ADD77A19395EFF6 /* ClientSignInModel.swift */; };
 		94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */; };
 		94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3734F941CAA37768EF182 /* CarWashesView.swift */; };
-		94C37FD32896DAE627380595 /* ArrayTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3752CB213F2447E2D76BB /* ArrayTextPickerView.swift */; };
 		A0331FD123A6AB0F0041F618 /* WorkingHoursModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD023A6AB0F0041F618 /* WorkingHoursModel.swift */; };
 		A0331FD723A6D8280041F618 /* ServiceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD623A6D8280041F618 /* ServiceItemView.swift */; };
 		A0331FD923A6D8ED0041F618 /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD823A6D8ED0041F618 /* ServiceModel.swift */; };
@@ -98,7 +97,6 @@
 		94C3746C6D58C0B0C6B1E050 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		94C374A207C067DCC5803A0A /* GovernmentPlateSymbolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GovernmentPlateSymbolView.swift; sourceTree = "<group>"; };
 		94C374F0631BA324401190AB /* HttpClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientError.swift; sourceTree = "<group>"; };
-		94C3752CB213F2447E2D76BB /* ArrayTextPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayTextPickerView.swift; sourceTree = "<group>"; };
 		94C375DC97A4DD51CCCC6CAC /* WorkingHoursView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkingHoursView.swift; sourceTree = "<group>"; };
 		94C3762079AEE011D0EB0BDA /* ClientProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileController.swift; sourceTree = "<group>"; };
 		94C3763220433636BF95482D /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 				94C3746C6D58C0B0C6B1E050 /* CardView.swift */,
 				94C37364A11EE70F27CC061D /* ViewExtension.swift */,
 				94C3777D52C023127B8C0D27 /* CustomTextPickerView.swift */,
-				94C3752CB213F2447E2D76BB /* ArrayTextPickerView.swift */,
 				94C37A7E7C2822B22695CF34 /* RefreshableScrollView.swift */,
 				A0DC968223A2EFCA004826B1 /* MapView.swift */,
 				A0DC968A23A6877A004826B1 /* TabPickerView.swift */,
@@ -549,7 +546,6 @@
 				94C3709E9675601827555541 /* ViewExtension.swift in Sources */,
 				94C371E0F5B357C9F5C094F1 /* CarEditView.swift in Sources */,
 				94C37AA846A8A04C519F14BA /* CustomTextPickerView.swift in Sources */,
-				94C37FD32896DAE627380595 /* ArrayTextPickerView.swift in Sources */,
 				94C37D1A54365BC832F70F53 /* LookupStorage.swift in Sources */,
 				94C371F67FBF348D9C10E834 /* CarBrandModelsModel.swift in Sources */,
 				94C3743BA018068E35B7B5AF /* CarBrandModelModel.swift in Sources */,

@@ -69,7 +69,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet("car/list")]
-        public async Task<ActionResult<IEnumerable<CarModel>>> GetCarWashList() => await Exec(async operation =>
+        public async Task<ActionResult<IEnumerable<CarModel>>> GetCarList() => await Exec(async operation =>
         {
             var id = VerifyUser(UserRole.Client);
             var carList = await clientProfileService.GetCarListByClient(operation, id);

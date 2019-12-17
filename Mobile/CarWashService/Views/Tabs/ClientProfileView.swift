@@ -75,15 +75,9 @@ struct ClientProfileView: View {
                             .padding(.top, self.containerPaddingValue)
                             .padding(.bottom, self.containerPaddingValue)
                     TitledContainer(ClientProfileFieldTitle.Birthday) {
-                        if self.isLoaded { // Workaround to render custom view
-                            DateTextPickerView(ClientProfileFieldName.Birthday, selection: self.$birthday)
-                                    .setRoundedBorderTextFieldStyle()
-                                    .padding(.horizontal)
-                        } else {
-                            DateTextPickerView(ClientProfileFieldName.Birthday, selection: self.$birthday)
-                                    .setRoundedBorderTextFieldStyle()
-                                    .padding(.horizontal)
-                        }
+                        DateTextPickerView(ClientProfileFieldName.Birthday, selection: self.$birthday)
+                                .setRoundedBorderTextFieldStyle()
+                                .padding(.horizontal)
                     }
                             .padding(.top, self.containerPaddingValue)
                             .padding(.bottom, self.containerPaddingValue)

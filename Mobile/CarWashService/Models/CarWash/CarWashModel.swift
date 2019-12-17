@@ -12,7 +12,7 @@ struct CarWashModel: Identifiable {
     var id: Int
     let name: String
     let location: String
-    let description: String
+    let description: String?
     let email: String
     let phone: String
     let isOpen: Bool // Define by working hours

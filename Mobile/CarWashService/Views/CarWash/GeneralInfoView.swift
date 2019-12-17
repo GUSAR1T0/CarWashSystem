@@ -14,7 +14,7 @@ struct GeneralInfoView: View {
     var body: some View {
         VStack {
             TitledContainer(CarWashFieldName.Description) {
-                Text(self.carWash.description)
+                Text(!StringUtils.isEmptyOrNil(self.carWash.description) ? self.carWash.description! : "—")
                         .font(.subheadline)
                         .fixedSize(horizontal: false, vertical: true) // Workaround, SwiftUI can't calculate elements heights correctly
                         .padding(.top, 10)

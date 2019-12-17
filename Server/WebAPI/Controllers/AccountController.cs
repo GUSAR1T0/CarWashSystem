@@ -284,14 +284,14 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
 
         #endregion
 
-        private async Task LoginChallenge(IUserAuthenticationProfileEntity? profile, string userRole)
+        private async Task LoginChallenge(IUserAuthenticationProfileEntity? profile, UserRole userRole)
         {
             if (profile != null)
             {
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(AccountClaimName.UserId, profile.Id.ToString()),
-                    new Claim(AccountClaimName.UserRole, userRole)
+                    new Claim(AccountClaimName.UserRole, userRole.GetUserRoleName())
                 }, CookieAuthenticationDefaults.AuthenticationScheme)), new AuthenticationProperties
                 {
                     AllowRefresh = true,

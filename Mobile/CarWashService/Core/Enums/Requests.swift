@@ -25,4 +25,7 @@ class Requests {
     public static let AddClientCar = "/api/client/profile/car"
     public static let UpdateClientCar = "/api/client/profile/car/%d"
     public static let DeleteClientCar = "/api/client/profile/car/%d"
+
+    // Car Washes
+    public static let GetCarWashList = "/api/company/profile"
 }

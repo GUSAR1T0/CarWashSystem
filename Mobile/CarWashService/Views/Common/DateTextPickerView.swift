@@ -7,32 +7,98 @@ import SwiftUI
 import UIKit
 import Combine
 
-final class DateTextPickerView: CustomTextPickerView {
+class CustomUIDatePicker: UIDatePicker {
+    private var view: DateTextPickerView? = nil
+
+    func setView(_ view: DateTextPickerView) {
+        self.view = view
+    }
+
+    func setup() {
+        addTarget(view, action: #selector(updateDate), for: .valueChanged)
+    }
+
+    @objc func updateDate() {
+        if let view = view {
+            view.textField.text = CustomDateFormatter.formatFrom(view.format, view.datePicker.date)
+        }
+    }
+}
+
+class CustomUIToolbar: UIToolbar {
+    private var view: DateTextPickerView? = nil
+
+    func setView(_ view: DateTextPickerView) {
+        self.view = view
+    }
+
+    func setup() {
+        sizeToFit()
+        let flexibleSpaceButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: view, action: #selector(complete))
+        setItems([flexibleSpaceButtonItem, doneButtonItem], animated: true)
+        isUserInteractionEnabled = true
+    }
+
+    @objc public func updateDate() {
+        if let view = view {
+            view.textField.text = CustomDateFormatter.formatFrom(view.format, view.datePicker.date)
+        }
+    }
+
+    @objc public func complete() {
+        view?.textField.endEditing(true)
+        updateDate()
+    }
+}
+
+struct DateTextPickerView: CustomTextPickerView {
     private(set) var textField: UITextField
     private(set) var placeholder: String
-    private(set) var selection: Binding<String>
+    @Binding private(set) var selection: String
 
-    private var datePicker = UIDatePicker()
-    private var format = CustomDateFormatter.datePickerFormat
+    private(set) var datePicker = CustomUIDatePicker()
+    private(set) var format = CustomDateFormatter.datePickerFormat
+
+    class Coordinator: NSObject, UITextFieldDelegate {
+        var parent: DateTextPickerView
+
+        init(_ dateTextPickerView: DateTextPickerView) {
+            self.parent = dateTextPickerView
+        }
+
+        func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+            self.parent.selection = textField.text ?? ""
+            return true
+        }
+    }
 
     init(_ placeholder: String, selection: Binding<String>, format: String? = nil) {
         self.textField = UITextField()
         self.placeholder = placeholder
-        self.selection = selection
+        self._selection = selection
         if let format = format {
             self.format = format
         }
     }
 
-    func makeUIView(context: Context) -> UITextField {
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    func makeUIView(context: UIViewRepresentableContext<DateTextPickerView>) -> UITextField {
         textField.placeholder = placeholder
         textField.inputView = datePicker
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .allEvents)
+        textField.delegate = context.coordinator
 
         datePicker.datePickerMode = .date
-        datePicker.addTarget(self, action: #selector(setDate), for: .valueChanged)
+        datePicker.setView(self)
+        datePicker.setup()
 
-        setToolbar(selector: #selector(complete))
+        let toolbar = CustomUIToolbar()
+        toolbar.setView(self)
+        toolbar.setup()
+        textField.inputAccessoryView = toolbar
 
         return textField
     }
@@ -40,20 +106,7 @@ final class DateTextPickerView: CustomTextPickerView {
     func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        textField.text = selection.wrappedValue
-        datePicker.date = CustomDateFormatter.formatTo(format, selection.wrappedValue)
-    }
-
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        selection.wrappedValue = textField.text ?? ""
-    }
-
-    @objc private func complete() {
-        textField.endEditing(true)
-        setDate()
-    }
-
-    @objc private func setDate() {
-        textField.text = CustomDateFormatter.formatFrom(format, datePicker.date)
+        textField.text = selection
+        datePicker.date = CustomDateFormatter.formatTo(format, selection)
     }
 }
