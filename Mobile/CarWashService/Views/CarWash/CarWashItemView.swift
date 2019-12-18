@@ -87,7 +87,7 @@ struct CarWashItemView: View {
 
                             // Yandex Maps
                             if (UIApplication.shared.canOpenURL(URL(string: "yandexmaps://")!)) {
-                                buttons.append(.default(Text("Yandex Maps")) {
+                                buttons.append(.default(Text("Yandex.Maps")) {
                                     UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(String(format: "%.6f", coordinateX)),\(String(format: "%.6f", coordinateY))&z=15&l=map")!)
                                 })
                             }

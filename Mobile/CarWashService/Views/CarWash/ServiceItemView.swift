@@ -45,9 +45,9 @@ struct ServiceItemView: View {
                         .frame(height: 30)
                 Spacer()
                 HStack {
-                    Image(systemName: self.service.isAvailable ? ServiceStatusImage.Active : ServiceStatusImage.NotActive)
-                            .foregroundColor(self.service.isAvailable ? ServiceStatusColor.Active : ServiceStatusColor.NotActive)
-                    Text(self.service.isAvailable ? ServiceStatusTitle.Active : ServiceStatusTitle.NotActive)
+                    Image(systemName: self.service.isAvailable ? ServiceStatusImage.Available : ServiceStatusImage.NotAvailable)
+                            .foregroundColor(self.service.isAvailable ? ServiceStatusColor.Available : ServiceStatusColor.NotAvailable)
+                    Text(self.service.isAvailable ? ServiceStatusTitle.Available : ServiceStatusTitle.NotAvailable)
                 }
                 Spacer()
             }

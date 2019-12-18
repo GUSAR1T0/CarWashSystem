@@ -53,16 +53,16 @@ struct ServiceTitle {
 
 struct ServiceStatusTitle
 {
-    static let Active = "Active"
-    static let NotActive = "Not active"
+    static let Available = "Available"
+    static let NotAvailable = "Not available"
 }
 
 struct ServiceStatusColor {
-    static let Active = ApplicationColor.Success.toRGB()
-    static let NotActive = ApplicationColor.Danger.toRGB()
+    static let Available = ApplicationColor.Success.toRGB()
+    static let NotAvailable = ApplicationColor.Danger.toRGB()
 }
 
 struct ServiceStatusImage {
-    static let Active = "checkmark.circle.fill"
-    static let NotActive = "xmark.circle.fill"
+    static let Available = "checkmark.circle.fill"
+    static let NotAvailable = "xmark.circle.fill"
 }
