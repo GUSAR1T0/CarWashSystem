@@ -8,9 +8,9 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Lookup
 {
     public class CarBrandModelsModel : EnumRowModel, IEntityToModelConvertible<CarBrandModelsEntity, CarBrandModelsModel>
     {
-        public IEnumerable<EnumRowModel> Models { get; set; }
+        public IEnumerable<EnumRowModel> Models { get; set; } = new List<EnumRowModel>();
 
-        public CarBrandModelsModel ToModel(CarBrandModelsEntity entity)
+        public CarBrandModelsModel ToModel(CarBrandModelsEntity? entity)
         {
             if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
 

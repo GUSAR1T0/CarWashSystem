@@ -60,5 +60,30 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.CompanyProfile
             workingDay = null;
             return false;
         }
+
+        public static bool IsCarWashOpen(CarWashFullEntity entity)
+        {
+            var now = DateTime.Now;
+
+            bool IsCarWashOpenToday(TimeSpan? startTime, TimeSpan? stopTime)
+            {
+                TimeSpan? stopTimeValue;
+                if (stopTime.HasValue) stopTimeValue = stopTime.Value != TimeSpan.Zero ? stopTime.Value : new TimeSpan(23, 59, 59);
+                else stopTimeValue = null;
+                return startTime <= now.TimeOfDay && stopTimeValue >= now.TimeOfDay;
+            }
+
+            return now.DayOfWeek switch
+            {
+                DayOfWeek.Monday => IsCarWashOpenToday(entity.MondayStartTime, entity.MondayStopTime),
+                DayOfWeek.Tuesday => IsCarWashOpenToday(entity.TuesdayStartTime, entity.TuesdayStopTime),
+                DayOfWeek.Wednesday => IsCarWashOpenToday(entity.WednesdayStartTime, entity.WednesdayStopTime),
+                DayOfWeek.Thursday => IsCarWashOpenToday(entity.ThursdayStartTime, entity.ThursdayStopTime),
+                DayOfWeek.Friday => IsCarWashOpenToday(entity.FridayStartTime, entity.FridayStopTime),
+                DayOfWeek.Saturday => IsCarWashOpenToday(entity.SaturdayStartTime, entity.SaturdayStopTime),
+                DayOfWeek.Sunday => IsCarWashOpenToday(entity.SundayStartTime, entity.SundayStopTime),
+                _ => throw new Exception(ExceptionMessage.TimeSpanIsInvalid)
+            };
+        }
     }
 }

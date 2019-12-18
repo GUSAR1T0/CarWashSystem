@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct ClientSignUpModel: Codable, Model {
+struct ClientSignUpModel: Codable {
     var email: String?
     var password: String?
     var firstName: String?

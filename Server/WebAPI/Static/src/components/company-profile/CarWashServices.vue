@@ -57,7 +57,7 @@
                     <div class="table-header">Price</div>
                 </template>
                 <template slot-scope="scope">
-                    <div v-if="!scope.row.editable" class="table-cell">{{ scope.row.price }}</div>
+                    <div v-if="!scope.row.editable" class="table-cell">{{ scope.row.price.toFixed(2) }}</div>
                     <el-input v-else v-model="scope.row.price" clearable/>
                 </template>
             </el-table-column>

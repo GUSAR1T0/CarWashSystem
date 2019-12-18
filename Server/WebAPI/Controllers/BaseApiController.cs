@@ -55,10 +55,10 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
             }
         }
 
-        protected int VerifyUser(string requiredUserRole)
+        protected int VerifyUser(UserRole requiredUserRole)
         {
-            var userRole = User.Claims.Get(AccountClaimName.UserRole);
-            if (userRole != requiredUserRole) throw new Exception(ExceptionMessage.RoleIsNotSuitable(requiredUserRole));
+            var userRole = UserRoleExtensions.GetUserRole(User.Claims.Get(AccountClaimName.UserRole));
+            if (userRole.HasValue && requiredUserRole.HasFlag(userRole.Value)) throw new Exception(ExceptionMessage.RoleIsNotSuitable(requiredUserRole));
 
             var possibleId = User.Claims.Get(AccountClaimName.UserId);
             var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);

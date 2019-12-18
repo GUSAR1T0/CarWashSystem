@@ -9,23 +9,20 @@
 import SwiftUI
 
 struct MainView: View {
+    @State private var selection = 1
+
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             ClientProfileView()
                     .tabItem {
                         Image(systemName: "person.fill")
                         Text("Profile")
                     }.tag(0)
-            ClientCarsView()
-                    .tabItem {
-                        Image(systemName: "car.fill")
-                        Text("Cars")
-                    }.tag(1)
             CarWashesView()
                     .tabItem {
                         Image(systemName: "wand.and.rays")
                         Text("Car Washes")
-                    }.tag(2)
+                    }.tag(1)
         }.accentColor(ApplicationColor.Primary.toRGB())
     }
 }

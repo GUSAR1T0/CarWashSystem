@@ -34,7 +34,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Core.Common
         public const string FailedToIdentifyUserId = "Failed to identify user ID";
         public const string CouldNotGetAccountProfile = "Authentication process failed: couldn't get account profile";
 
-        public static string RoleIsNotSuitable(string userRole) => userRole switch
+        public static string RoleIsNotSuitable(UserRole userRole) => userRole switch
         {
             UserRole.Company => "Couldn't get company profile because you didn't authenticated as company representative",
             UserRole.Client => "Couldn't get client profile because you didn't authenticated as client",
