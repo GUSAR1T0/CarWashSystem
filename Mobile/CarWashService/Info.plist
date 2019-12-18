@@ -69,5 +69,10 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>yandexmaps</string>
+	</array>
 </dict>
 </plist>

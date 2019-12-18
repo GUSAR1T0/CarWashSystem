@@ -40,7 +40,7 @@ enum ApplicationColor: String {
         return Color(red: red, green: green, blue: blue)
     }
 
-    func toRGBA(opacity: Int) -> UIColor {
+    func toRGBA(opacity: Int = 1) -> UIColor {
         var cString: String = self.rawValue.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
         if (cString.hasPrefix("#")) {

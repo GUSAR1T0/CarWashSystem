@@ -7,12 +7,14 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct CarWashItemView: View {
     @State private var selection = 0
     @State var carWashId: Int
     @State private var isLoaded = false
     @State private var modalPresented: Bool = false
+    @State private var isActionSheetActive: Bool = false
     @State private var name = ""
     @State private var email: String?
     @State private var phone: String?
@@ -51,7 +53,7 @@ struct CarWashItemView: View {
 
     var body: some View {
         VStack {
-            MapView(coordinateX: coordinateX, coordinateY: coordinateY, title: name)
+            MapView(coordinateX: coordinateX, coordinateY: coordinateY, title: name, isActionSheetActive: $isActionSheetActive)
                     .overlay(
                             VStack {
                                 Spacer()
@@ -62,6 +64,38 @@ struct CarWashItemView: View {
                     )
                     .shadow(radius: 10)
                     .frame(minHeight: 0, maxHeight: .infinity)
+                    .actionSheet(isPresented: $isActionSheetActive) {
+                        var buttons = [Alert.Button]()
+                        if let coordinateX = coordinateX, let coordinateY = coordinateY {
+                            let coordinateX = CLLocationDegrees(truncating: NSDecimalNumber(decimal: coordinateX))
+                            let coordinateY = CLLocationDegrees(truncating: NSDecimalNumber(decimal: coordinateY))
+
+                            // Apple Maps
+                            buttons.append(.default(Text("Apple Maps")) {
+                                let coords = CLLocationCoordinate2D(latitude: coordinateX, longitude: coordinateY)
+                                let destination = MKMapItem(placemark: MKPlacemark(coordinate: coords))
+                                destination.name = self.name
+                                MKMapItem.openMaps(with: [destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+                            });
+
+                            // Google Maps
+                            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
+                                buttons.append(.default(Text("Google Maps")) {
+                                    UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(String(format: "%.6f", coordinateX)),\(String(format: "%.6f", coordinateY))&directionsmode=driving")!)
+                                })
+                            }
+
+                            // Yandex Maps
+                            if (UIApplication.shared.canOpenURL(URL(string: "yandexmaps://")!)) {
+                                buttons.append(.default(Text("Yandex Maps")) {
+                                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(String(format: "%.6f", coordinateX)),\(String(format: "%.6f", coordinateY))&z=15&l=map")!)
+                                })
+                            }
+                        }
+
+                        buttons.append(.cancel());
+                        return ActionSheet(title: Text("Would you like to open it into the one of maps app?"), buttons: buttons)
+                    }
             VStack {
                 DragElementView()
                 CarWashMainDescriptionView(
@@ -70,7 +104,7 @@ struct CarWashItemView: View {
                         isOpen: self.$isOpen
                 )
                         .padding()
-                        .padding(.bottom, 10)
+                        .padding(.bottom, 20)
             }
                     .gesture(
                             TapGesture()

@@ -24,16 +24,15 @@
 		94C3743BA018068E35B7B5AF /* CarBrandModelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379EDD1811FC23AC85D7E /* CarBrandModelModel.swift */; };
 		94C3743E45F01B9ABC79B4EB /* CarBrandModelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3712BCCEC31DCEB90B3EB /* CarBrandModelSelector.swift */; };
 		94C3745B4DB379870EA1D64F /* ClientProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3773635F19DD5AEF0BE14 /* ClientProfileModel.swift */; };
-		94C3751DCCDEF4D3E985D3D2 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376985EBDA5C23457DBC6 /* Entities.swift */; };
 		94C3753FA8AB110AE4CD9820 /* AuthenticationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */; };
 		94C3761D17B1C3B4BE626BAC /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */; };
 		94C3762B6988219F5490ED44 /* CarWashStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37AE8C8FF506B8B428AAF /* CarWashStatusView.swift */; };
 		94C3763355DAA736DFF9A87A /* CarModelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37BF60900124203BE8CD3 /* CarModelSelector.swift */; };
 		94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */; };
 		94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37BD336E52AA80AA1909E /* SignUpView.swift */; };
-		94C3767B7BE64E6324C40BFC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37691455D63F63F25C7F3 /* Model.swift */; };
 		94C376E4E11815B259D780F8 /* DateTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37778A37B8778E9AF8D53 /* DateTextPickerView.swift */; };
 		94C376ED2A0B10A58282D055 /* AuthenticationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */; };
+		94C376F6BE1F74B55DF70C1F /* MapViewCustomPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37D0032D15D295127FC43 /* MapViewCustomPoint.swift */; };
 		94C3773D628E317ABFB63D9C /* GovernmentPlateSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */; };
 		94C377991B2DBF484494AD3E /* FacilityTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3739A371A49A448ADA320 /* FacilityTagView.swift */; };
 		94C37820C6526BBE22A0E8FE /* CarWashMainDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C378E6E6CA1593A073C3E5 /* CarWashMainDescriptionView.swift */; };
@@ -107,8 +106,6 @@
 		94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStorage.swift; sourceTree = "<group>"; };
 		94C37678D452CBEB21CA6262 /* SpecialResponses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialResponses.swift; sourceTree = "<group>"; };
-		94C37691455D63F63F25C7F3 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		94C376985EBDA5C23457DBC6 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		94C376E5E31F5129B1DA666B /* CarWashToClientController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashToClientController.swift; sourceTree = "<group>"; };
 		94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
 		94C377098A6CECC7ADB3964E /* LookupStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupStorage.swift; sourceTree = "<group>"; };
@@ -132,6 +129,7 @@
 		94C37BF60900124203BE8CD3 /* CarModelSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarModelSelector.swift; sourceTree = "<group>"; };
 		94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GovernmentPlateSymbols.swift; sourceTree = "<group>"; };
 		94C37C934C255042B4817FA8 /* ErrorResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResult.swift; sourceTree = "<group>"; };
+		94C37D0032D15D295127FC43 /* MapViewCustomPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewCustomPoint.swift; sourceTree = "<group>"; };
 		94C37D180E7D76F2FC76314E /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
@@ -209,6 +207,7 @@
 				94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */,
 				A0DC968823A56D57004826B1 /* CarWashesEnums.swift */,
 				94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */,
+				94C37D0032D15D295127FC43 /* MapViewCustomPoint.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -276,15 +275,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		94C377E9E25DDF41F332340D /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				94C376985EBDA5C23457DBC6 /* Entities.swift */,
-				94C37691455D63F63F25C7F3 /* Model.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		94C3785A2AFF738655D288F6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,7 +307,6 @@
 			isa = PBXGroup;
 			children = (
 				94C37B5951E7A853B6BE8101 /* HttpClient */,
-				94C377E9E25DDF41F332340D /* Common */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -548,8 +537,6 @@
 				94C3716159CB274970E0453A /* ClientAuthenticationProfileModel.swift in Sources */,
 				94C3745B4DB379870EA1D64F /* ClientProfileModel.swift in Sources */,
 				94C371E3F2968C81211C8FCC /* ClientProfileController.swift in Sources */,
-				94C3751DCCDEF4D3E985D3D2 /* Entities.swift in Sources */,
-				94C3767B7BE64E6324C40BFC /* Model.swift in Sources */,
 				94C376E4E11815B259D780F8 /* DateTextPickerView.swift in Sources */,
 				94C37C9AC7848EAE478044A8 /* CustomDateFormatter.swift in Sources */,
 				94C379755C17F9B7A2333F21 /* ClientCarModel.swift in Sources */,
@@ -581,6 +568,7 @@
 				94C37820C6526BBE22A0E8FE /* CarWashMainDescriptionView.swift in Sources */,
 				94C3762B6988219F5490ED44 /* CarWashStatusView.swift in Sources */,
 				94C3708DAFBE5D0F6C3EC08F /* DragElementView.swift in Sources */,
+				94C376F6BE1F74B55DF70C1F /* MapViewCustomPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

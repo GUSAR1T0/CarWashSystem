@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct ClientAuthenticationProfileModel: Codable, Model {
+struct ClientAuthenticationProfileModel: Codable {
     var id: Int?
     var firstName: String?
     var lastName: String?
