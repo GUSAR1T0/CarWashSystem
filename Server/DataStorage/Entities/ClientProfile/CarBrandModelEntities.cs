@@ -13,6 +13,6 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.ClientProfile
 
     public class CarBrandModelsEntity : EnumRowEntity
     {
-        public IEnumerable<EnumRowEntity> Models { get; set; }
+        public IEnumerable<EnumRowEntity> Models { get; set; } = new List<EnumRowEntity>();
     }
 }
