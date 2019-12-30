@@ -13,6 +13,7 @@ struct ContentView: View {
                         .transition(.slide)
             }
         }
+        .edgesIgnoringSafeArea(.top)
     }
 }
 

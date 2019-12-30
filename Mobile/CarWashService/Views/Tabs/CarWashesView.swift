@@ -6,14 +6,62 @@
 import SwiftUI
 
 struct CarWashesView: View {
+    @State private var searchText = ""
+    @State private var carWashList = [CarWashShortModel]()
+    @State private var isLoaded = false
+
+    private let carWashToClientController = CarWashToClientController()
+
+    private func fillModels(_ models: [CarWashShortModel]) {
+        self.carWashList.removeAll()
+        for model in models {
+            self.carWashList.append(model)
+        }
+    }
+
+    // Customization of segment controller
+    init() {
+        UISegmentedControl.appearance().selectedSegmentTintColor = ApplicationColor.Primary.toRGBA(opacity: 1)
+        UISegmentedControl.appearance().setTitleTextAttributes([
+            .foregroundColor: UIColor.white
+        ], for: .selected)
+    }
+
+    struct ModelSelect: Identifiable {
+        var id = UUID()
+        var modelId: Int
+    }
+
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack {
-                    EmptyView()
-                }.padding(.top, 15)
+            VStack {
+                SearchView(search: self.$searchText)
+                        .padding(.top, 10)
+                if !self.carWashList.isEmpty {
+                    List {
+                        // Filtered list of carWashes
+                        ForEach(self.carWashList.filter {
+                            if searchText != "" {
+                                let name = $0.name.lowercased()
+                                let location = $0.location.lowercased()
+                                let search = searchText.lowercased()
+                                return name.contains(search) || location.contains(search)
+                            }
+
+                            return true
+                        }) { (carWash: CarWashShortModel) in
+                            NavigationLink(destination: CarWashItemView(carWashId: carWash.id)) {
+                                CarWashRow(model: carWash)
+                            }
+                        }
+                    }
+                }
             }
-                    .animation(.none)
+                    .onAppear {
+                        self.carWashToClientController.getCarWashList(isLoaded: self.$isLoaded) { models in
+                            self.fillModels(models)
+                        }
+                    }
                     .navigationBarTitle(Text("Car Washes"))
         }
     }

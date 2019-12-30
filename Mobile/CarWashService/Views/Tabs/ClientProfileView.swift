@@ -75,15 +75,9 @@ struct ClientProfileView: View {
                             .padding(.top, self.containerPaddingValue)
                             .padding(.bottom, self.containerPaddingValue)
                     TitledContainer(ClientProfileFieldTitle.Birthday) {
-                        if self.isLoaded { // Workaround to render custom view
-                            DateTextPickerView(ClientProfileFieldName.Birthday, selection: self.$birthday)
-                                    .setRoundedBorderTextFieldStyle()
-                                    .padding(.horizontal)
-                        } else {
-                            DateTextPickerView(ClientProfileFieldName.Birthday, selection: self.$birthday)
-                                    .setRoundedBorderTextFieldStyle()
-                                    .padding(.horizontal)
-                        }
+                        DateTextPickerView(ClientProfileFieldName.Birthday, selection: self.$birthday)
+                                .setRoundedBorderTextFieldStyle()
+                                .padding(.horizontal)
                     }
                             .padding(.top, self.containerPaddingValue)
                             .padding(.bottom, self.containerPaddingValue)
@@ -149,6 +143,13 @@ struct ClientProfileView: View {
                     }
                     .animation(.none)
                     .navigationBarTitle(Text("General Info"))
+                    .navigationBarItems(trailing: NavigationLink(destination: ClientCarsView()) {
+                        HStack {
+                            Text("Cars")
+                            Image(systemName: "chevron.right")
+                                    .font(.system(size: 22, weight: .semibold))
+                        }
+                    })
         }
     }
 }

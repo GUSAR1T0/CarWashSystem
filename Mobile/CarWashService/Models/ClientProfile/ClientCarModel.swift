@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct ClientCarModel: Codable, Model, Identifiable {
+struct ClientCarModel: Codable, Identifiable {
     var id: Int
     var modelId: Int
     var governmentPlate: String

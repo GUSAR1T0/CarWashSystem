@@ -8,6 +8,42 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
 {
     public class CarWashStore : ICarWashStore
     {
+        public async Task<IEnumerable<CarWashFullEntity>> GetAll(IOperation operation)
+        {
+            return await operation.QueryAsync<CarWashFullEntity>(@"
+                SELECT
+                    ccw.[Id],
+                    ccw.[Name],
+                    ccw.[Email],
+                    ccw.[Phone],
+                    ccw.[Location],
+                    ccw.[CoordinateX],
+                    ccw.[CoordinateY],
+                    ccw.[Description],
+                    ccw.[HasCafe],
+                    ccw.[HasRestZone],
+                    ccw.[HasParking],
+                    ccw.[HasWC],
+                    ccw.[HasCardPayment],
+                    ccwwh.[MondayStartTime],
+                    ccwwh.[MondayStopTime],
+                    ccwwh.[TuesdayStartTime],
+                    ccwwh.[TuesdayStopTime],
+                    ccwwh.[WednesdayStartTime],
+                    ccwwh.[WednesdayStopTime],
+                    ccwwh.[ThursdayStartTime],
+                    ccwwh.[ThursdayStopTime],
+                    ccwwh.[FridayStartTime],
+                    ccwwh.[FridayStopTime],
+                    ccwwh.[SaturdayStartTime],
+                    ccwwh.[SaturdayStopTime],
+                    ccwwh.[SundayStartTime],
+                    ccwwh.[SundayStopTime]
+                FROM [company].[CarWash] ccw
+                INNER JOIN [company].[CarWashWorkingHours] ccwwh ON ccw.[Id] = ccwwh.[CarWashId];
+            ");
+        }
+
         public async Task<IEnumerable<CarWashShortEntity>> GetAllByUserId(IOperation operation, int userId)
         {
             return await operation.QueryAsync<CarWashShortEntity>(new

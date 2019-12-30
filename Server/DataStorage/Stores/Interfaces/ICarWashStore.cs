@@ -7,6 +7,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
 {
     public interface ICarWashStore
     {
+        Task<IEnumerable<CarWashFullEntity>> GetAll(IOperation operation);
         Task<IEnumerable<CarWashShortEntity>> GetAllByUserId(IOperation operation, int userId);
         Task<bool> IsExist(IOperation operation, int id);
         Task<CarWashFullEntity> GetById(IOperation operation, int id);

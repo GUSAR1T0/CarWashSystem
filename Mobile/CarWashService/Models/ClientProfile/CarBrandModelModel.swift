@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct CarBrandModelModel: Codable, Model, Identifiable {
+struct CarBrandModelModel: Codable, Identifiable {
     var id: Int
     var name: String
 }

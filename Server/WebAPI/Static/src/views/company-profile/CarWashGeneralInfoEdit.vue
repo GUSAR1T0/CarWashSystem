@@ -190,7 +190,7 @@
                 </el-row>
                 <el-row class="edit-field-element" type="flex" justify="center" align="middle">
                     <el-col :xs="24" :sm="20" :md="16" :lg="16" :xl="16">
-                        <el-form-item prop="advantages" label="Advantages">
+                        <el-form-item prop="facilities" label="Facilities">
                             <el-checkbox label="Cafe" v-model="model.hasCafe"/>
                             <el-checkbox label="Rest Zone" v-model="model.hasRestZone"/>
                             <el-checkbox label="Parking" v-model="model.hasParking"/>

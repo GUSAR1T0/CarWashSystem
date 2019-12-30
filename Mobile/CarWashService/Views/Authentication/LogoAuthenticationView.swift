@@ -13,10 +13,13 @@ struct LogoAuthenticationView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            Image(systemName: "sun.max.fill").foregroundColor(ApplicationColor.Primary.toRGB())
-            Image(systemName: "car.fill").foregroundColor(ApplicationColor.Primary.toRGB())
+            Image(systemName: "sun.max.fill")
+                    .foregroundColor(ApplicationColor.Primary.toRGB())
+            Image(systemName: "car.fill")
+                    .foregroundColor(ApplicationColor.Primary.toRGB())
             Text(ApplicationText.LogoTitle)
-                .font(.largeTitle).bold().foregroundColor(ApplicationColor.Primary.toRGB())
+                    .font(.system(size: 32, weight: .bold))
+                    .foregroundColor(ApplicationColor.Primary.toRGB())
             Text(subTitle)
                     .font(.subheadline)
         }
