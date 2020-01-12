@@ -16,7 +16,7 @@ struct FacilityTagView: View {
                 Text(self.title.uppercased())
                         .font(.system(size: 18, weight: .bold))
                         .frame(width: geometry.size.width / 2, height: 30)
-                        .foregroundColor(ApplicationColor.MiddleGray.toRGB())
+                        .foregroundColor(ApplicationColor.MiddleGray.toColor())
                 Spacer()
                 Image(systemName: self.isAvailable ? "checkmark.circle.fill" : "xmark.circle.fill")
                         .padding()

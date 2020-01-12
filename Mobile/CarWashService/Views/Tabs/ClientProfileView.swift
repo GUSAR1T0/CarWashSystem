@@ -24,13 +24,13 @@ struct ClientProfileView: View {
 
     private func prepareBirthday(_ birthday: String) -> String {
         let modified = birthday[..<birthday.index(birthday.startIndex, offsetBy: 10)]
-        let date = CustomDateFormatter.formatTo(CustomDateFormatter.serverFormat, String(modified))
-        return CustomDateFormatter.formatFrom(CustomDateFormatter.datePickerFormat, date)
+        let date = DateTimeUtils.formatTo(CustomDateTimeFormat.dateServerFormat, String(modified))
+        return DateTimeUtils.formatFrom(CustomDateTimeFormat.datePickerFormat, date)
     }
 
     private func prepareBirthday() -> String {
-        let date = CustomDateFormatter.formatTo(CustomDateFormatter.datePickerFormat, birthday)
-        return CustomDateFormatter.formatFrom(CustomDateFormatter.serverFormat, date)
+        let date = DateTimeUtils.formatTo(CustomDateTimeFormat.datePickerFormat, birthday)
+        return DateTimeUtils.formatFrom(CustomDateTimeFormat.dateServerFormat, date)
     }
 
     private func fillFields(_ model: ClientProfileModel) {
@@ -103,7 +103,7 @@ struct ClientProfileView: View {
                                     .bold()
                                     .padding()
                                     .frame(minWidth: 0, maxWidth: .infinity)
-                                    .background(ApplicationColor.Danger.toRGB())
+                                    .background(ApplicationColor.Danger.toColor())
                                     .cornerRadius(5)
                                     .foregroundColor(.white)
                                     .padding(10)
@@ -128,7 +128,7 @@ struct ClientProfileView: View {
                                     .bold()
                                     .padding()
                                     .frame(minWidth: 0, maxWidth: .infinity)
-                                    .background(ApplicationColor.Primary.toRGB())
+                                    .background(ApplicationColor.Primary.toColor())
                                     .cornerRadius(5)
                                     .foregroundColor(.white)
                                     .padding(10)

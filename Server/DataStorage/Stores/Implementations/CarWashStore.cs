@@ -241,7 +241,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     [HasParking] = @HasParking,
                     [HasWC] = @HasWC,
                     [HasCardPayment] = @HasCardPayment
-                OUTPUT INSERTED.[Id], INSERTED.[Name] INSERTED.[Location] INTO @UpdatedCarWash
+                OUTPUT INSERTED.[Id], INSERTED.[Name], INSERTED.[Location] INTO @UpdatedCarWash
                 WHERE [Id] = @Id;
 
                 UPDATE [company].[CarWashWorkingHours]

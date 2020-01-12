@@ -5,10 +5,16 @@
             <div class="divider">
                 <el-divider/>
             </div>
-            <el-button class="functional-button" type="primary" icon="el-icon-edit"
-                       @click="$router.push('/profile/edit')">
-                Edit Company Profile
-            </el-button>
+            <div>
+                <el-button class="functional-button" type="primary" icon="el-icon-edit"
+                           @click="$router.push('/profile/edit')">
+                    Edit Company Profile
+                </el-button>
+                <el-button class="functional-button" type="primary"
+                           @click="$router.push('/profile/car-wash')">
+                    Car Wash List
+                </el-button>
+            </div>
             <CompanyProfileInfoRow name="Contacts" style="padding-top: 20px">
                 <template slot="value">
                     <el-table :data="[model]">

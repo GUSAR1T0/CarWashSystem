@@ -20,12 +20,12 @@ class CustomUIDatePicker: UIDatePicker {
 
     @objc func updateDate() {
         if let view = view {
-            view.textField.text = CustomDateFormatter.formatFrom(view.format, view.datePicker.date)
+            view.textField.text = DateTimeUtils.formatFrom(view.format, view.datePicker.date)
         }
     }
 }
 
-class CustomUIToolbar: UIToolbar {
+class CustomUIToolbarForDatePicker: UIToolbar {
     private var view: DateTextPickerView? = nil
 
     func setView(_ view: DateTextPickerView) {
@@ -42,7 +42,7 @@ class CustomUIToolbar: UIToolbar {
 
     @objc public func updateDate() {
         if let view = view {
-            view.textField.text = CustomDateFormatter.formatFrom(view.format, view.datePicker.date)
+            view.textField.text = DateTimeUtils.formatFrom(view.format, view.datePicker.date)
         }
     }
 
@@ -58,7 +58,7 @@ struct DateTextPickerView: CustomTextPickerView {
     @Binding private(set) var selection: String
 
     private(set) var datePicker = CustomUIDatePicker()
-    private(set) var format = CustomDateFormatter.datePickerFormat
+    private(set) var format = CustomDateTimeFormat.datePickerFormat
 
     class Coordinator: NSObject, UITextFieldDelegate {
         var parent: DateTextPickerView
@@ -95,7 +95,7 @@ struct DateTextPickerView: CustomTextPickerView {
         datePicker.setView(self)
         datePicker.setup()
 
-        let toolbar = CustomUIToolbar()
+        let toolbar = CustomUIToolbarForDatePicker()
         toolbar.setView(self)
         toolbar.setup()
         textField.inputAccessoryView = toolbar
@@ -107,6 +107,6 @@ struct DateTextPickerView: CustomTextPickerView {
         uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         uiView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         textField.text = selection
-        datePicker.date = CustomDateFormatter.formatTo(format, selection)
+        datePicker.date = DateTimeUtils.formatTo(format, selection)
     }
 }

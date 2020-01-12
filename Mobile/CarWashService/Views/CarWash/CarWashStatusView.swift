@@ -14,7 +14,7 @@ struct CarWashStatusView: View {
                     .foregroundColor(self.isOpen ? StatusColor.Open : StatusColor.Close)
             Text(self.isOpen ? StatusTitle.Open : StatusTitle.Close)
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(ApplicationColor.Primary.toRGB())
+                    .foregroundColor(ApplicationColor.Primary.toColor())
         }
     }
 }

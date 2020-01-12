@@ -29,7 +29,7 @@ struct RefreshableScrollView<Content: View>: View {
                         Spacer()
                     }
                             .preference(key: RefreshableKeyTypes.RefreshablePreferenceKey.self, value: [RefreshableKeyTypes.RefreshablePreferenceData(bounds: geometry.frame(in: CoordinateSpace.global))])
-                            .offset(y: -100)
+                            .offset(y: -150)
                 }.offset(y: -50)
                 content().opacity(self.locked ? 0.5 : 1)
             }

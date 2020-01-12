@@ -30,6 +30,7 @@ struct CarWashItemView: View {
     @State private var workingHours: WorkingHoursModel?
     @State private var isOpen = false
     @State private var services = [CarWashServiceModel]()
+    @State private var selectedServiceIds = [Int]()
 
     private let carWashToClientController = CarWashToClientController()
 
@@ -58,7 +59,7 @@ struct CarWashItemView: View {
                             VStack {
                                 Spacer()
                                 Rectangle()
-                                        .stroke(ApplicationColor.Primary.toRGB(), lineWidth: 4)
+                                        .stroke(ApplicationColor.Primary.toColor(), lineWidth: 4)
                                         .frame(height: 1.0, alignment: .bottom)
                             }
                     )
@@ -153,7 +154,7 @@ struct CarWashItemView: View {
                             ),
                             (
                                     name: CarWashesButtonTitle.Services,
-                                    view: AnyView(ServicesView(services: self.$services))
+                                    view: AnyView(ServicesView(selectable: false, selectedServiceIds: self.$selectedServiceIds, services: self.$services))
                             )
                         ])
                                 .padding(.leading, 10)
@@ -166,9 +167,9 @@ struct CarWashItemView: View {
                     }
                 }
                 .navigationBarTitle("Car Wash Info", displayMode: .inline)
-                .navigationBarItems(trailing: NavigationLink(destination: EmptyView().navigationBarTitle("", displayMode: .large)) {
+                .navigationBarItems(trailing: NavigationLink(destination: CarWashOrderView(services: self.$services, workingHours: self.$workingHours)) {
                     HStack {
-                        Text("Order")
+                        Text("Checkout")
                         Image(systemName: "chevron.right")
                                 .font(.system(size: 22, weight: .semibold))
                     }

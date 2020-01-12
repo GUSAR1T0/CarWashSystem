@@ -11,7 +11,7 @@ struct DragElementView: View {
             Spacer()
             RoundedRectangle(cornerRadius: CGFloat(5.0) / 2.0)
                     .frame(width: 40, height: 5)
-                    .foregroundColor(ApplicationColor.DarkGray.toRGB())
+                    .foregroundColor(ApplicationColor.DarkGray.toColor())
             Spacer()
         }
                 .frame(height: 30)

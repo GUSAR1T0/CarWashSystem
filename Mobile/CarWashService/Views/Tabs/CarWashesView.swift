@@ -21,15 +21,10 @@ struct CarWashesView: View {
 
     // Customization of segment controller
     init() {
-        UISegmentedControl.appearance().selectedSegmentTintColor = ApplicationColor.Primary.toRGBA(opacity: 1)
+        UISegmentedControl.appearance().selectedSegmentTintColor = ApplicationColor.Primary.toUIColor(opacity: 1)
         UISegmentedControl.appearance().setTitleTextAttributes([
             .foregroundColor: UIColor.white
         ], for: .selected)
-    }
-
-    struct ModelSelect: Identifiable {
-        var id = UUID()
-        var modelId: Int
     }
 
     var body: some View {
@@ -55,6 +50,8 @@ struct CarWashesView: View {
                             }
                         }
                     }
+                } else {
+                    Spacer()
                 }
             }
                     .onAppear {

@@ -7,70 +7,75 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94C3700D8E33D745797851B8 /* OrderDateStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C378C913E0BFB5FA2D99D1 /* OrderDateStatusView.swift */; };
+		94C3705BAC9F8193D12F8882 /* MapViewCustomPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37EE7F902CA00BAACB9B5 /* MapViewCustomPoint.swift */; };
 		94C3708DAFBE5D0F6C3EC08F /* DragElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374E3A04D5401F1B09D86 /* DragElementView.swift */; };
 		94C3709E9675601827555541 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37364A11EE70F27CC061D /* ViewExtension.swift */; };
 		94C370B0C26334E7B782B750 /* ClientCarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E41E648319A8333DF4D /* ClientCarsView.swift */; };
 		94C37104C40A39FF2FF2D16C /* ErrorResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37C934C255042B4817FA8 /* ErrorResult.swift */; };
+		94C371132593E9A79EFF7388 /* CarWashesEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C372281A659C79ECA2AF8C /* CarWashesEnums.swift */; };
 		94C3714F6B8B97E219058125 /* ClientLookupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37018D6C4B2EAC29AF4E4 /* ClientLookupModel.swift */; };
 		94C3716159CB274970E0453A /* ClientAuthenticationProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379151F2A7D1F5B940125 /* ClientAuthenticationProfileModel.swift */; };
 		94C371D1D8DA63BBC34B3636 /* TitledContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379B7E4CDF087A341D4FA /* TitledContainer.swift */; };
 		94C371E0F5B357C9F5C094F1 /* CarEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379A23A2830D4168BD39E /* CarEditView.swift */; };
 		94C371E3F2968C81211C8FCC /* ClientProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3762079AEE011D0EB0BDA /* ClientProfileController.swift */; };
 		94C371F67FBF348D9C10E834 /* CarBrandModelsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C372A3B9E5DBC6900449E4 /* CarBrandModelsModel.swift */; };
-		94C37338CA7A0DF9514437C1 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E6BEA5930D502E1EF3B /* DividerView.swift */; };
-		94C37360EE071F06A71DCFD3 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */; };
+		94C373041504664AD01628A8 /* CarWashOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37FA9D25A912937A12410 /* CarWashOrderView.swift */; };
 		94C3738160416EF4C1C42D9C /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374423A6F02DEC89E2DC1 /* SignInView.swift */; };
 		94C37384E24CEBE90E9E5D31 /* WorkingHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C375DC97A4DD51CCCC6CAC /* WorkingHoursView.swift */; };
 		94C3743BA018068E35B7B5AF /* CarBrandModelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379EDD1811FC23AC85D7E /* CarBrandModelModel.swift */; };
 		94C3743E45F01B9ABC79B4EB /* CarBrandModelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3712BCCEC31DCEB90B3EB /* CarBrandModelSelector.swift */; };
 		94C3745B4DB379870EA1D64F /* ClientProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3773635F19DD5AEF0BE14 /* ClientProfileModel.swift */; };
-		94C3753FA8AB110AE4CD9820 /* AuthenticationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */; };
+		94C3749C207062A997580FA2 /* CarForOrderSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37F81FD62EC26CD31EEB6 /* CarForOrderSelector.swift */; };
+		94C374C104E243363C47B695 /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E476AD16CE1743F0BA2 /* Requests.swift */; };
 		94C3761D17B1C3B4BE626BAC /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */; };
 		94C3762B6988219F5490ED44 /* CarWashStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37AE8C8FF506B8B428AAF /* CarWashStatusView.swift */; };
 		94C3763355DAA736DFF9A87A /* CarModelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37BF60900124203BE8CD3 /* CarModelSelector.swift */; };
 		94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */; };
 		94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37BD336E52AA80AA1909E /* SignUpView.swift */; };
+		94C3768833ECC5DF98871466 /* CarWashOrderServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370EBDA6C76BC94DECE5F /* CarWashOrderServicesView.swift */; };
 		94C376E4E11815B259D780F8 /* DateTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37778A37B8778E9AF8D53 /* DateTextPickerView.swift */; };
-		94C376ED2A0B10A58282D055 /* AuthenticationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */; };
-		94C376F6BE1F74B55DF70C1F /* MapViewCustomPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37D0032D15D295127FC43 /* MapViewCustomPoint.swift */; };
-		94C3773D628E317ABFB63D9C /* GovernmentPlateSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */; };
 		94C377991B2DBF484494AD3E /* FacilityTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3739A371A49A448ADA320 /* FacilityTagView.swift */; };
+		94C377E9B82D05A68F5752E9 /* ApplicationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37FD55526BF068640DC64 /* ApplicationEnums.swift */; };
 		94C37820C6526BBE22A0E8FE /* CarWashMainDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C378E6E6CA1593A073C3E5 /* CarWashMainDescriptionView.swift */; };
 		94C3785E051D869655405546 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37A7E7C2822B22695CF34 /* RefreshableScrollView.swift */; };
+		94C3786788370DCD650ACED5 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37DB25217D44A6FFBEC37 /* DayOfWeek.swift */; };
 		94C379351C26625661AF64B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37999D9BE8145F7D5048C /* ContentView.swift */; };
 		94C379755C17F9B7A2333F21 /* ClientCarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37830C0415EF0927529CC /* ClientCarModel.swift */; };
-		94C379E3588B77C726EC2498 /* ApplicationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C378FD8F0AEB53AA81F3C1 /* ApplicationEnums.swift */; };
 		94C379E71BFB44D37E535FB2 /* HttpClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374F0631BA324401190AB /* HttpClientError.swift */; };
 		94C379FDEFEF54FA167A5181 /* SpecialResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37678D452CBEB21CA6262 /* SpecialResponses.swift */; };
 		94C37A35B8BD01687C1D9244 /* HttpClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */; };
 		94C37A3C1D042EE77E5F1031 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37FB3BA835ACC70732D2E /* MainView.swift */; };
 		94C37AA846A8A04C519F14BA /* CustomTextPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3777D52C023127B8C0D27 /* CustomTextPickerView.swift */; };
+		94C37B48574F52FAA3B5BE74 /* AuthenticationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37B205816D99F4A3403E3 /* AuthenticationStorage.swift */; };
 		94C37B699509CFB438BB5C3F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3746C6D58C0B0C6B1E050 /* CardView.swift */; };
 		94C37BA8874D079513C06E76 /* CarWashToClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C376E5E31F5129B1DA666B /* CarWashToClientController.swift */; };
 		94C37C6FBFC8062A734CB316 /* GovernmentPlateSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374A207C067DCC5803A0A /* GovernmentPlateSymbolView.swift */; };
 		94C37C855EFAE64BE1CB6A61 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3776DB7C98327A0D9550E /* AccountController.swift */; };
-		94C37C9AC7848EAE478044A8 /* CustomDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3744632DA26A21B5B6AB1 /* CustomDateFormatter.swift */; };
+		94C37CD507CBB3853C06F18B /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C379D48363FE778EC6D8A0 /* HttpMethod.swift */; };
 		94C37CE42CD95142515976DA /* ClientProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37F96DC8D8716E832474E /* ClientProfileView.swift */; };
-		94C37D1A54365BC832F70F53 /* LookupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C377098A6CECC7ADB3964E /* LookupStorage.swift */; };
-		94C37D290647A8D906F5F864 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */; };
-		94C37DA5B21E73B8F1CE529E /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37332524E6A41A59DF47E /* Requests.swift */; };
+		94C37CE719540FA14E4983E8 /* LookupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C374B99BBD9E179672700B /* LookupStorage.swift */; };
+		94C37D9FD6AAE821B3AE2E64 /* GovernmentPlateSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37002392A3F1D236E76AC /* GovernmentPlateSymbols.swift */; };
+		94C37DD46043D9ECECA0AFDD /* ClientProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37FD6CF26E8D301A4A841 /* ClientProfileEnums.swift */; };
+		94C37DDC979978FFFAA60FC7 /* AuthenticationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37036206F38F0F4C680FB /* AuthenticationEnums.swift */; };
 		94C37DF9E47C468398092ACB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37D180E7D76F2FC76314E /* SearchView.swift */; };
+		94C37DFB56CAD17701E1A24A /* CustomDateTimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C37B5CA8849CB4DBFCE131 /* CustomDateTimeFormat.swift */; };
 		94C37E40AE36AD6B44AF7228 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C377C55A1D3C61B1942770 /* ErrorResponse.swift */; };
+		94C37E49D504F718DF37DDC0 /* CarWashOrderClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370F40C228DA65A43554F /* CarWashOrderClientView.swift */; };
 		94C37E5607D5A1B37B70BE31 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3763220433636BF95482D /* StringUtils.swift */; };
 		94C37EC73BB26B9532A3BAEF /* ClientSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3742A9E352AB04502A2F6 /* ClientSignUpModel.swift */; };
 		94C37F1C6EC2BF1D38FC45D4 /* ClientSignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3730A3ADD77A19395EFF6 /* ClientSignInModel.swift */; };
 		94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */; };
 		94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3734F941CAA37768EF182 /* CarWashesView.swift */; };
+		94C37FE7C483FA1A29F221CC /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C372A224AEDBE664DB0C19 /* DateTimeUtils.swift */; };
 		A0331FD123A6AB0F0041F618 /* WorkingHoursModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD023A6AB0F0041F618 /* WorkingHoursModel.swift */; };
 		A0331FD723A6D8280041F618 /* ServiceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD623A6D8280041F618 /* ServiceItemView.swift */; };
 		A0331FD923A6D8ED0041F618 /* CarWashServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD823A6D8ED0041F618 /* CarWashServiceModel.swift */; };
 		A0331FE223A6F9BE0041F618 /* CarWashModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FE123A6F9BE0041F618 /* CarWashModels.swift */; };
 		A0331FE423A6FD1F0041F618 /* CarWashRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FE323A6FD1F0041F618 /* CarWashRow.swift */; };
-		A0400BD5239855EE00418D15 /* ClientProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */; };
 		A0DC968323A2EFCA004826B1 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DC968223A2EFCA004826B1 /* MapView.swift */; };
 		A0DC968523A567A3004826B1 /* CarWashServiceMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DC968423A567A3004826B1 /* CarWashServiceMark.swift */; };
 		A0DC968723A56ABD004826B1 /* CarWashItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DC968623A56ABD004826B1 /* CarWashItemView.swift */; };
-		A0DC968923A56D57004826B1 /* CarWashesEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DC968823A56D57004826B1 /* CarWashesEnums.swift */; };
 		A0DC968B23A6877A004826B1 /* TabPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DC968A23A6877A004826B1 /* TabPickerView.swift */; };
 		A0DC968E23A68B62004826B1 /* GeneralInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DC968D23A68B62004826B1 /* GeneralInfoView.swift */; };
 		A0DC969023A68B7B004826B1 /* ServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DC968F23A68B7B004826B1 /* ServicesView.swift */; };
@@ -84,70 +89,75 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		94C37002392A3F1D236E76AC /* GovernmentPlateSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GovernmentPlateSymbols.swift; sourceTree = "<group>"; };
 		94C37018D6C4B2EAC29AF4E4 /* ClientLookupModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientLookupModel.swift; sourceTree = "<group>"; };
+		94C37036206F38F0F4C680FB /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
+		94C370EBDA6C76BC94DECE5F /* CarWashOrderServicesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashOrderServicesView.swift; sourceTree = "<group>"; };
 		94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalSignInService.swift; sourceTree = "<group>"; };
+		94C370F40C228DA65A43554F /* CarWashOrderClientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashOrderClientView.swift; sourceTree = "<group>"; };
 		94C3712BCCEC31DCEB90B3EB /* CarBrandModelSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBrandModelSelector.swift; sourceTree = "<group>"; };
+		94C372281A659C79ECA2AF8C /* CarWashesEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashesEnums.swift; sourceTree = "<group>"; };
+		94C372A224AEDBE664DB0C19 /* DateTimeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeUtils.swift; sourceTree = "<group>"; };
 		94C372A3B9E5DBC6900449E4 /* CarBrandModelsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBrandModelsModel.swift; sourceTree = "<group>"; };
 		94C3730A3ADD77A19395EFF6 /* ClientSignInModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientSignInModel.swift; sourceTree = "<group>"; };
-		94C37332524E6A41A59DF47E /* Requests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
 		94C3734F941CAA37768EF182 /* CarWashesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashesView.swift; sourceTree = "<group>"; };
 		94C37364A11EE70F27CC061D /* ViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		94C3739A371A49A448ADA320 /* FacilityTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilityTagView.swift; sourceTree = "<group>"; };
 		94C3742A9E352AB04502A2F6 /* ClientSignUpModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientSignUpModel.swift; sourceTree = "<group>"; };
 		94C374423A6F02DEC89E2DC1 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		94C3744632DA26A21B5B6AB1 /* CustomDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatter.swift; sourceTree = "<group>"; };
 		94C3746C6D58C0B0C6B1E050 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		94C374A207C067DCC5803A0A /* GovernmentPlateSymbolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GovernmentPlateSymbolView.swift; sourceTree = "<group>"; };
+		94C374B99BBD9E179672700B /* LookupStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupStorage.swift; sourceTree = "<group>"; };
 		94C374E3A04D5401F1B09D86 /* DragElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragElementView.swift; sourceTree = "<group>"; };
 		94C374F0631BA324401190AB /* HttpClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientError.swift; sourceTree = "<group>"; };
 		94C375DC97A4DD51CCCC6CAC /* WorkingHoursView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkingHoursView.swift; sourceTree = "<group>"; };
 		94C3762079AEE011D0EB0BDA /* ClientProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileController.swift; sourceTree = "<group>"; };
 		94C3763220433636BF95482D /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
-		94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
-		94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStorage.swift; sourceTree = "<group>"; };
 		94C37678D452CBEB21CA6262 /* SpecialResponses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecialResponses.swift; sourceTree = "<group>"; };
 		94C376E5E31F5129B1DA666B /* CarWashToClientController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashToClientController.swift; sourceTree = "<group>"; };
 		94C376ED2C894E98C55FF66B /* ServerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
-		94C377098A6CECC7ADB3964E /* LookupStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupStorage.swift; sourceTree = "<group>"; };
 		94C3773635F19DD5AEF0BE14 /* ClientProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileModel.swift; sourceTree = "<group>"; };
 		94C3776DB7C98327A0D9550E /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
 		94C37778A37B8778E9AF8D53 /* DateTextPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextPickerView.swift; sourceTree = "<group>"; };
 		94C3777D52C023127B8C0D27 /* CustomTextPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextPickerView.swift; sourceTree = "<group>"; };
 		94C377C55A1D3C61B1942770 /* ErrorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		94C37830C0415EF0927529CC /* ClientCarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientCarModel.swift; sourceTree = "<group>"; };
+		94C378C913E0BFB5FA2D99D1 /* OrderDateStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDateStatusView.swift; sourceTree = "<group>"; };
 		94C378E6E6CA1593A073C3E5 /* CarWashMainDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashMainDescriptionView.swift; sourceTree = "<group>"; };
-		94C378FD8F0AEB53AA81F3C1 /* ApplicationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationEnums.swift; sourceTree = "<group>"; };
 		94C379151F2A7D1F5B940125 /* ClientAuthenticationProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientAuthenticationProfileModel.swift; sourceTree = "<group>"; };
 		94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoAuthenticationView.swift; sourceTree = "<group>"; };
 		94C37999D9BE8145F7D5048C /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		94C379A23A2830D4168BD39E /* CarEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarEditView.swift; sourceTree = "<group>"; };
 		94C379B7E4CDF087A341D4FA /* TitledContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledContainer.swift; sourceTree = "<group>"; };
+		94C379D48363FE778EC6D8A0 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		94C379EDD1811FC23AC85D7E /* CarBrandModelModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarBrandModelModel.swift; sourceTree = "<group>"; };
 		94C37A7E7C2822B22695CF34 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		94C37AE8C8FF506B8B428AAF /* CarWashStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashStatusView.swift; sourceTree = "<group>"; };
+		94C37B205816D99F4A3403E3 /* AuthenticationStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationStorage.swift; sourceTree = "<group>"; };
+		94C37B5CA8849CB4DBFCE131 /* CustomDateTimeFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateTimeFormat.swift; sourceTree = "<group>"; };
 		94C37BD336E52AA80AA1909E /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		94C37BF60900124203BE8CD3 /* CarModelSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarModelSelector.swift; sourceTree = "<group>"; };
-		94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GovernmentPlateSymbols.swift; sourceTree = "<group>"; };
 		94C37C934C255042B4817FA8 /* ErrorResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResult.swift; sourceTree = "<group>"; };
-		94C37D0032D15D295127FC43 /* MapViewCustomPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewCustomPoint.swift; sourceTree = "<group>"; };
 		94C37D180E7D76F2FC76314E /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
-		94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationEnums.swift; sourceTree = "<group>"; };
+		94C37DB25217D44A6FFBEC37 /* DayOfWeek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		94C37E3C9C5A2D6877848C85 /* HttpClientService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClientService.swift; sourceTree = "<group>"; };
 		94C37E41E648319A8333DF4D /* ClientCarsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientCarsView.swift; sourceTree = "<group>"; };
-		94C37E6BEA5930D502E1EF3B /* DividerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
+		94C37E476AD16CE1743F0BA2 /* Requests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
+		94C37EE7F902CA00BAACB9B5 /* MapViewCustomPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewCustomPoint.swift; sourceTree = "<group>"; };
+		94C37F81FD62EC26CD31EEB6 /* CarForOrderSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarForOrderSelector.swift; sourceTree = "<group>"; };
 		94C37F96DC8D8716E832474E /* ClientProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileView.swift; sourceTree = "<group>"; };
+		94C37FA9D25A912937A12410 /* CarWashOrderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarWashOrderView.swift; sourceTree = "<group>"; };
 		94C37FB3BA835ACC70732D2E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		94C37FD55526BF068640DC64 /* ApplicationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationEnums.swift; sourceTree = "<group>"; };
+		94C37FD6CF26E8D301A4A841 /* ClientProfileEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileEnums.swift; sourceTree = "<group>"; };
 		A0331FD023A6AB0F0041F618 /* WorkingHoursModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursModel.swift; sourceTree = "<group>"; };
 		A0331FD623A6D8280041F618 /* ServiceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceItemView.swift; sourceTree = "<group>"; };
 		A0331FD823A6D8ED0041F618 /* CarWashServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashServiceModel.swift; sourceTree = "<group>"; };
 		A0331FE123A6F9BE0041F618 /* CarWashModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashModels.swift; sourceTree = "<group>"; };
 		A0331FE323A6FD1F0041F618 /* CarWashRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashRow.swift; sourceTree = "<group>"; };
-		A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProfileEnums.swift; sourceTree = "<group>"; };
 		A0DC968223A2EFCA004826B1 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		A0DC968423A567A3004826B1 /* CarWashServiceMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashServiceMark.swift; sourceTree = "<group>"; };
 		A0DC968623A56ABD004826B1 /* CarWashItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashItemView.swift; sourceTree = "<group>"; };
-		A0DC968823A56D57004826B1 /* CarWashesEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashesEnums.swift; sourceTree = "<group>"; };
 		A0DC968A23A6877A004826B1 /* TabPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPickerView.swift; sourceTree = "<group>"; };
 		A0DC968D23A68B62004826B1 /* GeneralInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoView.swift; sourceTree = "<group>"; };
 		A0DC968F23A68B7B004826B1 /* ServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesView.swift; sourceTree = "<group>"; };
@@ -186,36 +196,18 @@
 		94C3728052CCF85A84C53592 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				94C374AE466F7AFAAC5550EB /* Enums */,
 				94C377E11236EC7D64604849 /* Services */,
 				94C3796A2522290F05348C72 /* Entities */,
-				94C37BF6BC30CBAC70E217E9 /* ObservableObjects */,
 				94C374DF088CB64B460E6A4D /* Utils */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		94C374AE466F7AFAAC5550EB /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				94C37E1EDC36804AA397B64E /* AuthenticationEnums.swift */,
-				94C378FD8F0AEB53AA81F3C1 /* ApplicationEnums.swift */,
-				94C3765F9A3A55933DF70ED3 /* HttpMethod.swift */,
-				94C37332524E6A41A59DF47E /* Requests.swift */,
-				A0400BD4239855EE00418D15 /* ClientProfileEnums.swift */,
-				94C3744632DA26A21B5B6AB1 /* CustomDateFormatter.swift */,
-				94C37C205075D561041A7FBB /* GovernmentPlateSymbols.swift */,
-				A0DC968823A56D57004826B1 /* CarWashesEnums.swift */,
-				94C37D54668C96BE68DC0F9C /* DayOfWeek.swift */,
-				94C37D0032D15D295127FC43 /* MapViewCustomPoint.swift */,
-			);
-			path = Enums;
 			sourceTree = "<group>";
 		};
 		94C374DF088CB64B460E6A4D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				94C3763220433636BF95482D /* StringUtils.swift */,
+				94C372A224AEDBE664DB0C19 /* DateTimeUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -262,6 +254,7 @@
 				94C3712BCCEC31DCEB90B3EB /* CarBrandModelSelector.swift */,
 				94C37BF60900124203BE8CD3 /* CarModelSelector.swift */,
 				94C37E41E648319A8333DF4D /* ClientCarsView.swift */,
+				94C37F81FD62EC26CD31EEB6 /* CarForOrderSelector.swift */,
 			);
 			path = ClientCar;
 			sourceTree = "<group>";
@@ -297,16 +290,34 @@
 				A0DC968223A2EFCA004826B1 /* MapView.swift */,
 				A0DC968A23A6877A004826B1 /* TabPickerView.swift */,
 				94C37D180E7D76F2FC76314E /* SearchView.swift */,
-				94C37E6BEA5930D502E1EF3B /* DividerView.swift */,
 				94C374E3A04D5401F1B09D86 /* DragElementView.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		94C378FBC2C37065C9474F97 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				94C37036206F38F0F4C680FB /* AuthenticationEnums.swift */,
+				94C37FD55526BF068640DC64 /* ApplicationEnums.swift */,
+				94C379D48363FE778EC6D8A0 /* HttpMethod.swift */,
+				94C37E476AD16CE1743F0BA2 /* Requests.swift */,
+				94C37FD6CF26E8D301A4A841 /* ClientProfileEnums.swift */,
+				94C37002392A3F1D236E76AC /* GovernmentPlateSymbols.swift */,
+				94C372281A659C79ECA2AF8C /* CarWashesEnums.swift */,
+				94C37DB25217D44A6FFBEC37 /* DayOfWeek.swift */,
+				94C37EE7F902CA00BAACB9B5 /* MapViewCustomPoint.swift */,
+				94C37B5CA8849CB4DBFCE131 /* CustomDateTimeFormat.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		94C3796A2522290F05348C72 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				94C37B5951E7A853B6BE8101 /* HttpClient */,
+				94C378FBC2C37065C9474F97 /* Enums */,
+				94C37FFA25B54B24B77B889A /* ObservableObjects */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -334,15 +345,6 @@
 			path = HttpClient;
 			sourceTree = "<group>";
 		};
-		94C37BF6BC30CBAC70E217E9 /* ObservableObjects */ = {
-			isa = PBXGroup;
-			children = (
-				94C376758855F790A3E28FC4 /* AuthenticationStorage.swift */,
-				94C377098A6CECC7ADB3964E /* LookupStorage.swift */,
-			);
-			path = ObservableObjects;
-			sourceTree = "<group>";
-		};
 		94C37F0D16E4848C1BF9436D /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +353,15 @@
 				94C37933894D7AD92BCBCB5A /* LogoAuthenticationView.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		94C37FFA25B54B24B77B889A /* ObservableObjects */ = {
+			isa = PBXGroup;
+			children = (
+				94C37B205816D99F4A3403E3 /* AuthenticationStorage.swift */,
+				94C374B99BBD9E179672700B /* LookupStorage.swift */,
+			);
+			path = ObservableObjects;
 			sourceTree = "<group>";
 		};
 		A0331FDC23A6F2630041F618 /* CarWash */ = {
@@ -377,6 +388,10 @@
 				94C3739A371A49A448ADA320 /* FacilityTagView.swift */,
 				94C378E6E6CA1593A073C3E5 /* CarWashMainDescriptionView.swift */,
 				94C37AE8C8FF506B8B428AAF /* CarWashStatusView.swift */,
+				94C37FA9D25A912937A12410 /* CarWashOrderView.swift */,
+				94C370EBDA6C76BC94DECE5F /* CarWashOrderServicesView.swift */,
+				94C370F40C228DA65A43554F /* CarWashOrderClientView.swift */,
+				94C378C913E0BFB5FA2D99D1 /* OrderDateStatusView.swift */,
 			);
 			path = CarWash;
 			sourceTree = "<group>";
@@ -505,23 +520,17 @@
 				A0DC968323A2EFCA004826B1 /* MapView.swift in Sources */,
 				EEB56DAD236E1DE80062503F /* CarWashService.xcdatamodeld in Sources */,
 				A0331FD123A6AB0F0041F618 /* WorkingHoursModel.swift in Sources */,
-				A0400BD5239855EE00418D15 /* ClientProfileEnums.swift in Sources */,
 				EEB56DAA236E1DE80062503F /* SceneDelegate.swift in Sources */,
 				94C379351C26625661AF64B5 /* ContentView.swift in Sources */,
 				94C3738160416EF4C1C42D9C /* SignInView.swift in Sources */,
-				A0DC968923A56D57004826B1 /* CarWashesEnums.swift in Sources */,
 				94C3766A9C99DB3CFF1C37C2 /* SignUpView.swift in Sources */,
 				94C376516D1183DC9F7AD7BA /* LogoAuthenticationView.swift in Sources */,
-				94C376ED2A0B10A58282D055 /* AuthenticationEnums.swift in Sources */,
-				94C379E3588B77C726EC2498 /* ApplicationEnums.swift in Sources */,
 				94C37A35B8BD01687C1D9244 /* HttpClientService.swift in Sources */,
-				94C37360EE071F06A71DCFD3 /* HttpMethod.swift in Sources */,
 				94C379E71BFB44D37E535FB2 /* HttpClientError.swift in Sources */,
 				94C37104C40A39FF2FF2D16C /* ErrorResult.swift in Sources */,
 				94C379FDEFEF54FA167A5181 /* SpecialResponses.swift in Sources */,
 				94C37E40AE36AD6B44AF7228 /* ErrorResponse.swift in Sources */,
 				94C37A3C1D042EE77E5F1031 /* MainView.swift in Sources */,
-				94C37DA5B21E73B8F1CE529E /* Requests.swift in Sources */,
 				94C3761D17B1C3B4BE626BAC /* ServerConfiguration.swift in Sources */,
 				94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */,
 				94C37C855EFAE64BE1CB6A61 /* AccountController.swift in Sources */,
@@ -530,7 +539,6 @@
 				94C37CE42CD95142515976DA /* ClientProfileView.swift in Sources */,
 				A0331FD723A6D8280041F618 /* ServiceItemView.swift in Sources */,
 				94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */,
-				94C3753FA8AB110AE4CD9820 /* AuthenticationStorage.swift in Sources */,
 				A0DC968B23A6877A004826B1 /* TabPickerView.swift in Sources */,
 				94C37EC73BB26B9532A3BAEF /* ClientSignUpModel.swift in Sources */,
 				94C37F1C6EC2BF1D38FC45D4 /* ClientSignInModel.swift in Sources */,
@@ -538,18 +546,15 @@
 				94C3745B4DB379870EA1D64F /* ClientProfileModel.swift in Sources */,
 				94C371E3F2968C81211C8FCC /* ClientProfileController.swift in Sources */,
 				94C376E4E11815B259D780F8 /* DateTextPickerView.swift in Sources */,
-				94C37C9AC7848EAE478044A8 /* CustomDateFormatter.swift in Sources */,
 				94C379755C17F9B7A2333F21 /* ClientCarModel.swift in Sources */,
 				94C37B699509CFB438BB5C3F /* CardView.swift in Sources */,
 				A0331FD923A6D8ED0041F618 /* CarWashServiceModel.swift in Sources */,
 				94C3709E9675601827555541 /* ViewExtension.swift in Sources */,
 				94C371E0F5B357C9F5C094F1 /* CarEditView.swift in Sources */,
 				94C37AA846A8A04C519F14BA /* CustomTextPickerView.swift in Sources */,
-				94C37D1A54365BC832F70F53 /* LookupStorage.swift in Sources */,
 				94C371F67FBF348D9C10E834 /* CarBrandModelsModel.swift in Sources */,
 				94C3743BA018068E35B7B5AF /* CarBrandModelModel.swift in Sources */,
 				94C3714F6B8B97E219058125 /* ClientLookupModel.swift in Sources */,
-				94C3773D628E317ABFB63D9C /* GovernmentPlateSymbols.swift in Sources */,
 				A0DC969023A68B7B004826B1 /* ServicesView.swift in Sources */,
 				94C37C6FBFC8062A734CB316 /* GovernmentPlateSymbolView.swift in Sources */,
 				94C3743E45F01B9ABC79B4EB /* CarBrandModelSelector.swift in Sources */,
@@ -559,16 +564,31 @@
 				A0DC968E23A68B62004826B1 /* GeneralInfoView.swift in Sources */,
 				94C37DF9E47C468398092ACB /* SearchView.swift in Sources */,
 				94C37384E24CEBE90E9E5D31 /* WorkingHoursView.swift in Sources */,
-				94C37338CA7A0DF9514437C1 /* DividerView.swift in Sources */,
 				94C377991B2DBF484494AD3E /* FacilityTagView.swift in Sources */,
 				94C37E5607D5A1B37B70BE31 /* StringUtils.swift in Sources */,
-				94C37D290647A8D906F5F864 /* DayOfWeek.swift in Sources */,
 				94C370B0C26334E7B782B750 /* ClientCarsView.swift in Sources */,
 				94C37BA8874D079513C06E76 /* CarWashToClientController.swift in Sources */,
 				94C37820C6526BBE22A0E8FE /* CarWashMainDescriptionView.swift in Sources */,
 				94C3762B6988219F5490ED44 /* CarWashStatusView.swift in Sources */,
 				94C3708DAFBE5D0F6C3EC08F /* DragElementView.swift in Sources */,
-				94C376F6BE1F74B55DF70C1F /* MapViewCustomPoint.swift in Sources */,
+				94C37DDC979978FFFAA60FC7 /* AuthenticationEnums.swift in Sources */,
+				94C377E9B82D05A68F5752E9 /* ApplicationEnums.swift in Sources */,
+				94C37CD507CBB3853C06F18B /* HttpMethod.swift in Sources */,
+				94C374C104E243363C47B695 /* Requests.swift in Sources */,
+				94C37DD46043D9ECECA0AFDD /* ClientProfileEnums.swift in Sources */,
+				94C37D9FD6AAE821B3AE2E64 /* GovernmentPlateSymbols.swift in Sources */,
+				94C371132593E9A79EFF7388 /* CarWashesEnums.swift in Sources */,
+				94C3786788370DCD650ACED5 /* DayOfWeek.swift in Sources */,
+				94C3705BAC9F8193D12F8882 /* MapViewCustomPoint.swift in Sources */,
+				94C37B48574F52FAA3B5BE74 /* AuthenticationStorage.swift in Sources */,
+				94C37CE719540FA14E4983E8 /* LookupStorage.swift in Sources */,
+				94C373041504664AD01628A8 /* CarWashOrderView.swift in Sources */,
+				94C3768833ECC5DF98871466 /* CarWashOrderServicesView.swift in Sources */,
+				94C37FE7C483FA1A29F221CC /* DateTimeUtils.swift in Sources */,
+				94C37E49D504F718DF37DDC0 /* CarWashOrderClientView.swift in Sources */,
+				94C3749C207062A997580FA2 /* CarForOrderSelector.swift in Sources */,
+				94C37DFB56CAD17701E1A24A /* CustomDateTimeFormat.swift in Sources */,
+				94C3700D8E33D745797851B8 /* OrderDateStatusView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

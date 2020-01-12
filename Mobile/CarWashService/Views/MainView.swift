@@ -23,7 +23,7 @@ struct MainView: View {
                         Image(systemName: "wand.and.rays")
                         Text("Car Washes")
                     }.tag(1)
-        }.accentColor(ApplicationColor.Primary.toRGB())
+        }.accentColor(ApplicationColor.Primary.toColor())
     }
 }
 

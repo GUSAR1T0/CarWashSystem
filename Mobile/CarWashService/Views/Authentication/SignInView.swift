@@ -47,7 +47,7 @@ struct SignInView: View {
                         Text(AuthenticationViewText.SignInButtonText)
                                 .bold()
                                 .padding()
-                                .background(ApplicationColor.Primary.toRGB())
+                                .background(ApplicationColor.Primary.toColor())
                                 .cornerRadius(5)
                                 .foregroundColor(.white)
                                 .padding(10)
@@ -63,7 +63,7 @@ struct SignInView: View {
                             Text(AuthenticationViewText.SignUpButtonText)
                                     .underline()
                                     .bold()
-                                    .foregroundColor(ApplicationColor.Primary.toRGB())
+                                    .foregroundColor(ApplicationColor.Primary.toColor())
                         }
                     }
                 }

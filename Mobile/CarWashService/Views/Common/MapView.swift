@@ -25,7 +25,7 @@ struct MapView: UIViewRepresentable {
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "customView")
             annotationView.canShowCallout = true
-            annotationView.markerTintColor = ApplicationColor.Primary.toRGBA()
+            annotationView.markerTintColor = ApplicationColor.Primary.toUIColor()
             annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             return annotationView
         }

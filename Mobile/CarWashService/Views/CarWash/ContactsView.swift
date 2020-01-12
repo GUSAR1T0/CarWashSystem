@@ -17,14 +17,14 @@ struct ContactsView: View {
             VStack {
                 HStack {
                     Image(systemName: "envelope.circle.fill")
-                            .foregroundColor(ApplicationColor.Primary.toRGB())
+                            .foregroundColor(ApplicationColor.Primary.toColor())
                     Text(!StringUtils.isEmptyOrNil(self.email) ? self.email! : "—")
                     Spacer()
                 }
                         .padding()
                 HStack {
                     Image(systemName: "phone.circle.fill")
-                            .foregroundColor(ApplicationColor.Primary.toRGB())
+                            .foregroundColor(ApplicationColor.Primary.toColor())
                     Text(!StringUtils.isEmptyOrNil(self.phone) ? self.phone! : "—")
                     Spacer()
                 }
