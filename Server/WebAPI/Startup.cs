@@ -44,6 +44,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             services.AddScoped<IClientProfileStore, ClientProfileStore>();
             services.AddScoped<ICarStore, CarStore>();
             services.AddScoped<ICarBrandModelStore, CarBrandModelStore>();
+            services.AddScoped<IAppointmentStore, AppointmentStore>();
 
             // Services
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
@@ -51,6 +52,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI
             services.AddScoped<IClientProfileService, ClientProfileService>();
             services.AddScoped<ILookupService, LookupService>();
             services.AddScoped<ICarWashToClientService, CarWashToClientService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<UserCookieAuthenticationEvents>();
 
             services.AddCors(options =>

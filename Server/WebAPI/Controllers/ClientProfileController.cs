@@ -35,7 +35,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<ClientProfileModel>> GetClientFullProfile() => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Client);
+            var (_, id) = VerifyUser(UserRole.Client);
             var profile = await clientProfileService.GetClientFullProfile(operation, id);
             return new ClientProfileModel().ToModel(profile);
         });
@@ -51,7 +51,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateClientFullProfile([FromBody] ClientProfileModel clientProfileModel) => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Client);
+            var (_, id) = VerifyUser(UserRole.Client);
             if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
             var entity = clientProfileModel.ToEntity(id);
             await clientProfileService.UpdateClientFullProfile(operation, entity);
@@ -71,7 +71,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpGet("car/list")]
         public async Task<ActionResult<IEnumerable<CarModel>>> GetCarList() => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Client);
+            var (_, id) = VerifyUser(UserRole.Client);
             var carList = await clientProfileService.GetCarListByClient(operation, id);
             return carList.Select(item => new CarModel().ToModel(item));
         });
@@ -103,7 +103,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpPost("car")]
         public async Task<ActionResult> AddCar([FromBody] CarModel model) => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Client);
+            var (_, id) = VerifyUser(UserRole.Client);
             if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
             await clientProfileService.AddCar(operation, id, model.ToEntity());
         });

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VXDesign.Store.CarWashSystem.Server.Core.Common;
@@ -11,7 +12,8 @@ using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
 {
-    [Route("api/client")]
+    [Route("api/client/car-wash")]
+    [Authorize]
     public class CarWashToClientController : BaseApiController
     {
         private readonly ICarWashToClientService carWashToClientService;
@@ -28,7 +30,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(IEnumerable<CarWashToClientShortModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("car-wash/list")]
+        [HttpGet("list")]
         public async Task<ActionResult<IEnumerable<CarWashToClientShortModel>>> GetCarWashList() => await Exec(async operation =>
         {
             VerifyUser(UserRole.Client);
@@ -44,7 +46,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(CarWashToClientFullModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("car-wash/{carWashId}")]
+        [HttpGet("{carWashId}")]
         public async Task<ActionResult<CarWashToClientFullModel>> GetCarWash(int carWashId) => await Exec(async operation =>
         {
             VerifyUser(UserRole.Client);

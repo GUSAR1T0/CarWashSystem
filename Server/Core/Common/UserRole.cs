@@ -27,7 +27,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Core.Common
         public static UserRole? GetUserRole(string? userRoleName)
         {
             var roles = Enum.GetValues(typeof(UserRole)).Cast<UserRole>();
-            return string.IsNullOrWhiteSpace(userRoleName) ? roles.FirstOrDefault(role => role.GetUserRoleName() == userRoleName) : (UserRole?) null;
+            return !string.IsNullOrWhiteSpace(userRoleName) ? roles.FirstOrDefault(role => role.GetUserRoleName() == userRoleName) : (UserRole?) null;
         }
     }
 }
