@@ -7,6 +7,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Appointment
     public class AppointmentShowItemEntity
     {
         public int Id { get; set; }
+        public string FirstName { get; set; } = "";
+        public string LastName { get; set; } = "";
         public int CarModelId { get; set; }
         public string CarGovernmentPlate { get; set; } = "";
         public string CarWashName { get; set; } = "";
@@ -14,11 +16,11 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Appointment
         public DateTime RequestedStartTime { get; set; }
         public DateTime? ApprovedStartTime { get; set; }
         public AppointmentStatus Status { get; set; }
-        public IEnumerable<CarWashServiceEntity> CarWashServices { get; set; } = new List<CarWashServiceEntity>();
     }
 
-    public class AppointmentShowItemWithHistoryEntity : AppointmentShowItemEntity
+    public class AppointmentShowFullItemEntity : AppointmentShowItemEntity
     {
+        public IEnumerable<CarWashServiceEntity> CarWashServices { get; set; } = new List<CarWashServiceEntity>();
         public IEnumerable<AppointmentHistoryEntity> History { get; set; } = new List<AppointmentHistoryEntity>();
     }
 

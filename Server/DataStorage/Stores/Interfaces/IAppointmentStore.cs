@@ -10,7 +10,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Interfaces
     {
         Task<IEnumerable<AppointmentShowItemEntity>> GetListByClient(IOperation operation, int userId);
         Task<IEnumerable<AppointmentShowItemEntity>> GetListByCarWash(IOperation operation, int carWashId);
-        Task<AppointmentShowItemWithHistoryEntity> Get(IOperation operation, int appointmentId);
+        Task<AppointmentShowFullItemEntity> Get(IOperation operation, int appointmentId);
         Task<bool> IsExist(IOperation operation, int appointmentId);
         Task<int> Add(IOperation operation, AppointmentManageItemEntity entity);
         Task UpdateAsClient(IOperation operation, AppointmentManageItemEntity entity);

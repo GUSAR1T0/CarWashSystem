@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Appointment;
@@ -10,56 +11,66 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
     public class AppointmentShowItemModel : IEntityToModelConvertible<AppointmentShowItemEntity, AppointmentShowItemModel>
     {
         public int Id { get; set; }
+        public string FullName { get; set; } = "";
         public int CarModelId { get; set; }
         public string CarGovernmentPlate { get; set; } = "";
         public string CarWashName { get; set; } = "";
         public string CarWashLocation { get; set; } = "";
-        public DateTime RequestedStartTime { get; set; }
-        public DateTime? ApprovedStartTime { get; set; }
+        public string RequestedStartDate { get; set; } = "";
+        public string RequestedStartTime { get; set; } = "";
+        public string? ApprovedStartDate { get; set; }
+        public string? ApprovedStartTime { get; set; }
         public AppointmentStatus Status { get; set; }
-        public IEnumerable<CarWashServiceModel> CarWashServices { get; set; } = new List<CarWashServiceModel>();
 
         public AppointmentShowItemModel ToModel(AppointmentShowItemEntity? entity)
         {
             if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
 
             Id = entity.Id;
+            FullName = entity.FirstName + " " + entity.LastName;
             CarModelId = entity.CarModelId;
             CarGovernmentPlate = entity.CarGovernmentPlate;
             CarWashName = entity.CarWashName;
             CarWashLocation = entity.CarWashLocation;
-            RequestedStartTime = entity.RequestedStartTime;
-            ApprovedStartTime = entity.ApprovedStartTime;
+            RequestedStartDate = entity.RequestedStartTime.ToString(Formatters.DateFormat);
+            RequestedStartTime = entity.RequestedStartTime.ToString(Formatters.TimeFormat);
+            ApprovedStartDate = entity.ApprovedStartTime?.ToString(Formatters.DateFormat);
+            ApprovedStartTime = entity.ApprovedStartTime?.ToString(Formatters.TimeFormat);
             Status = entity.Status;
-            CarWashServices = entity.CarWashServices.Select(service => new CarWashServiceModel().ToModel(service));
             return this;
         }
     }
 
-    public class AppointmentShowItemWithHistoryModel : IEntityToModelConvertible<AppointmentShowItemWithHistoryEntity, AppointmentShowItemWithHistoryModel>
+    public class AppointmentShowFullItemModel : IEntityToModelConvertible<AppointmentShowFullItemEntity, AppointmentShowFullItemModel>
     {
         public int Id { get; set; }
+        public string FullName { get; set; } = "";
         public int CarModelId { get; set; }
         public string CarGovernmentPlate { get; set; } = "";
         public string CarWashName { get; set; } = "";
         public string CarWashLocation { get; set; } = "";
-        public DateTime RequestedStartTime { get; set; }
-        public DateTime? ApprovedStartTime { get; set; }
+        public string RequestedStartDate { get; set; } = "";
+        public string RequestedStartTime { get; set; } = "";
+        public string? ApprovedStartDate { get; set; }
+        public string? ApprovedStartTime { get; set; }
         public AppointmentStatus Status { get; set; }
         public IEnumerable<CarWashServiceModel> CarWashServices { get; set; } = new List<CarWashServiceModel>();
         public IEnumerable<AppointmentHistoryModel> History { get; set; } = new List<AppointmentHistoryModel>();
 
-        public AppointmentShowItemWithHistoryModel ToModel(AppointmentShowItemWithHistoryEntity? entity)
+        public AppointmentShowFullItemModel ToModel(AppointmentShowFullItemEntity? entity)
         {
             if (entity == null) throw new Exception(ExceptionMessage.EmptyResponse);
 
             Id = entity.Id;
+            FullName = entity.FirstName + " " + entity.LastName;
             CarModelId = entity.CarModelId;
             CarGovernmentPlate = entity.CarGovernmentPlate;
             CarWashName = entity.CarWashName;
             CarWashLocation = entity.CarWashLocation;
-            RequestedStartTime = entity.RequestedStartTime;
-            ApprovedStartTime = entity.ApprovedStartTime;
+            RequestedStartDate = entity.RequestedStartTime.ToString(Formatters.DateFormat);
+            RequestedStartTime = entity.RequestedStartTime.ToString(Formatters.TimeFormat);
+            ApprovedStartDate = entity.ApprovedStartTime?.ToString(Formatters.DateFormat);
+            ApprovedStartTime = entity.ApprovedStartTime?.ToString(Formatters.TimeFormat);
             Status = entity.Status;
             CarWashServices = entity.CarWashServices.Select(service => new CarWashServiceModel().ToModel(service));
             History = entity.History.Select(item => new AppointmentHistoryModel().ToModel(item));
@@ -69,9 +80,15 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
 
     public class AppointmentManageItemModel : IModelToEntityConvertible<AppointmentManageItemEntity>, IModelToEntityWithIdentifierConvertible<AppointmentManageItemEntity>
     {
+        [Required]
         public int CarId { get; set; }
+
+        [Required]
         public int CarWashId { get; set; }
+
+        [Required]
         public DateTime StartTime { get; set; }
+
         public IEnumerable<int> CarWashServiceIds { get; set; } = new List<int>();
 
         public AppointmentManageItemEntity ToEntity() => new AppointmentManageItemEntity

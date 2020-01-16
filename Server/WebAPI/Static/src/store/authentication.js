@@ -6,7 +6,7 @@ import {
 } from "@/constants/endpoints";
 import {
     DELETE_HTTP_REQUEST,
-    GET_HTTP_REQUEST,
+    GET_HTTP_REQUEST, LOOKUP_REQUEST,
     ON_LOAD_REQUEST,
     POST_HTTP_REQUEST,
     SIGN_IN_REQUEST,
@@ -60,6 +60,7 @@ export default {
                     ignoreReloadPage: true
                 }).then(response => {
                     commit(SIGN_IN_REQUEST, response.data);
+                    dispatch(LOOKUP_REQUEST);
                     resolve(redirectTo);
                 }).catch(error => reject(error));
             });
@@ -72,6 +73,7 @@ export default {
                     ignoreReloadPage: true
                 }).then(response => {
                     commit(SIGN_IN_REQUEST, response.data);
+                    dispatch(LOOKUP_REQUEST);
                     resolve();
                 }).catch(error => reject(error));
             });
@@ -84,6 +86,7 @@ export default {
                     ignoreReloadPage: true
                 }).then(response => {
                     commit(SIGN_IN_REQUEST, response.data);
+                    dispatch(LOOKUP_REQUEST);
                     resolve();
                 }).catch(error => reject(error));
             });

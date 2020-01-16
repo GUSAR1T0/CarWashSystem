@@ -18,10 +18,10 @@
                         <CarWashGeneralInfo :car-wash="carWash"/>
                     </el-tab-pane>
                     <el-tab-pane label="Services">
-                        <CarWashServices :car-wash-id="carWash.id" :services="carWash.services"/>
+                        <CarWashServices :car-wash-id="carWash.id" :services="carWash.services" :editable="true"/>
                     </el-tab-pane>
-                    <el-tab-pane label="Schedule">
-                        <CarWashSchedule/>
+                    <el-tab-pane label="Appointments">
+                        <CarWashAppointments :car-wash-id="carWash.id" :appointments="appointments"/>
                     </el-tab-pane>
                 </el-tabs>
                 <ConfirmationDialog :dialog-status="deleteDialogStatus"
@@ -41,10 +41,10 @@
     import ConfirmationDialog from "@/components/core/ConfirmationDialog";
     import CarWashGeneralInfo from "@/components/company-profile/CarWashGeneralInfo";
     import CarWashServices from "@/components/company-profile/CarWashServices";
-    import CarWashSchedule from "@/components/company-profile/CarWashSchedule";
+    import CarWashAppointments from "@/components/company-profile/CarWashAppointments";
     import { DELETE_CAR_WASH_REQUEST, GET_HTTP_REQUEST, RESET_CAR_WASH_REQUEST } from "@/constants/actions";
     import { renderErrorNotificationMessage } from "@/extensions/utils";
-    import { GET_CAR_WASH_ENDPOINT } from "@/constants/endpoints";
+    import { GET_APPOINTMENTS_TO_CAR_WASH_ENDPOINT, GET_CAR_WASH_ENDPOINT } from "@/constants/endpoints";
     import format from "string-format";
 
     export default {
@@ -54,7 +54,7 @@
             ConfirmationDialog,
             CarWashGeneralInfo,
             CarWashServices,
-            CarWashSchedule
+            CarWashAppointments
         },
         data() {
             return {
@@ -74,7 +74,8 @@
                         sunday: {}
                     },
                     services: []
-                }
+                },
+                appointments: []
             };
         },
         methods: {
@@ -82,9 +83,20 @@
                 this.loadingIsActive = true;
                 this.$store.dispatch(GET_HTTP_REQUEST, {
                     endpoint: format(`${GET_CAR_WASH_ENDPOINT}?s=true`, {carWashId: id})
-                }).then(response => {
-                    this.loadingIsActive = false;
-                    this.carWash = response.data;
+                }).then(firstResponse => {
+                    this.carWash = firstResponse.data;
+                    this.$store.dispatch(GET_HTTP_REQUEST, {
+                        endpoint: format(GET_APPOINTMENTS_TO_CAR_WASH_ENDPOINT, {carWashId: id})
+                    }).then(secondResponse => {
+                        this.loadingIsActive = false;
+                        this.appointments = secondResponse.data;
+                    }).catch(error => {
+                        this.$notify.error({
+                            title: "Failed to load appointments data",
+                            duration: 10000,
+                            message: renderErrorNotificationMessage(this.$createElement, error.response)
+                        });
+                    });
                 }).catch(error => {
                     this.$notify.error({
                         title: "Failed to load car wash data",

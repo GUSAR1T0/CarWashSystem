@@ -10,7 +10,7 @@ using VXDesign.Store.CarWashSystem.Server.WebAPI.Properties;
 
 namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
 {
-    [Route("api")]
+    [Route("api/lookup")]
     [Authorize]
     public class LookupController : BaseApiController
     {
@@ -27,7 +27,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// <returns>Client lookup object</returns>
         [ProducesResponseType(typeof(ClientLookupModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("client/lookup")]
+        [HttpGet("client")]
         public async Task<ActionResult<ClientLookupModel>> GetClientLookup() => await Exec(async operation =>
         {
             VerifyUser(UserRole.Client);
@@ -45,7 +45,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// <returns>Company lookup object</returns>
         [ProducesResponseType(typeof(CompanyLookupModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("company/lookup")]
+        [HttpGet("company")]
         public async Task<ActionResult<CompanyLookupModel>> GetCompanyLookup() => await Exec(async operation =>
         {
             VerifyUser(UserRole.Company);

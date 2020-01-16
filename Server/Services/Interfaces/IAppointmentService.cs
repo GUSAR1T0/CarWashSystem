@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VXDesign.Store.CarWashSystem.Server.Core.Common;
@@ -10,9 +11,9 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Interfaces
     {
         Task<IEnumerable<AppointmentShowItemEntity>> GetListOfAppointmentsByClient(IOperation operation, int userId);
         Task<IEnumerable<AppointmentShowItemEntity>> GetListOfAppointmentsByCarWash(IOperation operation, int carWashId);
-        Task<AppointmentShowItemWithHistoryEntity> GetAppointment(IOperation operation, int appointmentId);
+        Task<AppointmentShowFullItemEntity> GetAppointment(IOperation operation, int appointmentId);
         Task AddAppointment(IOperation operation, AppointmentManageItemEntity entity);
         Task UpdateAppointment(IOperation operation, UserRole role, AppointmentManageItemEntity entity);
-        Task ChangeAppointmentStatus(IOperation operation, UserRole role, int appointmentId, AppointmentStatus status, string? comment = null);
+        Task ChangeAppointmentStatus(IOperation operation, UserRole role, int appointmentId, AppointmentStatus status, string? comment = null, DateTime? approvedStartTime = null);
     }
 }

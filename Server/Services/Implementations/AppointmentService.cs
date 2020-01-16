@@ -22,26 +22,16 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
         public async Task<IEnumerable<AppointmentShowItemEntity>> GetListOfAppointmentsByClient(IOperation operation, int userId)
         {
             var appointments = (await appointmentStore.GetListByClient(operation, userId)).ToList();
-            foreach (var appointment in appointments)
-            {
-                appointment.CarWashServices = await appointmentStore.GetServicesByAppointment(operation, appointment.Id);
-            }
-
             return appointments;
         }
 
         public async Task<IEnumerable<AppointmentShowItemEntity>> GetListOfAppointmentsByCarWash(IOperation operation, int carWashId)
         {
             var appointments = (await appointmentStore.GetListByCarWash(operation, carWashId)).ToList();
-            foreach (var appointment in appointments)
-            {
-                appointment.CarWashServices = await appointmentStore.GetServicesByAppointment(operation, appointment.Id);
-            }
-
             return appointments;
         }
 
-        public async Task<AppointmentShowItemWithHistoryEntity> GetAppointment(IOperation operation, int appointmentId)
+        public async Task<AppointmentShowFullItemEntity> GetAppointment(IOperation operation, int appointmentId)
         {
             if (!await appointmentStore.IsExist(operation, appointmentId)) throw new Exception(ExceptionMessage.AppointmentIsNotExist);
 
@@ -63,27 +53,24 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
             if (!await appointmentStore.IsExist(operation, entity.Id)) throw new Exception(ExceptionMessage.AppointmentIsNotExist);
 
             // TODO: Validate appointment time
-            switch (role)
-            {
-                case UserRole.Client:
-                    await appointmentStore.UpdateAsClient(operation, entity);
-                    break;
-                case UserRole.Company:
-                    await appointmentStore.UpdateAsCompany(operation, entity);
-                    break;
-                case UserRole.Both:
-                default:
-                    break;
-            }
-
+            await appointmentStore.UpdateAsClient(operation, entity);
             await appointmentStore.AddHistoryRecord(operation, entity.Id, $"Appointment was updated by '{role.GetUserRoleName()}'");
         }
 
-        public async Task ChangeAppointmentStatus(IOperation operation, UserRole role, int appointmentId, AppointmentStatus status, string? comment = null)
+        public async Task ChangeAppointmentStatus(IOperation operation, UserRole role, int appointmentId, AppointmentStatus status, string? comment = null, DateTime? approvedStartTime = null)
         {
             if (!await appointmentStore.IsExist(operation, appointmentId)) throw new Exception(ExceptionMessage.AppointmentIsNotExist);
 
-            if (status == AppointmentStatus.Approved)
+            if (status == AppointmentStatus.ResponseIsRequired && approvedStartTime != null)
+            {
+                await appointmentStore.UpdateAsCompany(operation, new AppointmentManageItemEntity
+                {
+                    Id = appointmentId,
+                    StartTime = approvedStartTime.Value
+                });
+                await appointmentStore.AddHistoryRecord(operation, appointmentId, $"Appointment was updated by '{role.GetUserRoleName()}'");
+            }
+            else if (status == AppointmentStatus.Approved)
             {
                 var appointment = await appointmentStore.Get(operation, appointmentId);
                 if (appointment.ApprovedStartTime == null)
@@ -93,6 +80,7 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
                         Id = appointmentId,
                         StartTime = appointment.RequestedStartTime
                     });
+                    await appointmentStore.AddHistoryRecord(operation, appointmentId, $"Appointment was updated by '{role.GetUserRoleName()}'");
                 }
             }
 

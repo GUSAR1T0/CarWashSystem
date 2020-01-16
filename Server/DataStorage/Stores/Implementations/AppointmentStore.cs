@@ -18,6 +18,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             }, @"
                 SELECT
                     aa.[Id],
+                    ccl.[FirstName],
+                    ccl.[LastName],
                     cc.[ModelId]             [CarModelId],
                     cc.[GovernmentPlate]     [CarGovernmentPlate],
                     ccw.[Name]               [CarWashName],
@@ -41,6 +43,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             }, @"
                 SELECT
                     aa.[Id],
+                    ccl.[FirstName],
+                    ccl.[LastName],
                     cc.[ModelId]             [CarModelId],
                     cc.[GovernmentPlate]     [CarGovernmentPlate],
                     ccw.[Name]               [CarWashName],
@@ -50,19 +54,22 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     aa.[StatusId]            [Status]
                 FROM [appointment].[Appointment] aa
                 INNER JOIN [client].[Car] cc ON cc.[Id] = aa.[CarId]
+                INNER JOIN [client].[Client] ccl ON ccl.[Id] = cc.[ClientId]
                 INNER JOIN [company].[CarWash] ccw ON ccw.[Id] = aa.[CarWashId]
                 WHERE aa.[CarWashId] = @CarWashId;
             ");
         }
 
-        public async Task<AppointmentShowItemWithHistoryEntity> Get(IOperation operation, int appointmentId)
+        public async Task<AppointmentShowFullItemEntity> Get(IOperation operation, int appointmentId)
         {
-            return await operation.QuerySingleOrDefaultAsync<AppointmentShowItemWithHistoryEntity>(new
+            return await operation.QuerySingleOrDefaultAsync<AppointmentShowFullItemEntity>(new
             {
                 Id = appointmentId
             }, @"
                 SELECT
                     aa.[Id],
+                    ccl.[FirstName],
+                    ccl.[LastName],
                     cc.[ModelId]             [CarModelId],
                     cc.[GovernmentPlate]     [CarGovernmentPlate],
                     ccw.[Name]               [CarWashName],
@@ -72,6 +79,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     aa.[StatusId]            [Status]
                 FROM [appointment].[Appointment] aa
                 INNER JOIN [client].[Car] cc ON cc.[Id] = aa.[CarId]
+                INNER JOIN [client].[Client] ccl ON ccl.[Id] = cc.[ClientId]
                 INNER JOIN [company].[CarWash] ccw ON ccw.[Id] = aa.[CarWashId]
                 WHERE aa.[Id] = @Id;
             ");
@@ -218,7 +226,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             }, @"
                 SELECT
                     [AppointmentId],
-                    [Action]
+                    [Action],
+                    [Timestamp]
                 FROM [appointment].[AppointmentHistory]
                 WHERE [AppointmentId] = @AppointmentId;
             ");

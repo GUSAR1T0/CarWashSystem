@@ -61,6 +61,7 @@
                 } else if (this.isAuthenticated && redirectTo === "/auth") {
                     redirectTo = "/";
                 }
+                
                 this.$router.push(redirectTo).then(() => completeLoading()).catch(() => {
                     // TODO: Error case handling
                     completeLoading();

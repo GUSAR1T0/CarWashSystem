@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -57,14 +58,14 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// Obtains extended appointment info
         /// </summary>
         /// <returns>Appointment info</returns>
-        [ProducesResponseType(typeof(AppointmentShowItemWithHistoryModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AppointmentShowFullItemModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet("car-wash/{carWashId}/appointment/{appointmentId}")]
-        public async Task<ActionResult<AppointmentShowItemWithHistoryModel>> GetAppointment(int appointmentId) => await Exec(async operation =>
+        public async Task<ActionResult<AppointmentShowFullItemModel>> GetAppointment(int appointmentId) => await Exec(async operation =>
         {
             var appointment = await appointmentService.GetAppointment(operation, appointmentId);
-            return new AppointmentShowItemWithHistoryModel().ToModel(appointment);
+            return new AppointmentShowFullItemModel().ToModel(appointment);
         });
 
         /// <summary>
@@ -79,6 +80,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         public async Task<ActionResult> AddAppointment([FromBody] AppointmentManageItemModel model) => await Exec(async operation =>
         {
             VerifyUser(UserRole.Client);
+            if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
             var entity = model.ToEntity();
             await appointmentService.AddAppointment(operation, entity);
         });
@@ -95,7 +97,8 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}")]
         public async Task<ActionResult> UpdateAppointment(int appointmentId, [FromBody] AppointmentManageItemModel model) => await Exec(async operation =>
         {
-            var (role, _) = VerifyUser(UserRole.Both);
+            var (role, _) = VerifyUser(UserRole.Client);
+            if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
             var entity = model.ToEntity(appointmentId);
             await appointmentService.UpdateAppointment(operation, role, entity);
         });
@@ -111,26 +114,27 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/approve")]
-        public async Task<ActionResult> Approve(int appointmentId)
+        public async Task<ActionResult> Approve(int appointmentId) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Both);
-            return await Exec(async operation => await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Approved));
-        }
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Approved);
+        });
 
         /// <summary>
         /// Sets "Response Is Required" status to appointment
         /// </summary>
         /// <param name="appointmentId">Appointment ID in database</param>
+        /// <param name="approvedStartTime">Approved start time by company</param>
         /// <returns>Nothing to return</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/response")]
-        public async Task<ActionResult> RequireResponse(int appointmentId)
+        public async Task<ActionResult> RequireResponse(int appointmentId, [FromBody] DateTime? approvedStartTime) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Company);
-            return await Exec(async operation => await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.ResponseIsRequired));
-        }
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.ResponseIsRequired, approvedStartTime: approvedStartTime);
+        });
 
         /// <summary>
         /// Sets "In Progress" status to appointment
@@ -141,11 +145,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/in-progress")]
-        public async Task<ActionResult> InProgress(int appointmentId)
+        public async Task<ActionResult> InProgress(int appointmentId) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Company);
-            return await Exec(async operation => await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.InProgress));
-        }
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.InProgress);
+        });
 
         /// <summary>
         /// Sets "Processed" status to appointment
@@ -156,11 +160,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/processed")]
-        public async Task<ActionResult> Processed(int appointmentId)
+        public async Task<ActionResult> Processed(int appointmentId) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Company);
-            return await Exec(async operation => await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Processed));
-        }
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Processed);
+        });
 
         /// <summary>
         /// Sets "Incident" status to appointment
@@ -171,11 +175,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/incident")]
-        public async Task<ActionResult> Incident(int appointmentId)
+        public async Task<ActionResult> Incident(int appointmentId) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Company);
-            return await Exec(async operation => await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Incident));
-        }
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Incident);
+        });
 
         /// <summary>
         /// Sets "Closed" status to appointment
@@ -186,11 +190,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/close")]
-        public async Task<ActionResult> Close(int appointmentId)
+        public async Task<ActionResult> Close(int appointmentId) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Company);
-            return await Exec(async operation => await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Closed));
-        }
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Closed);
+        });
 
         /// <summary>
         /// Sets "Cancelled By Client" status to appointment
@@ -202,11 +206,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/client-cancel")]
-        public async Task<ActionResult> CancelByClient(int appointmentId, [FromBody] string comment)
+        public async Task<ActionResult> CancelByClient(int appointmentId, [FromBody] string comment) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Client);
-            return await Exec(async operation => await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByClient, comment));
-        }
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByClient, comment);
+        });
 
         /// <summary>
         /// Sets "Cancelled By Car Wash" status to appointment
@@ -218,11 +222,11 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/company-cancel")]
-        public async Task<ActionResult> CancelByCarWash(int appointmentId, [FromBody] string comment)
+        public async Task<ActionResult> CancelByCarWash(int appointmentId, [FromBody] string comment) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Company);
-            return await Exec(async operation => await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByCarWash, comment));
-        }
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByCarWash, comment);
+        });
 
         #endregion
     }

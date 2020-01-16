@@ -8,6 +8,9 @@ export const POST_HTTP_REQUEST = "POST_HTTP_REQUEST";
 export const PUT_HTTP_REQUEST = "PUT_HTTP_REQUEST";
 export const DELETE_HTTP_REQUEST = "DELETE_HTTP_REQUEST";
 
+// Lookup actions
+export const LOOKUP_REQUEST = "LOOKUP_REQUEST";
+
 // Account actions
 export const ON_LOAD_REQUEST = "ON_LOAD_REQUEST";
 export const SIGN_IN_REQUEST = "SIGN_IN_REQUEST";

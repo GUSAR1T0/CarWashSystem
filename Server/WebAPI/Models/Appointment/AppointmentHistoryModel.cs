@@ -8,6 +8,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
     {
         public int AppointmentId { get; set; }
         public string Action { get; set; } = "";
+        public string Timestamp { get; set; } = "";
 
         public AppointmentHistoryModel ToModel(AppointmentHistoryEntity? entity)
         {
@@ -15,6 +16,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
 
             AppointmentId = entity.AppointmentId;
             Action = entity.Action;
+            Timestamp = entity.Timestamp.ToString(Formatters.HistoryTimeFormat);
             return this;
         }
     }
