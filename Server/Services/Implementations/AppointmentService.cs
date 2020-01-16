@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using VXDesign.Store.CarWashSystem.Server.Core.Common;
 using VXDesign.Store.CarWashSystem.Server.Core.Operation;
@@ -54,13 +56,14 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
 
             // TODO: Validate appointment time
             await appointmentStore.UpdateAsClient(operation, entity);
-            await appointmentStore.AddHistoryRecord(operation, entity.Id, $"Appointment was updated by '{role.GetUserRoleName()}'");
+            await appointmentStore.AddHistoryRecord(operation, entity.Id, $"Appointment was updated by \"{role.GetUserRoleName()}\"");
         }
 
         public async Task ChangeAppointmentStatus(IOperation operation, UserRole role, int appointmentId, AppointmentStatus status, string? comment = null, DateTime? approvedStartTime = null)
         {
             if (!await appointmentStore.IsExist(operation, appointmentId)) throw new Exception(ExceptionMessage.AppointmentIsNotExist);
 
+            var appointment = await appointmentStore.Get(operation, appointmentId);
             if (status == AppointmentStatus.ResponseIsRequired && approvedStartTime != null)
             {
                 await appointmentStore.UpdateAsCompany(operation, new AppointmentManageItemEntity
@@ -68,11 +71,10 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
                     Id = appointmentId,
                     StartTime = approvedStartTime.Value
                 });
-                await appointmentStore.AddHistoryRecord(operation, appointmentId, $"Appointment was updated by '{role.GetUserRoleName()}'");
+                await appointmentStore.AddHistoryRecord(operation, appointmentId, $"Appointment approved start time was updated by \"{role.GetUserRoleName()}\"");
             }
             else if (status == AppointmentStatus.Approved)
             {
-                var appointment = await appointmentStore.Get(operation, appointmentId);
                 if (appointment.ApprovedStartTime == null)
                 {
                     await appointmentStore.UpdateAsCompany(operation, new AppointmentManageItemEntity
@@ -80,13 +82,21 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
                         Id = appointmentId,
                         StartTime = appointment.RequestedStartTime
                     });
-                    await appointmentStore.AddHistoryRecord(operation, appointmentId, $"Appointment was updated by '{role.GetUserRoleName()}'");
+                    await appointmentStore.AddHistoryRecord(operation, appointmentId, $"Appointment approved start time was updated by \"{role.GetUserRoleName()}\"");
                 }
             }
 
+            static string? GetDescription(AppointmentStatus appointmentStatus)
+            {
+                return appointmentStatus.GetType().GetMember(appointmentStatus.ToString())[0].GetCustomAttributes<DescriptionAttribute>(false).FirstOrDefault()?.Description;
+            }
+
+            var oldStatus = GetDescription(appointment.Status);
+            var newStatus = GetDescription(status);
+
             await appointmentStore.ChangeStatus(operation, appointmentId, status);
             await appointmentStore.AddHistoryRecord(operation, appointmentId,
-                $"Appointment status was changed by '{role.GetUserRoleName()}'{(string.IsNullOrWhiteSpace(comment) ? "" : $": {comment}")}");
+                $"Appointment status was changed by \"{role.GetUserRoleName()}\" from \"{oldStatus}\" to \"{newStatus}\"{(string.IsNullOrWhiteSpace(comment) ? "" : $" with comment: {comment}")}");
         }
     }
 }

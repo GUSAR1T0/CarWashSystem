@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using VXDesign.Store.CarWashSystem.Server.Core.Operation;
 using VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Appointment;
@@ -70,16 +69,21 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     aa.[Id],
                     ccl.[FirstName],
                     ccl.[LastName],
-                    cc.[ModelId]             [CarModelId],
-                    cc.[GovernmentPlate]     [CarGovernmentPlate],
-                    ccw.[Name]               [CarWashName],
-                    ccw.[Location]           [CarWashLocation],
+                    ccl.[Phone],
+                    ISNULL(aiu.[Email], aeu.[Email])    [Email],
+                    cc.[ModelId]                        [CarModelId],
+                    cc.[GovernmentPlate]                [CarGovernmentPlate],
+                    ccw.[Name]                          [CarWashName],
+                    ccw.[Location]                      [CarWashLocation],
                     aa.[RequestedStartTime],
                     aa.[ApprovedStartTime],
-                    aa.[StatusId]            [Status]
+                    aa.[StatusId]                       [Status]
                 FROM [appointment].[Appointment] aa
                 INNER JOIN [client].[Car] cc ON cc.[Id] = aa.[CarId]
                 INNER JOIN [client].[Client] ccl ON ccl.[Id] = cc.[ClientId]
+                INNER JOIN [authentication].[User] au ON au.[Id] = ccl.[UserId]
+                LEFT JOIN [authentication].[InternalUser] aiu ON aiu.[Id] = au.[InternalUserId]
+                LEFT JOIN [authentication].[ExternalUser] aeu ON aeu.[Id] = au.[ExternalUserId]
                 INNER JOIN [company].[CarWash] ccw ON ccw.[Id] = aa.[CarWashId]
                 WHERE aa.[Id] = @Id;
             ");
@@ -104,7 +108,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 entity.CarId,
                 entity.CarWashId,
                 entity.StartTime,
-                CarWashServiceIds = entity.CarWashServiceIds.Select(item => new { Id = item }).ToList()
+                entity.CarWashServiceIds
             }, @"
                 DECLARE @IdTable TABLE ([Id] INT);
 
@@ -132,7 +136,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 SELECT
                     @AppointmentId,
                     [Id]
-                FROM @CarWashServiceIds;
+                FROM [company].[CarWashService]
+                WHERE [Id] IN @CarWashServiceIds;
 
                 SELECT @AppointmentId;
             ");
@@ -144,7 +149,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
             {
                 entity.Id,
                 entity.StartTime,
-                CarWashServiceIds = entity.CarWashServiceIds.Select(item => new { Id = item }).ToList()
+                entity.CarWashServiceIds
             }, @"
                 UPDATE
                 SET [RequestedStartTime] = @StartTime
@@ -156,7 +161,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     SELECT
                         @Id    [AppointmentId],
                         [Id]   [CarWashServiceId]
-                    FROM @CarWashServiceIds
+                    FROM [company].[CarWashService]
+                    WHERE [CarWashServiceId] IN @CarWashServiceIds
                 ) s ON t.[AppointmentId] = s.[AppointmentId] AND t.[CarWashServiceId] = s.[CarWashServiceId]
                 WHEN NOT MATCHED BY TARGET THEN INSERT (
                     [AppointmentId],
@@ -177,9 +183,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 entity.Id,
                 entity.StartTime
             }, @"
-                UPDATE
+                UPDATE [appointment].[Appointment]
                 SET [ApprovedStartTime] = @StartTime
-                FROM [appointment].[Appointment]
                 WHERE [Id] = @Id;
             ");
         }
@@ -191,9 +196,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 Id = appointmentId,
                 Status = status
             }, @"
-                UPDATE
+                UPDATE [appointment].[Appointment]
                 SET [StatusId] = @Status
-                FROM [appointment].[Appointment]
                 WHERE [Id] = @Id;
             ");
         }

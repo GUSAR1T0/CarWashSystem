@@ -16,7 +16,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
 
             AppointmentId = entity.AppointmentId;
             Action = entity.Action;
-            Timestamp = entity.Timestamp.ToString(Formatters.HistoryTimeFormat);
+            Timestamp = entity.Timestamp.ToLocalTime().ToString(Formatters.HistoryTimeFormat);
             return this;
         }
     }

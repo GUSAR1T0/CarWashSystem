@@ -45,16 +45,21 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
     {
         public int Id { get; set; }
         public string FullName { get; set; } = "";
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
         public int CarModelId { get; set; }
         public string CarGovernmentPlate { get; set; } = "";
         public string CarWashName { get; set; } = "";
         public string CarWashLocation { get; set; } = "";
+        public string StartDate { get; set; } = "";
         public string RequestedStartDate { get; set; } = "";
         public string RequestedStartTime { get; set; } = "";
         public string? ApprovedStartDate { get; set; }
         public string? ApprovedStartTime { get; set; }
         public AppointmentStatus Status { get; set; }
         public IEnumerable<CarWashServiceModel> CarWashServices { get; set; } = new List<CarWashServiceModel>();
+        public string TotalPrice { get; set; }
+        public string TotalDuration { get; set; }
         public IEnumerable<AppointmentHistoryModel> History { get; set; } = new List<AppointmentHistoryModel>();
 
         public AppointmentShowFullItemModel ToModel(AppointmentShowFullItemEntity? entity)
@@ -63,16 +68,21 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
 
             Id = entity.Id;
             FullName = entity.FirstName + " " + entity.LastName;
+            Phone = entity.Phone;
+            Email = entity.Email;
             CarModelId = entity.CarModelId;
             CarGovernmentPlate = entity.CarGovernmentPlate;
             CarWashName = entity.CarWashName;
             CarWashLocation = entity.CarWashLocation;
+            StartDate = entity.RequestedStartTime.ToString(Formatters.SimpleDateFormat);
             RequestedStartDate = entity.RequestedStartTime.ToString(Formatters.DateFormat);
             RequestedStartTime = entity.RequestedStartTime.ToString(Formatters.TimeFormat);
             ApprovedStartDate = entity.ApprovedStartTime?.ToString(Formatters.DateFormat);
             ApprovedStartTime = entity.ApprovedStartTime?.ToString(Formatters.TimeFormat);
             Status = entity.Status;
             CarWashServices = entity.CarWashServices.Select(service => new CarWashServiceModel().ToModel(service));
+            TotalPrice = $"{entity.CarWashServices.Sum(service => service.Price)} ₽";
+            TotalDuration = entity.CarWashServices.Aggregate(TimeSpan.Zero, (current, service) => current + service.Duration).ToString(@"hh\:mm");
             History = entity.History.Select(item => new AppointmentHistoryModel().ToModel(item));
             return this;
         }

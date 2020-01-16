@@ -22,13 +22,10 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Appointment
         [Description("Incident")]
         Incident = 6,
 
-        [Description("Closed")]
-        Closed = 7,
-
         [Description("Cancelled By Client")]
-        CancelledByClient = 8,
+        CancelledByClient = 7,
 
         [Description("Cancelled By Car Wash")]
-        CancelledByCarWash = 9
+        CancelledByCarWash = 8
     }
 }

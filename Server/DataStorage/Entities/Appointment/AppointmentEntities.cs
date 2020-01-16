@@ -20,6 +20,8 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Appointment
 
     public class AppointmentShowFullItemEntity : AppointmentShowItemEntity
     {
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
         public IEnumerable<CarWashServiceEntity> CarWashServices { get; set; } = new List<CarWashServiceEntity>();
         public IEnumerable<AppointmentHistoryEntity> History { get; set; } = new List<AppointmentHistoryEntity>();
     }

@@ -79,7 +79,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpPost("car-wash/{carWashId}/appointment")]
         public async Task<ActionResult> AddAppointment([FromBody] AppointmentManageItemModel model) => await Exec(async operation =>
         {
-            VerifyUser(UserRole.Client);
+            // VerifyUser(UserRole.Client);
             if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
             var entity = model.ToEntity();
             await appointmentService.AddAppointment(operation, entity);
@@ -124,16 +124,17 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// Sets "Response Is Required" status to appointment
         /// </summary>
         /// <param name="appointmentId">Appointment ID in database</param>
-        /// <param name="approvedStartTime">Approved start time by company</param>
+        /// <param name="model">Model with approved start time by company</param>
         /// <returns>Nothing to return</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/response")]
-        public async Task<ActionResult> RequireResponse(int appointmentId, [FromBody] DateTime? approvedStartTime) => await Exec(async operation =>
+        public async Task<ActionResult> RequireResponse(int appointmentId, [FromBody] AppointmentToResponseIsRequiredStatusModel model) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Company);
-            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.ResponseIsRequired, approvedStartTime: approvedStartTime);
+            if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.ResponseIsRequired, approvedStartTime: model.StartTime);
         });
 
         /// <summary>
@@ -182,50 +183,37 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         });
 
         /// <summary>
-        /// Sets "Closed" status to appointment
-        /// </summary>
-        /// <param name="appointmentId">Appointment ID in database</param>
-        /// <returns>Nothing to return</returns>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/close")]
-        public async Task<ActionResult> Close(int appointmentId) => await Exec(async operation =>
-        {
-            var (role, _) = VerifyUser(UserRole.Company);
-            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.Closed);
-        });
-
-        /// <summary>
         /// Sets "Cancelled By Client" status to appointment
         /// </summary>
         /// <param name="appointmentId">Appointment ID in database</param>
-        /// <param name="comment">Comment for cancel explanation</param>
+        /// <param name="model">Model with comment for cancel explanation</param>
         /// <returns>Nothing to return</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/client-cancel")]
-        public async Task<ActionResult> CancelByClient(int appointmentId, [FromBody] string comment) => await Exec(async operation =>
+        public async Task<ActionResult> CancelByClient(int appointmentId, [FromBody] AppointmentToCancelStatusModel model) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Client);
-            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByClient, comment);
+            if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByClient, model.Comment);
         });
 
         /// <summary>
         /// Sets "Cancelled By Car Wash" status to appointment
         /// </summary>
         /// <param name="appointmentId">Appointment ID in database</param>
-        /// <param name="comment">Comment for cancel explanation</param>
+        /// <param name="model">Model with comment for cancel explanation</param>
         /// <returns>Nothing to return</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/company-cancel")]
-        public async Task<ActionResult> CancelByCarWash(int appointmentId, [FromBody] string comment) => await Exec(async operation =>
+        public async Task<ActionResult> CancelByCarWash(int appointmentId, [FromBody] AppointmentToCancelStatusModel model) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Company);
-            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByCarWash, comment);
+            if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByCarWash, model.Comment);
         });
 
         #endregion

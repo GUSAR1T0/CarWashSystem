@@ -18,8 +18,6 @@ SELECT 5, N'Processed'
 UNION ALL
 SELECT 6, N'Incident'
 UNION ALL
-SELECT 7, N'Closed'
+SELECT 7, N'Cancelled By Client'
 UNION ALL
-SELECT 8, N'Cancelled By Client'
-UNION ALL
-SELECT 9, N'Cancelled By Car Wash'
+SELECT 8, N'Cancelled By Car Wash'
