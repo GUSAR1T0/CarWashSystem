@@ -21,6 +21,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     ccl.[LastName],
                     cc.[ModelId]             [CarModelId],
                     cc.[GovernmentPlate]     [CarGovernmentPlate],
+                    ccw.[Id]                 [CarWashId],
                     ccw.[Name]               [CarWashName],
                     ccw.[Location]           [CarWashLocation],
                     aa.[RequestedStartTime],
@@ -46,6 +47,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     ccl.[LastName],
                     cc.[ModelId]             [CarModelId],
                     cc.[GovernmentPlate]     [CarGovernmentPlate],
+                    ccw.[Id]                 [CarWashId],
                     ccw.[Name]               [CarWashName],
                     ccw.[Location]           [CarWashLocation],
                     aa.[RequestedStartTime],
@@ -73,6 +75,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                     ISNULL(aiu.[Email], aeu.[Email])    [Email],
                     cc.[ModelId]                        [CarModelId],
                     cc.[GovernmentPlate]                [CarGovernmentPlate],
+                    ccw.[Id]                            [CarWashId],
                     ccw.[Name]                          [CarWashName],
                     ccw.[Location]                      [CarWashLocation],
                     aa.[RequestedStartTime],
@@ -229,6 +232,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Stores.Implementations
                 AppointmentId = appointmentId
             }, @"
                 SELECT
+                    [Id],
                     [AppointmentId],
                     [Action],
                     [Timestamp]

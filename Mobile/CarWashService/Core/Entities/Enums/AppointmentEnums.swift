@@ -1,5 +1,5 @@
 //
-//  OrderEnums.swift
+//  AppointmentEnums.swift
 //  CarWashService
 //
 //  Created by Anna Boykova on 17.01.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-let OrderStatusList = [(Int, String)](
+let AppointmentStatusList = [(Int, String)](
     arrayLiteral: (1, "Opened"),
     (2, "Approved"),
     (3, "Response Is Required"),

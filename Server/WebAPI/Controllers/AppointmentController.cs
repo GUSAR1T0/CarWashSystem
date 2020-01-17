@@ -186,17 +186,15 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         /// Sets "Cancelled By Client" status to appointment
         /// </summary>
         /// <param name="appointmentId">Appointment ID in database</param>
-        /// <param name="model">Model with comment for cancel explanation</param>
         /// <returns>Nothing to return</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPut("car-wash/{carWashId}/appointment/{appointmentId}/client-cancel")]
-        public async Task<ActionResult> CancelByClient(int appointmentId, [FromBody] AppointmentToCancelStatusModel model) => await Exec(async operation =>
+        public async Task<ActionResult> CancelByClient(int appointmentId) => await Exec(async operation =>
         {
             var (role, _) = VerifyUser(UserRole.Client);
-            if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
-            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByClient, model.Comment);
+            await appointmentService.ChangeAppointmentStatus(operation, role, appointmentId, AppointmentStatus.CancelledByClient);
         });
 
         /// <summary>

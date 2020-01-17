@@ -14,6 +14,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
         public string FullName { get; set; } = "";
         public int CarModelId { get; set; }
         public string CarGovernmentPlate { get; set; } = "";
+        public int CarWashId { get; set; }
         public string CarWashName { get; set; } = "";
         public string CarWashLocation { get; set; } = "";
         public string RequestedStartDate { get; set; } = "";
@@ -30,6 +31,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
             FullName = entity.FirstName + " " + entity.LastName;
             CarModelId = entity.CarModelId;
             CarGovernmentPlate = entity.CarGovernmentPlate;
+            CarWashId = entity.CarWashId;
             CarWashName = entity.CarWashName;
             CarWashLocation = entity.CarWashLocation;
             RequestedStartDate = entity.RequestedStartTime.ToString(Formatters.DateFormat);
@@ -49,6 +51,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
         public string? Email { get; set; }
         public int CarModelId { get; set; }
         public string CarGovernmentPlate { get; set; } = "";
+        public int CarWashId { get; set; }
         public string CarWashName { get; set; } = "";
         public string CarWashLocation { get; set; } = "";
         public string StartDate { get; set; } = "";
@@ -72,6 +75,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Models.Appointment
             Email = entity.Email;
             CarModelId = entity.CarModelId;
             CarGovernmentPlate = entity.CarGovernmentPlate;
+            CarWashId = entity.CarWashId;
             CarWashName = entity.CarWashName;
             CarWashLocation = entity.CarWashLocation;
             StartDate = entity.RequestedStartTime.ToString(Formatters.SimpleDateFormat);

@@ -5,20 +5,19 @@
 
 import SwiftUI
 
-struct CarWashOrderClientView: View {
+struct CarWashAppointmentClientView: View {
     @EnvironmentObject private var lookupStorage: LookupStorage
     @State private var isCarModelChooseModalActive = false
     @Binding var selectedClientCarId: Int?
     @Binding var clientCarList: [ClientCarModel]
+    @Binding var date: Date
+    @Binding var hour: Int
+    @Binding var minute: Int
     @Binding var workingHours: WorkingHoursModel?
     @Binding var clientBlockIsCompleted: Bool
     @State private var isLoaded = false
 
     @State private var clientCar: ClientCarModel? = nil
-
-    @State private var date = Date()
-    @State private var hour = 0
-    @State private var minute = 0
 
     private var selectedClientCarIdProxy: Binding<Int?> {
         Binding<Int?>(get: { self.selectedClientCarId }, set: {

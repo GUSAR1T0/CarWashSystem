@@ -11,6 +11,7 @@ namespace VXDesign.Store.CarWashSystem.Server.DataStorage.Entities.Appointment
         public string LastName { get; set; } = "";
         public int CarModelId { get; set; }
         public string CarGovernmentPlate { get; set; } = "";
+        public int CarWashId { get; set; }
         public string CarWashName { get; set; } = "";
         public string CarWashLocation { get; set; } = "";
         public DateTime RequestedStartTime { get; set; }

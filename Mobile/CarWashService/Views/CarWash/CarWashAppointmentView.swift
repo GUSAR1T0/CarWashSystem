@@ -5,16 +5,23 @@
 
 import SwiftUI
 
-struct CarWashOrderView: View {
+struct CarWashAppointmentView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State var carWashId: Int
     @State var chooseServicesModalIsActive = false
     @State var selectedClientCarId: Int? = nil
     @State var clientCarList = [ClientCarModel]()
+    @State var date = Date()
+    @State var hour = 0
+    @State var minute = 0
     @State var selectedServiceIds = [Int]()
     @Binding var services: [CarWashServiceModel]
     @Binding var workingHours: WorkingHoursModel?
 
     @State var clientBlockIsCompleted = false
     @State var servicesBlockIsCompleted = false
+
+    private let appointmentController = AppointmentController()
 
     private var clientBlockIsCompletedProxy: Binding<Bool> {
         Binding<Bool>(get: { self.clientBlockIsCompleted }, set: {
@@ -38,7 +45,7 @@ struct CarWashOrderView: View {
                     Spacer()
                 }
                         .padding()
-                CarWashOrderClientView(selectedClientCarId: self.$selectedClientCarId, clientCarList: self.$clientCarList, workingHours: self.$workingHours, clientBlockIsCompleted: self.clientBlockIsCompletedProxy)
+                CarWashAppointmentClientView(selectedClientCarId: self.$selectedClientCarId, clientCarList: self.$clientCarList, date: self.$date, hour: self.$hour, minute: self.$minute, workingHours: self.$workingHours, clientBlockIsCompleted: self.clientBlockIsCompletedProxy)
                 HStack {
                     HStack {
                         Text("Services")
@@ -66,12 +73,18 @@ struct CarWashOrderView: View {
                     }
                 }
                         .padding()
-                CarWashOrderServicesView(selectedServiceIds: self.$selectedServiceIds, services: self.$services)
+                CarWashAppointmentServicesView(selectedServiceIds: self.$selectedServiceIds, services: self.$services)
                 if self.clientBlockIsCompleted && self.servicesBlockIsCompleted {
                     Button(action: {
-                        // TODO: Send to server
+                        let startTime = "\(DateTimeUtils.formatFrom(CustomDateTimeFormat.dateServerFormat, self.date))T\((self.hour < 10 ? "0" : ""))\(self.hour):\((self.minute == 0 ? "0" : ""))\(self.minute)"
+                        let model = AppointmentManageItemModel(carId: self.selectedClientCarId!, carWashId: self.carWashId, startTime: startTime, carWashServiceIds: self.selectedServiceIds)
+                        self.appointmentController.addAppointment(carWashId: self.carWashId, model: model) {
+                            DispatchQueue.main.async {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                        }
                     }) {
-                        Text("Make an order")
+                        Text("Create an appointment")
                                 .bold()
                                 .padding()
                                 .frame(minWidth: 0, maxWidth: .infinity)

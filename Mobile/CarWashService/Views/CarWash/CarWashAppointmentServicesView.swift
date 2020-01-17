@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-struct CarWashOrderServicesView: View {
+struct CarWashAppointmentServicesView: View {
     @Binding var selectedServiceIds: [Int]
     @Binding var services: [CarWashServiceModel]
 

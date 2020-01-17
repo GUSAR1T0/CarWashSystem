@@ -167,7 +167,7 @@ struct CarWashItemView: View {
                     }
                 }
                 .navigationBarTitle("Car Wash Info", displayMode: .inline)
-                .navigationBarItems(trailing: NavigationLink(destination: CarWashOrderView(services: self.$services, workingHours: self.$workingHours)) {
+                .navigationBarItems(trailing: NavigationLink(destination: CarWashAppointmentView(carWashId: self.carWashId, services: self.$services, workingHours: self.$workingHours)) {
                     HStack {
                         Text("Checkout")
                         Image(systemName: "chevron.right")
