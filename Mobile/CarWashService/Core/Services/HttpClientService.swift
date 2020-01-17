@@ -27,15 +27,15 @@ struct HttpClientService {
         return request
     }
 
+    private static func setContentType(request: inout URLRequest) {
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+    }
+
     private static func addBodyToRequest<Request: Codable>(request: inout URLRequest, body: Request) {
         if let jsonData = try? JSONEncoder().encode(body) {
             request.httpBody = jsonData
         }
-    }
-
-    private static func addBodyToRequest(request: inout URLRequest) {
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
     }
 
     private func makeRequest<Response: Codable>(request: URLRequest, success: @escaping ResponseCallback<Response>, error: @escaping ErrorCallback) {
@@ -118,6 +118,7 @@ struct HttpClientService {
             error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback
     ) throws {
         var urlRequest = try! prepareRequest(endpoint: endpoint, method: HttpMethod.PUT)
+        HttpClientService.setContentType(request: &urlRequest)
         HttpClientService.addBodyToRequest(request: &urlRequest, body: request)
         makeRequest(request: urlRequest, success: success, error: error)
     }
@@ -132,7 +133,7 @@ struct HttpClientService {
             error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback
     ) throws {
         var urlRequest = try! prepareRequest(endpoint: endpoint, method: HttpMethod.PUT)
-        HttpClientService.addBodyToRequest(request: &urlRequest)
+        HttpClientService.setContentType(request: &urlRequest)
         makeRequest(request: urlRequest, success: success, error: error)
     }
 
