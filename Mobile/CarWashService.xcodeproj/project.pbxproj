@@ -69,6 +69,10 @@
 		94C37F27CE2CC9CFB26B3040 /* ExternalSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C370F1AF908CC9A9FCC397 /* ExternalSignInService.swift */; };
 		94C37F2964F222A5BA990A75 /* CarWashesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3734F941CAA37768EF182 /* CarWashesView.swift */; };
 		94C37FE7C483FA1A29F221CC /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C372A224AEDBE664DB0C19 /* DateTimeUtils.swift */; };
+		A02B579423D11B4600AE922A /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02B579323D11B4600AE922A /* OrderModel.swift */; };
+		A02B579623D1211B00AE922A /* OrderEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02B579523D1211B00AE922A /* OrderEnums.swift */; };
+		A02B579823D1324600AE922A /* OrderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02B579723D1324600AE922A /* OrderRow.swift */; };
+		A02B579A23D1392B00AE922A /* OrderItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02B579923D1392B00AE922A /* OrderItemView.swift */; };
 		A0331FD123A6AB0F0041F618 /* WorkingHoursModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD023A6AB0F0041F618 /* WorkingHoursModel.swift */; };
 		A0331FD723A6D8280041F618 /* ServiceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD623A6D8280041F618 /* ServiceItemView.swift */; };
 		A0331FD923A6D8ED0041F618 /* CarWashServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0331FD823A6D8ED0041F618 /* CarWashServiceModel.swift */; };
@@ -152,6 +156,10 @@
 		94C37FB3BA835ACC70732D2E /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		94C37FD55526BF068640DC64 /* ApplicationEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationEnums.swift; sourceTree = "<group>"; };
 		94C37FD6CF26E8D301A4A841 /* ClientProfileEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientProfileEnums.swift; sourceTree = "<group>"; };
+		A02B579323D11B4600AE922A /* OrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
+		A02B579523D1211B00AE922A /* OrderEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEnums.swift; sourceTree = "<group>"; };
+		A02B579723D1324600AE922A /* OrderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRow.swift; sourceTree = "<group>"; };
+		A02B579923D1392B00AE922A /* OrderItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemView.swift; sourceTree = "<group>"; };
 		A0331FD023A6AB0F0041F618 /* WorkingHoursModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingHoursModel.swift; sourceTree = "<group>"; };
 		A0331FD623A6D8280041F618 /* ServiceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceItemView.swift; sourceTree = "<group>"; };
 		A0331FD823A6D8ED0041F618 /* CarWashServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarWashServiceModel.swift; sourceTree = "<group>"; };
@@ -232,6 +240,7 @@
 		94C3762263926ACD45685539 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
+				94C370F29B36FA4BF7FC66CB /* OrdersView.swift */,
 				94C37F96DC8D8716E832474E /* ClientProfileView.swift */,
 				94C3734F941CAA37768EF182 /* CarWashesView.swift */,
 			);
@@ -274,7 +283,8 @@
 		94C377F4A843D5260D92FFBC /* Order */ = {
 			isa = PBXGroup;
 			children = (
-				94C370F29B36FA4BF7FC66CB /* OrdersView.swift */,
+				A02B579723D1324600AE922A /* OrderRow.swift */,
+				A02B579923D1392B00AE922A /* OrderItemView.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -319,6 +329,7 @@
 				94C37DB25217D44A6FFBEC37 /* DayOfWeek.swift */,
 				94C37EE7F902CA00BAACB9B5 /* MapViewCustomPoint.swift */,
 				94C37B5CA8849CB4DBFCE131 /* CustomDateTimeFormat.swift */,
+				A02B579523D1211B00AE922A /* OrderEnums.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -336,6 +347,7 @@
 		94C3797B775AA11179DE77E3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A02B579223D11B0500AE922A /* Order */,
 				A0331FDC23A6F2630041F618 /* CarWash */,
 				94C371D0B5026F735386D152 /* Authentication */,
 				94C3767B1C724CACC9081AAD /* ClientProfile */,
@@ -373,6 +385,14 @@
 				94C374B99BBD9E179672700B /* LookupStorage.swift */,
 			);
 			path = ObservableObjects;
+			sourceTree = "<group>";
+		};
+		A02B579223D11B0500AE922A /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				A02B579323D11B4600AE922A /* OrderModel.swift */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		A0331FDC23A6F2630041F618 /* CarWash */ = {
@@ -540,6 +560,7 @@
 				94C379E71BFB44D37E535FB2 /* HttpClientError.swift in Sources */,
 				94C37104C40A39FF2FF2D16C /* ErrorResult.swift in Sources */,
 				94C379FDEFEF54FA167A5181 /* SpecialResponses.swift in Sources */,
+				A02B579423D11B4600AE922A /* OrderModel.swift in Sources */,
 				94C37E40AE36AD6B44AF7228 /* ErrorResponse.swift in Sources */,
 				94C37A3C1D042EE77E5F1031 /* MainView.swift in Sources */,
 				94C3761D17B1C3B4BE626BAC /* ServerConfiguration.swift in Sources */,
@@ -590,6 +611,7 @@
 				94C37D9FD6AAE821B3AE2E64 /* GovernmentPlateSymbols.swift in Sources */,
 				94C371132593E9A79EFF7388 /* CarWashesEnums.swift in Sources */,
 				94C3786788370DCD650ACED5 /* DayOfWeek.swift in Sources */,
+				A02B579A23D1392B00AE922A /* OrderItemView.swift in Sources */,
 				94C3705BAC9F8193D12F8882 /* MapViewCustomPoint.swift in Sources */,
 				94C37B48574F52FAA3B5BE74 /* AuthenticationStorage.swift in Sources */,
 				94C37CE719540FA14E4983E8 /* LookupStorage.swift in Sources */,
@@ -599,6 +621,8 @@
 				94C37E49D504F718DF37DDC0 /* CarWashOrderClientView.swift in Sources */,
 				94C3749C207062A997580FA2 /* CarForOrderSelector.swift in Sources */,
 				94C37DFB56CAD17701E1A24A /* CustomDateTimeFormat.swift in Sources */,
+				A02B579623D1211B00AE922A /* OrderEnums.swift in Sources */,
+				A02B579823D1324600AE922A /* OrderRow.swift in Sources */,
 				94C3700D8E33D745797851B8 /* OrderDateStatusView.swift in Sources */,
 				94C376AF9826A4C8DE765842 /* OrdersView.swift in Sources */,
 			);
