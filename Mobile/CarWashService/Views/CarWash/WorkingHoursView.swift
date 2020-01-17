@@ -18,7 +18,7 @@ struct WorkingHoursView: View {
                 Text(self.dayOfWeek.rawValue)
                         .font(.system(size: 18, weight: .bold))
                         .frame(width: geometry.size.width, height: nil, alignment: .center)
-                        .foregroundColor(ApplicationColor.MiddleGray.toRGB())
+                        .foregroundColor(ApplicationColor.MiddleGray.toColor())
                 VStack {
                     Spacer()
                     if !StringUtils.isEmptyOrNil(self.workingHours?.startTime) && !StringUtils.isEmptyOrNil(self.workingHours?.stopTime) {

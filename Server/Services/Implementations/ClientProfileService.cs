@@ -64,6 +64,5 @@ namespace VXDesign.Store.CarWashSystem.Server.Services.Implementations
         }
 
         #endregion
-        
     }
 }

@@ -17,15 +17,35 @@ struct ContactsView: View {
             VStack {
                 HStack {
                     Image(systemName: "envelope.circle.fill")
-                            .foregroundColor(ApplicationColor.Primary.toRGB())
-                    Text(!StringUtils.isEmptyOrNil(self.email) ? self.email! : "—")
+                            .foregroundColor(ApplicationColor.Primary.toColor())
+                    Button(action: {
+                        if !StringUtils.isEmptyOrNil(self.email) {
+                            UIApplication.shared.open(URL(string: "mailto:\(self.email!)")!)
+                        }
+                    }) {
+                        Text(!StringUtils.isEmptyOrNil(self.email) ? self.email! : "—")
+                                .underline()
+                                .bold()
+                                .foregroundColor(ApplicationColor.Primary.toColor())
+                    }
                     Spacer()
                 }
                         .padding()
                 HStack {
                     Image(systemName: "phone.circle.fill")
-                            .foregroundColor(ApplicationColor.Primary.toRGB())
-                    Text(!StringUtils.isEmptyOrNil(self.phone) ? self.phone! : "—")
+                            .foregroundColor(ApplicationColor.Primary.toColor())
+                    Button(action: {
+                        if !StringUtils.isEmptyOrNil(self.phone) {
+                            var phone = self.phone!
+                            phone.removeAll(where: { char in char == " " || char == "(" || char == ")" })
+                            UIApplication.shared.open(URL(string: "tel://\(phone)")!)
+                        }
+                    }) {
+                        Text(!StringUtils.isEmptyOrNil(self.phone) ? self.phone! : "—")
+                                .underline()
+                                .bold()
+                                .foregroundColor(ApplicationColor.Primary.toColor())
+                    }
                     Spacer()
                 }
                         .padding()

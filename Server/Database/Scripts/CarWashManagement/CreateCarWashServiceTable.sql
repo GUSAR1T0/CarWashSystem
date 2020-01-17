@@ -3,7 +3,7 @@ CREATE TABLE [company].[CarWashService] (
     [CarWashId]     INT               NOT NULL,
     [ServiceName]   NVARCHAR (50)     NOT NULL,
     [Description]   NVARCHAR (1024)   NULL,
-    [Price]         DECIMAL (6,2)     NOT NULL,
+    [Price]         MONEY             NOT NULL,
     [Duration]      TIME (0)          NOT NULL,
     [IsAvailable]   BIT               DEFAULT ((1)) NOT NULL,
     CONSTRAINT [PK_CarWashService_Id] PRIMARY KEY CLUSTERED ([Id] ASC),

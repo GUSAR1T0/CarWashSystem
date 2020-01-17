@@ -28,7 +28,7 @@ struct GeneralInfoView: View {
                         .padding(.leading, 15)
                         .padding(.trailing, 15)
             }
-            DividerView()
+            Divider()
             TitledContainer(CarWashFieldName.WorkingHours) {
                 VStack {
                     HStack {
@@ -44,7 +44,7 @@ struct GeneralInfoView: View {
                             .padding(.horizontal)
                 }
             }
-            DividerView()
+            Divider()
             TitledContainer(CarWashFieldName.Facilities) {
                 VStack {
                     FacilityTagView(title: "Cafe", isAvailable: self.hasCafe)

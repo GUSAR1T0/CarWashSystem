@@ -29,10 +29,13 @@ struct HttpClientService {
 
     private static func addBodyToRequest<Request: Codable>(request: inout URLRequest, body: Request) {
         if let jsonData = try? JSONEncoder().encode(body) {
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue("application/json", forHTTPHeaderField: "Accept")
             request.httpBody = jsonData
         }
+    }
+
+    private static func addBodyToRequest(request: inout URLRequest) {
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
     }
 
     private func makeRequest<Response: Codable>(request: URLRequest, success: @escaping ResponseCallback<Response>, error: @escaping ErrorCallback) {
@@ -121,6 +124,20 @@ struct HttpClientService {
 
     func put<Request: Codable>(endpoint: String, request: Request, error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback) throws {
         try! put(endpoint: endpoint, request: request, success: HttpClientService.IgnoreResponseCallback, error: error)
+    }
+
+    func put<Response: Codable>(
+            endpoint: String,
+            success: @escaping ResponseCallback<Response> = HttpClientService.DefaultResponseCallback,
+            error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback
+    ) throws {
+        var urlRequest = try! prepareRequest(endpoint: endpoint, method: HttpMethod.PUT)
+        HttpClientService.addBodyToRequest(request: &urlRequest)
+        makeRequest(request: urlRequest, success: success, error: error)
+    }
+
+    func put(endpoint: String, error: @escaping ErrorCallback = HttpClientService.DefaultErrorCallback) throws {
+        try! put(endpoint: endpoint, success: HttpClientService.IgnoreResponseCallback, error: error)
     }
 
     func delete<Response: Codable>(

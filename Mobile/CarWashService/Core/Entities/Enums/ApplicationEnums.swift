@@ -20,7 +20,7 @@ enum ApplicationColor: String {
     case MiddleGray = "#909399"
     case DarkGray = "#606266"
 
-    func toRGB() -> Color {
+    func toColor() -> Color {
         var cString: String = self.rawValue.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
         if (cString.hasPrefix("#")) {
@@ -40,7 +40,7 @@ enum ApplicationColor: String {
         return Color(red: red, green: green, blue: blue)
     }
 
-    func toRGBA(opacity: Int = 1) -> UIColor {
+    func toUIColor(opacity: Int = 1) -> UIColor {
         var cString: String = self.rawValue.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
         if (cString.hasPrefix("#")) {

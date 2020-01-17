@@ -23,7 +23,12 @@ struct MainView: View {
                         Image(systemName: "wand.and.rays")
                         Text("Car Washes")
                     }.tag(1)
-        }.accentColor(ApplicationColor.Primary.toRGB())
+            AppointmentsView()
+                    .tabItem {
+                        Image(systemName: "rectangle.stack.badge.person.crop")
+                        Text("Appointments")
+                    }.tag(2)
+        }.accentColor(ApplicationColor.Primary.toColor())
     }
 }
 

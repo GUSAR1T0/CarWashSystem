@@ -60,5 +60,11 @@ namespace VXDesign.Store.CarWashSystem.Server.Core.Common
         public const string CarIsNotExist = "Such car is not exist";
 
         #endregion
+
+        #region Appointment
+
+        public const string AppointmentIsNotExist = "Such appointment is not exist";
+
+        #endregion
     }
 }

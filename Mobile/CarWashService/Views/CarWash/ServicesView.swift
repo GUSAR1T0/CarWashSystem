@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct ServicesView: View {
+    @State var selectable: Bool
+    @Binding var selectedServiceIds: [Int]
     @Binding var services: [CarWashServiceModel]
 
     var body: some View {
-        ScrollView {
-            ForEach(services) { service in
-                ServiceItemView(service: service)
-            }
+        List(self.services.filter { service in !self.selectable || service.isAvailable == true }) { service in
+            ServiceItemView(selectable: self.selectable, selectedServiceIds: self.$selectedServiceIds, service: service)
         }
     }
 }

@@ -16,7 +16,7 @@ class Requests {
     public static let CompleteExternalSignIn = "/api/account/client/sign-in/external/complete"
     public static let RedirectExternalSignIn = "cws://sign-in"
 
-    public static let GetLookup = "/api/client/lookup"
+    public static let GetLookup = "/api/lookup/client"
 
     // Client Profile
     public static let GetClientProfile = "/api/client/profile"
@@ -29,4 +29,11 @@ class Requests {
     // Car Washes
     public static let GetCarWashList = "/api/client/car-wash/list"
     public static let GetCarWashInfo = "/api/client/car-wash/%d"
+
+    // Appointments
+    public static let GetClientAppointmentList = "/api/car-wash/appointment/list"
+    public static let GetClientAppointment = "/api/car-wash/%d/appointment/%d"
+    public static let AddClientAppointment = "/api/car-wash/%d/appointment"
+    public static let ApproveClientAppointment = "/api/car-wash/%d/appointment/%d/approve"
+    public static let CancelClientAppointment = "/api/car-wash/%d/appointment/%d/client-cancel"
 }

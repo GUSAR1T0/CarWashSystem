@@ -30,4 +30,12 @@ class LookupStorage: ObservableObject {
     func reset() {
         self.clientLookupModel = nil
     }
+
+    func getCarModelNameWithGovernmentPlate(modelId: Int?, governmentPlate: String?) -> String? {
+        guard let modelName = self.clientLookupModel?.getModelName(id: modelId) else {
+            return nil
+        }
+
+        return "\(modelName) (\(governmentPlate!))"
+    }
 }

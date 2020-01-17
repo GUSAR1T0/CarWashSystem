@@ -1,11 +1,11 @@
 <template>
     <div style="padding-top: 20px">
-        <el-button class="functional-button" type="primary" icon="el-icon-plus"
+        <el-button v-if="editable" class="functional-button" type="primary" icon="el-icon-plus"
                    @click="addServicePriceRow" :disabled="isDisabledEditAndAddButtons">
             Add New Service
         </el-button>
         <el-table :data="services" style="padding-top: 20px">
-            <el-table-column width="200px" header-align="center" align="center">
+            <el-table-column v-if="editable" width="200px" header-align="center" align="center">
                 <template slot="header">
                     <div class="table-header">Operations</div>
                 </template>
@@ -95,7 +95,8 @@
         name: "CarWashServicePrices",
         props: {
             carWashId: Number,
-            services: Array
+            services: Array,
+            editable: Boolean
         },
         components: {
             TagForBoolean

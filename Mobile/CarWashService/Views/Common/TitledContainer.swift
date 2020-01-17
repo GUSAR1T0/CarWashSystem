@@ -25,7 +25,7 @@ struct TitledContainer<Content>: View where Content: View {
                 Text(label)
                         .font(font)
                         .bold()
-                        .foregroundColor(ApplicationColor.Primary.toRGB())
+                        .foregroundColor(ApplicationColor.Primary.toColor())
                 Spacer()
             }.padding(.horizontal)
             viewer()

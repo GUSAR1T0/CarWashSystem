@@ -10,3 +10,19 @@ export function renderErrorNotificationMessage(h, response) {
         return "Unhandled exception";
     }
 }
+
+export function getCarBrandModelName(carBrandModelsModels, carModelId) {
+    for (let i = 0; i < carBrandModelsModels.length; i++) {
+        let brand = carBrandModelsModels[i];
+        let models = brand.models.filter(model => model.id === carModelId);
+        if (models.length > 0) {
+            return `${brand.name} ${models[0].name}`;
+        }
+    }
+    return "";
+}
+
+export function getAppointmentStatusModels(appointmentStatusModels, statusId) {
+    let models = appointmentStatusModels.filter(model => model.id === statusId);
+    return models.length > 0 ? models[0].name : "";
+}

@@ -4,6 +4,10 @@
             <div class="header first-line">
                 <span style="font-size: 24px">Total: <b style="font-size: 28px">{{ list.length }}</b></span>
                 <div style="margin-left: auto">
+                    <el-button class="functional-button" type="primary"
+                               @click="$router.push('/profile')">
+                        {{ getCompanyName }}
+                    </el-button>
                     <el-button class="functional-button" type="primary" icon="el-icon-circle-plus-outline"
                                @click="$router.push('/profile/car-wash/edit/new')"/>
                 </div>
@@ -73,6 +77,7 @@
         },
         computed: {
             ...mapGetters([
+                "getCompanyName",
                 "getCarWashList"
             ])
         },

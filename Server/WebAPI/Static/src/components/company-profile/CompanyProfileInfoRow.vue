@@ -11,7 +11,7 @@
                     {{ value }}
                 </div>
                 <div v-else-if="!!$slots['value']" class="info-row-value">
-                    <slot name="value"></slot>
+                    <slot name="value"/>
                 </div>
                 <div v-else class="info-row-value">
                     —

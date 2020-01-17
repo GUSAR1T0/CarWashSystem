@@ -44,7 +44,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpGet("company")]
         public async Task<ActionResult<CompanyAuthenticationProfileModel>> GetCompanyProfile() => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Company);
+            var (_, id) = VerifyUser(UserRole.Company);
             var profile = await userAuthenticationService.GetCompanyProfile(operation, id);
             return new CompanyAuthenticationProfileModel
             {
@@ -130,7 +130,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpGet("client")]
         public async Task<ActionResult<ClientAuthenticationProfileModel>> GetClientProfile() => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Client);
+            var (_, id) = VerifyUser(UserRole.Client);
             var profile = await userAuthenticationService.GetClientProfile(operation, id);
             return new ClientAuthenticationProfileModel().ToModel(profile);
         });

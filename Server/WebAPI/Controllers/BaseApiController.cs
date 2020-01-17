@@ -55,15 +55,15 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
             }
         }
 
-        protected int VerifyUser(UserRole requiredUserRole)
+        protected (UserRole, int) VerifyUser(UserRole requiredUserRole)
         {
             var userRole = UserRoleExtensions.GetUserRole(User.Claims.Get(AccountClaimName.UserRole));
-            if (userRole.HasValue && requiredUserRole.HasFlag(userRole.Value)) throw new Exception(ExceptionMessage.RoleIsNotSuitable(requiredUserRole));
+            if (userRole.HasValue && !requiredUserRole.HasFlag(userRole.Value)) throw new Exception(ExceptionMessage.RoleIsNotSuitable(requiredUserRole));
 
             var possibleId = User.Claims.Get(AccountClaimName.UserId);
             var id = int.TryParse(possibleId, out var value) ? value : throw new Exception(ExceptionMessage.FailedToIdentifyUserId);
 
-            return id;
+            return (userRole.Value, id);
         }
     }
 }

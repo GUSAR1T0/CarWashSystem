@@ -46,13 +46,16 @@
         <el-divider/>
         <CompanyProfileInfoRow name="Location" style="padding: 20px 0">
             <template slot="value">
-                <div v-if="getCoordinates(carWash)">
+                <div style="width: 100%; text-align: center">{{ carWash.location }}
+                </div>
+                <div class="map-load-switch">
+                    <el-switch v-model="loadMap" active-text="Turn on map" inactive-text="Turn off map"/>
+                </div>
+                <div v-if="!!loadMap && getCoordinates(carWash)" style="padding-top: 20px;">
                     <yandex-map :settings="getYandexMapsSettings" :coords="getCoordinates(carWash)"
                                 zoom="15" class="map">
                         <ymap-marker :marker-id="carWash.id" :coords="getCoordinates(carWash)"/>
                     </yandex-map>
-                    <div style="padding-top: 25px; width: 100%; text-align: center">{{ carWash.location }}
-                    </div>
                 </div>
             </template>
         </CompanyProfileInfoRow>
@@ -196,6 +199,12 @@
         position: relative;
         white-space: pre-wrap;
     }
+
+    .map-load-switch {
+        width: 100%;
+        text-align: center;
+        padding-top: 10px;
+    }
 </style>
 
 <script>
@@ -214,6 +223,11 @@
             TagForBoolean,
             yandexMap,
             ymapMarker
+        },
+        data() {
+            return {
+                loadMap: false
+            };
         },
         computed: {
             ...mapGetters([

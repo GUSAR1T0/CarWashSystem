@@ -35,7 +35,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<CompanyProfileModel>> GetCompanyFullProfile() => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Company);
+            var (_, id) = VerifyUser(UserRole.Company);
             var profile = await companyProfileService.GetCompanyFullProfile(operation, id);
             return new CompanyProfileModel().ToModel(profile);
         });
@@ -51,7 +51,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateCompanyFullProfile([FromBody] CompanyProfileModel companyProfileModel) => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Company);
+            var (_, id) = VerifyUser(UserRole.Company);
             if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
             var entity = companyProfileModel.ToEntity(id);
             await companyProfileService.UpdateCompanyFullProfile(operation, entity);
@@ -71,7 +71,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpGet("car-wash/list")]
         public async Task<ActionResult<IEnumerable<CarWashShortModel>>> GetCarWashList() => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Company);
+            var (_, id) = VerifyUser(UserRole.Company);
             var carWashList = await companyProfileService.GetCarWashListByCompany(operation, id);
             return carWashList.Select(item => new CarWashShortModel().ToModel(item));
         });
@@ -110,7 +110,7 @@ namespace VXDesign.Store.CarWashSystem.Server.WebAPI.Controllers
         [HttpPost("car-wash")]
         public async Task<ActionResult<CarWashShortModel>> AddCarWash([FromBody] CarWashFullModel model) => await Exec(async operation =>
         {
-            var id = VerifyUser(UserRole.Company);
+            var (_, id) = VerifyUser(UserRole.Company);
             if (!ModelState.IsValid) throw new Exception(ExceptionMessage.ModelIsInvalid);
             var carWash = await companyProfileService.AddCarWash(operation, id, model.ToEntity());
             return new CarWashShortModel().ToModel(carWash);

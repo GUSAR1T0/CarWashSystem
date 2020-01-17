@@ -21,15 +21,19 @@ struct CarWashFieldName {
     static let Facilities = "Facilities"
 }
 
-struct StatusTitle
-{
+struct StatusTitle {
     static let Open = "Opened"
     static let Close = "Closed"
 }
 
+struct OrderStatusTitle {
+    static let Passed = "Passed"
+    static let Failed = "Failed"
+}
+
 struct StatusColor {
-    static let Open = ApplicationColor.Success.toRGB()
-    static let Close = ApplicationColor.Danger.toRGB()
+    static let Open = ApplicationColor.Success.toColor()
+    static let Close = ApplicationColor.Danger.toColor()
 }
 
 struct StatusImage {
@@ -51,15 +55,14 @@ struct ServiceTitle {
     static let Duration = "Duration"
 }
 
-struct ServiceStatusTitle
-{
+struct ServiceStatusTitle {
     static let Available = "Available"
     static let NotAvailable = "Not available"
 }
 
 struct ServiceStatusColor {
-    static let Available = ApplicationColor.Success.toRGB()
-    static let NotAvailable = ApplicationColor.Danger.toRGB()
+    static let Available = ApplicationColor.Success.toColor()
+    static let NotAvailable = ApplicationColor.Danger.toColor()
 }
 
 struct ServiceStatusImage {

@@ -95,7 +95,7 @@ struct CarEditView: View {
                         }.sheet(isPresented: self.$isCarModelChooseModalActive) {
                             NavigationView {
                                 CarBrandModelSelector(modelId: self.$modelId, isCarModelChooseModalActive: self.$isCarModelChooseModalActive).environmentObject(self.lookupStorage)
-                            }.accentColor(ApplicationColor.Primary.toRGB())
+                            }.accentColor(ApplicationColor.Primary.toColor())
                         }
                     }
                             .padding(.bottom, 10)
@@ -135,7 +135,7 @@ struct CarEditView: View {
                                     .bold()
                                     .padding()
                                     .frame(minWidth: 0, maxWidth: .infinity)
-                                    .background(ApplicationColor.Primary.toRGB())
+                                    .background(ApplicationColor.Primary.toColor())
                                     .cornerRadius(5)
                                     .foregroundColor(.white)
                                     .padding(10)
